@@ -2,40 +2,9 @@
 - name: Containers | Install and use containers
   hosts: "{{ event.target_hosts }}"
   tasks:
-    - name: Ensure container tools are installed
-      ansible.builtin.dnf:
-        name: podman
-        state: present
-
-    - name: Ensure container tools are installed
-      ansible.builtin.dnf:
-        name: firewalld
-        state: present
-
-    - name: Ensure firewalld is enabled
-      ansible.builtin.service:
-        name: firewalld
-        state: started
-        enabled: true
-
     - name: Pull httpd image
       containers.podman.podman_image:
         name: registry.access.redhat.com/ubi9/httpd-24
-
-    - name: Create directory for files hosting
-      ansible.builtin.file:
-        path: ~/webserver
-        state: directory
-        mode: 0755
-
-    - name: Copy hosted files
-      ansible.builtin.copy:
-        src: "{{ item }}"
-        dest: ~/webserver
-        mode: 0775
-      loop:
-        - index.html
-        - assets
 
     - name: Create an HTTPD container
       containers.podman.podman_container:
@@ -46,9 +15,8 @@
         exposed_ports:
           - 8080
         ports:
-          - 8080:8080
-          - 8443:8443
-        volumes: /home/:/usr/local/apache2/htdocs/
+          - 0.0.0.0:8080:8080
+          - 0.0.0.0:8443:8443
 
     - name: Enable ports to test container
       ansible.posix.firewalld:
