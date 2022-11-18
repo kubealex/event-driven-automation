@@ -1,0 +1,19 @@
+---
+- name: test run_playbook
+  hosts: localhost
+  tasks:
+    - block:
+      - name: Debug message
+        ansible.builtin.debug:
+         msg: "The event {{ event.alert.labels.alertname }} just triggered to greet Ansible Event Driven!"
+
+      - name: Remediating issue to resolve the alert
+        ansible.builtin.debug:
+          msg: Tring to solve {{ event.alert.labels.alertname }}
+      
+      when: event.alert.status == "firing"
+
+    - name: Notify resolution
+      ansible.builtin.debug:
+        msg: "The event {{ event.alert.labels.alertname }} was just resolved by Ansible Event Driven!"
+      when: event.alert.status == "resolved"

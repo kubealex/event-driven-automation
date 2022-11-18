@@ -1,0 +1,32 @@
+---
+- name: Listen for events on a webhook
+  hosts: all
+
+ ## Define our source for events
+  sources:
+    - name: listen for alerts
+      ansible.eda.alertmanager:
+        host: 0.0.0.0
+        port: 5001
+
+ ## Define the conditions we are looking for
+
+  rules:
+    # - name: Greet whoever cheers at Ansible!
+    #   condition: event.payload is defined
+    #   action:
+    #     post_event:
+    #       event:
+    #         greeting: "{{ event.payload.message }}"
+    
+    - name: Let Ansible print the greeting message
+      condition: event.alert.status == "firing" or event.alert.status == "resolved"
+      action:
+        run_playbook:
+          name: eda-greets-alertmanager.yml
+
+    - name: Debug Hello event
+      condition: event.alert is defined
+      action:
+        debug:
+                  
