@@ -2,7 +2,6 @@ package org.acme.kafka;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -16,9 +15,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.quarkus.vertx.http.runtime.devmode.Json;
-
-@Path("/event")
+@Path("/")
 public class Producer {
 
     @Channel("eda-topic")
@@ -28,7 +25,7 @@ public class Producer {
     WebhookService webhookService;
 
     @GET
-    @Path("/kafka")
+    @Path("/kafka/greeting")
     @Produces(MediaType.APPLICATION_JSON)
     public String sendKafkaEvent() throws JsonProcessingException {
         Event testEvent = new Event("greeting","Hello from Quarkus", null);
@@ -39,7 +36,7 @@ public class Producer {
     }
 
     @GET
-    @Path("/webhook")
+    @Path("/webhook/greeting")
     @Produces(MediaType.APPLICATION_JSON)
     public void sendWebhookEvent() {
         Event testEvent = new Event("greeting","Hello from Quarkus", null);
