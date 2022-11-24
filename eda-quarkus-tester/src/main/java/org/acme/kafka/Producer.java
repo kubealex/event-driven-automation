@@ -1,11 +1,16 @@
 package org.acme.kafka;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.acme.alertmanager.model.Alert;
+import org.acme.alertmanager.service.AlertService;
 import org.acme.kafka.model.Event;
 import org.acme.kafka.service.WebhookService;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -23,6 +28,9 @@ public class Producer {
     @Inject
     @RestClient
     WebhookService webhookService;
+    @Inject
+    @RestClient
+    AlertService alertService;
 
     @GET
     @Path("/kafka/greeting")
@@ -41,6 +49,16 @@ public class Producer {
     public void sendWebhookEvent() {
         Event testEvent = new Event("greeting","Hello from Quarkus", null);
         webhookService.sendEvent(testEvent);
+    }
+
+    @GET
+    @Path("/alertmanager/greeting")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void sendAlert() throws JsonProcessingException {
+        List<Alert> alertList = new ArrayList<>();
+        Alert testAlert = new Alert("myalert","Quarkus fired this alert", "localhost");
+        alertList.add(testAlert);
+        alertService.sendAlert(alertList);
     }
 
 }
