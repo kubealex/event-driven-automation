@@ -49,16 +49,16 @@ services:
     depends_on:
       - kafka
 
-  ansible:
-    image: quay.io/kubealex/eda-ansible
-    hostname: eda-ansible
-    restart: on-failure
-    networks:
-      - eda-ansible
-    depends_on:
-      - kafka
-      - alertmanager
-      - quarkus-client
+  # ansible:
+  #   image: quay.io/kubealex/eda-ansible
+  #   hostname: eda-ansible
+  #   restart: on-failure
+  #   networks:
+  #     - eda-ansible
+  #   depends_on:
+  #     - kafka
+  #     - alertmanager
+  #     - quarkus-client
 
 networks:
   eda-ansible:
