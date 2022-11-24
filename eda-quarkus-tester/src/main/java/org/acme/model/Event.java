@@ -2,6 +2,9 @@ package org.acme.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class Event {
     @JsonProperty("name")
     public String eventName;

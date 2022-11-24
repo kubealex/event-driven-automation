@@ -7,7 +7,7 @@ route:
 receivers:
   - name: 'web.hook'
     webhook_configs:
-      - url: 'http://192.168.1.57:5001/endpoint'
+      - url: 'http://ansible:5001/endpoint'
 inhibit_rules:
   - source_match:
       severity: 'critical'

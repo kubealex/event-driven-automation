@@ -4,7 +4,7 @@
 
   sources:
     - ansible.eda.kafka:
-        host: 127.0.0.1
+        host: kafka
         port: 9092
         topic: eda-topic
 

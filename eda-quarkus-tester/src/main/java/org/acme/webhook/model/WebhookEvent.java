@@ -4,10 +4,13 @@ import org.acme.model.Event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 public class WebhookEvent extends Event{
     @JsonProperty("target_hosts")
     public String eventTargetHosts;
 
+@RegisterForReflection
 public WebhookEvent() {}
 public WebhookEvent(String eventName, String eventMessage, String eventTargetHosts){
     this.eventMessage=eventMessage;

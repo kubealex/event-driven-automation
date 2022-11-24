@@ -1,15 +1,13 @@
 package org.acme.alertmanager.model;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.enterprise.inject.New;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class Alert {
     @JsonIgnore
     public String alertName;
