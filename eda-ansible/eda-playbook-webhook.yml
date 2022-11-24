@@ -1,5 +1,5 @@
 ---
-- name: test run_playbook
+- name: Greeting playbook for webhook events
   hosts: localhost
   tasks:
     - name: Debug message

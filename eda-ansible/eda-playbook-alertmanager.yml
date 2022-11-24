@@ -1,0 +1,19 @@
+---
+- name: Playbook reacting to AlertManager Event
+  hosts: localhost
+  tasks:
+    - name: Handle new firing alert
+      when: event.alert.status == "firing"
+      block:
+        - name: Debug message
+          ansible.builtin.debug:
+            msg: "The event {{ event.alert.labels.alertName }} just triggered to greet Ansible Event Driven!"
+
+        - name: Remediating issue to resolve the alert
+          ansible.builtin.debug:
+            msg: Tring to solve {{ event.alert.labels.alertName }}
+
+    - name: Notify resolution
+      ansible.builtin.debug:
+        msg: "The event {{ event.alert.labels.alertName }} was just resolved by Ansible Event Driven!"
+      when: event.alert.status == "resolved"

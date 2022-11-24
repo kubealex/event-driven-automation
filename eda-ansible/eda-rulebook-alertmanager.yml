@@ -17,7 +17,7 @@
       condition: event.alert.status == "firing" or event.alert.status == "resolved"
       action:
         run_playbook:
-          name: eda-greets-alertmanager.yml
+          name: eda-playbook-alertmanager.yml
 
     - name: Debug Hello event
       condition: event.alert is defined
