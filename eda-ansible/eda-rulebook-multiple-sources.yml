@@ -19,25 +19,31 @@
 
   rules:
 # Rules to greet a user
-    - name: Greet whoever cheers at Ansible from a Kafka topic!
+    - name: Store cheers at Ansible from a Kafka topic!
       condition: event.name == "greeting"
       action:
         set_fact:
           fact:
-            greeting: "{{ event.message }}"
+            kafkagreeting: "{{ event.message }}"
 
-    - name: Greet whoever cheers at Ansible!
-      condition: event.payload is defined
+    - name: Store cheers at Ansible from a webhook!
+      condition: event.payload.name == "greeting"
       action:
-        post_event:
-          event:
-            greeting: "{{ event.payload.message }}"
+        set_fact:
+          fact:
+            webhookgreeting: "{{ event.payload.message }}"
 
-    - name: Run playbook to greet our customer
-      condition: event.greeting is defined
+    - name: Run playbook to greet our Kafka peers
+      condition: event.kafkagreeting is defined
       action:
         run_playbook:
           name: eda-playbook-kafka.yml
+
+    - name: Run playbook to greet our webhook callers
+      condition: event.webhookgreeting is defined
+      action:
+        run_playbook:
+          name: eda-playbook-webhook.yml
 
     - name: Setup httpd container on defined hosts
       condition: event.payload.name == "setup-httpd"

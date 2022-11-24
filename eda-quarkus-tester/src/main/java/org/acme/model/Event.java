@@ -1,4 +1,4 @@
-package org.acme.kafka.model;
+package org.acme.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,14 +7,11 @@ public class Event {
     public String eventName;
     @JsonProperty("message")
     public String eventMessage;
-    @JsonProperty("target_hosts")
-    public String eventTargetHosts;
 
 public Event() {}
-public Event(String eventName, String eventMessage, String eventTargetHosts){
+public Event(String eventName, String eventMessage){
     this.eventMessage=eventMessage;
     this.eventName=eventName;
-    this.eventTargetHosts=eventTargetHosts;
 
 }
 
