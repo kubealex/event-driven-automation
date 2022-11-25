@@ -16,7 +16,13 @@ on:
 
 jobs:
   build:
-
+    env:
+      working-directory: ./eda-quarkus-tester
+      
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
+        
     runs-on: ubuntu-latest
 
     steps:
@@ -27,8 +33,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+        
     - name: Install Quarkus
-      run: curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/
+      run: curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/ && curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
 
     - name: Native build
       run: quarkus build --native
