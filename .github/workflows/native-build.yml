@@ -4,21 +4,21 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'eda-quarkus-tester/**'    
+      - 'eda-quarkus-tester/**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'eda-quarkus-tester/**' 
-      
+      - 'eda-quarkus-tester/**'
+
 jobs:
   build:
     env:
       working-directory: ./eda-quarkus-tester
-      
+
     defaults:
       run:
         working-directory: ${{ env.working-directory }}
-        
+
     runs-on: ubuntu-latest
 
     steps:
@@ -29,14 +29,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        
+
     - name: Install Quarkus
       run: curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/ && curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
 
     - name: Native Quarkus build
       run: export PATH=$PATH:~/.jbang/bin:~/.jbang/currentjdk/bin && quarkus build --native --no-tests
       shell: bash
-      
+
     - name: Build Image
       id: build-image
       uses: redhat-actions/buildah-build@v2
@@ -44,15 +44,15 @@ jobs:
         image: eda-quarkus
         tags: latest
         containerfiles: |
-          ./src/main/docker/Dockerfile.native-micro
+          ./${{ env.working-directory }}/src/main/docker/Dockerfile.native-micro
 
     - name: Push To quay.io
       id: push-x86
       uses: redhat-actions/push-to-registry@v2
       with:
         image: ${{ steps.build-image.outputs.image }}
-        tags: latest 
+        tags: latest
         registry: quay.io/kubealex
         username: ${{ secrets.QUAY_USERNAME }}
         password: ${{ secrets.QUAY_TOKEN }}
-                    
+

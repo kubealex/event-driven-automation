@@ -4,16 +4,16 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'Containerfile-alertmanager'    
+      - 'Containerfile-alertmanager'
       - 'Containerfile-ansible'
       - 'alertmanager.yml'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'Containerfile-alertmanager'    
+      - 'Containerfile-alertmanager'
       - 'Containerfile-ansible'
       - 'alertmanager.yml'
-      
+
 jobs:
   Build Images:
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
         tags: latest
         containerfiles: |
           ./Containerfile-alertmanager
-          
+
     - name: Build Ansible stack image
       id: build-image-ansible
       uses: redhat-actions/buildah-build@v2
@@ -38,23 +38,23 @@ jobs:
         tags: latest
         containerfiles: |
           ./Containerfile-ansible
-          
+
     - name: Push To quay.io
       id: push-alertmanager
       uses: redhat-actions/push-to-registry@v2
       with:
         image: ${{ steps.build-image-alertmanager.outputs.image }}
-        tags: latest 
+        tags: latest
         registry: quay.io/kubealex
         username: ${{ secrets.QUAY_USERNAME }}
-        password: ${{ secrets.QUAY_TOKEN }}      
-        
+        password: ${{ secrets.QUAY_TOKEN }}
+
     - name: Push To quay.io
       id: push-ansible-eda
       uses: redhat-actions/push-to-registry@v2
       with:
         image: ${{ steps.build-image-ansible.outputs.image }}
-        tags: latest 
+        tags: latest
         registry: quay.io/kubealex
         username: ${{ secrets.QUAY_USERNAME }}
         password: ${{ secrets.QUAY_TOKEN }}
