@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'eda-quarkus-tester/*'    
+      - 'eda-quarkus-tester/**'    
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'eda-quarkus-tester/*' 
+      - 'eda-quarkus-tester/**' 
       
 jobs:
   build:
