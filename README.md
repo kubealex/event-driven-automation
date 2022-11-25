@@ -1,3 +1,6 @@
+[![Build depenencies](https://github.com/kubealex/event-driven-automation/actions/workflows/stack-build.yml/badge.svg)](https://github.com/kubealex/event-driven-automation/actions/workflows/stack-build.yml)
+[![Quarkus native build](https://github.com/kubealex/event-driven-automation/actions/workflows/native-build.yml/badge.svg)](https://github.com/kubealex/event-driven-automation/actions/workflows/native-build.yml)
+
 # Introducing Ansible Event Driven Automation
 
 This repo shows a simple demo to showcase event driven automation using ansible and rulebooks.
