@@ -47,6 +47,7 @@ You can then execute your native executable with: `./target/eda-quarkus-tester-1
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
 
+
 ## Related Guides
 
 - SmallRye Reactive Messaging - Kafka Connector ([guide](https://quarkus.io/guides/kafka-reactive-getting-started)): Connect to Kafka with Reactive Messaging
