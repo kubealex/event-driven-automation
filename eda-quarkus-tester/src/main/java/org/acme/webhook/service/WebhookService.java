@@ -13,4 +13,3 @@ public interface WebhookService {
     @POST
     Response sendEvent(WebhookEvent event);
 }
-

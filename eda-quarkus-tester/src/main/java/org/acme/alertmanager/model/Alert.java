@@ -18,16 +18,17 @@ public class Alert {
     @JsonIgnore
     public String alertTargetHosts;
 
-public Alert() {}
+    public Alert() {
+    }
 
-public Alert(String alertName, String alertMessage, String alertTargetHosts){
-    this.alertMessage=alertMessage;
-    this.alertName=alertName;
-    this.alertTargetHosts=alertTargetHosts;
-    this.alertLabels = new LinkedHashMap<String, String>();
-    this.alertLabels.put("alertName", this.alertName);
-    this.alertLabels.put("alertMessage", this.alertMessage);
-    this.alertLabels.put("alertTargetHosts", this.alertTargetHosts);
-}
+    public Alert(String alertName, String alertMessage, String alertTargetHosts) {
+        this.alertMessage = alertMessage;
+        this.alertName = alertName;
+        this.alertTargetHosts = alertTargetHosts;
+        this.alertLabels = new LinkedHashMap<String, String>();
+        this.alertLabels.put("alertName", this.alertName);
+        this.alertLabels.put("alertMessage", this.alertMessage);
+        this.alertLabels.put("alertTargetHosts", this.alertTargetHosts);
+    }
 
 }

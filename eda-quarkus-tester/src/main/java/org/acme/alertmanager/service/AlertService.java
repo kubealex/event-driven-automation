@@ -15,4 +15,3 @@ public interface AlertService {
     @POST
     Response sendAlert(List<Alert> alert);
 }
-

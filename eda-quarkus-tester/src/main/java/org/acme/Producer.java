@@ -37,7 +37,7 @@ public class Producer {
     @Path("/kafka/greeting")
     @Produces(MediaType.APPLICATION_JSON)
     public String sendKafkaEvent() throws JsonProcessingException {
-        Event testEvent = new Event("greeting","Hello from Quarkus");
+        Event testEvent = new Event("greeting", "Hello from Quarkus");
         ObjectMapper mapper = new ObjectMapper();
         String eventJson = mapper.writeValueAsString(testEvent);
         eventEmitter.send(eventJson);
@@ -48,7 +48,7 @@ public class Producer {
     @Path("/webhook/greeting")
     @Produces(MediaType.APPLICATION_JSON)
     public void sendWebhookEvent() {
-        WebhookEvent testEvent = new WebhookEvent("greeting","Hello from Quarkus", null);
+        WebhookEvent testEvent = new WebhookEvent("greeting", "Hello from Quarkus", null);
         webhookService.sendEvent(testEvent);
     }
 
@@ -57,7 +57,7 @@ public class Producer {
     @Produces(MediaType.APPLICATION_JSON)
     public void sendAlert() throws JsonProcessingException {
         List<Alert> alertList = new ArrayList<>();
-        Alert testAlert = new Alert("myalert","Quarkus fired this alert", "localhost");
+        Alert testAlert = new Alert("myalert", "Quarkus fired this alert", "localhost");
         alertList.add(testAlert);
         alertService.sendAlert(alertList);
     }

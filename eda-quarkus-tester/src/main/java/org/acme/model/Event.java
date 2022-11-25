@@ -11,11 +11,13 @@ public class Event {
     @JsonProperty("message")
     public String eventMessage;
 
-public Event() {}
-public Event(String eventName, String eventMessage){
-    this.eventMessage=eventMessage;
-    this.eventName=eventName;
+    public Event() {
+    }
 
-}
+    public Event(String eventName, String eventMessage) {
+        this.eventMessage = eventMessage;
+        this.eventName = eventName;
+
+    }
 
 }
