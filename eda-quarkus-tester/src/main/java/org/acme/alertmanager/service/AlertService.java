@@ -14,5 +14,4 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 public interface AlertService {
     @POST
     Response sendAlert(List<Alert> alert);
-    //
 }
