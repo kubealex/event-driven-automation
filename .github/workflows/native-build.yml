@@ -38,7 +38,8 @@ jobs:
       run: curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/ && curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
 
     - name: Native build
-      run: quarkus build --native
+      run: export PATH=$PATH:~/.jbang/bin:~/.jbang/currentjdk/bin && quarkus build --native
+      shell: bash
       
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
