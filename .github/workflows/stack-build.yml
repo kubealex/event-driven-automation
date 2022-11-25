@@ -4,20 +4,16 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'Containerfile-alertmanager'
-      - 'Containerfile-ansible'
-      - 'alertmanager.yml'
+      - 'eda-utils/**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'Containerfile-alertmanager'
-      - 'Containerfile-ansible'
-      - 'alertmanager.yml'
+      - 'eda-utils/**'
 
 jobs:
   build-images:
+    name: Build support images
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
 
@@ -28,7 +24,8 @@ jobs:
         image: eda-alertmanager
         tags: latest
         containerfiles: |
-          ./Containerfile-alertmanager
+          ./eda-utils/Containerfile-alertmanager
+        context: ./eda-utils
 
     - name: Build Ansible stack image
       id: build-image-ansible
@@ -37,8 +34,9 @@ jobs:
         image: eda-ansible
         tags: latest
         containerfiles: |
-          ./Containerfile-ansible
-
+          ./eda-utils/Containerfile-ansible
+        context: ./eda-utils
+        
     - name: Push To quay.io
       id: push-alertmanager
       uses: redhat-actions/push-to-registry@v2
