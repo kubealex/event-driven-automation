@@ -45,7 +45,8 @@ jobs:
         tags: latest
         containerfiles: |
           ./${{ env.working-directory }}/src/main/docker/Dockerfile.native-micro
-
+        context: ./${{ env.working-directory }}
+        
     - name: Push To quay.io
       id: push-x86
       uses: redhat-actions/push-to-registry@v2
