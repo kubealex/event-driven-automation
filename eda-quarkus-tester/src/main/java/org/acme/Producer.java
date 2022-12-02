@@ -57,7 +57,7 @@ public class Producer {
     @Produces(MediaType.APPLICATION_JSON)
     public void sendAlert() throws JsonProcessingException {
         List<Alert> alertList = new ArrayList<>();
-        Alert testAlert = new Alert("myalert", "Quarkus fired this alert", "localhost");
+        Alert testAlert = new Alert("quarkusAlert", "Quarkus fired this alert", "localhost");
         alertList.add(testAlert);
         alertService.sendAlert(alertList);
     }

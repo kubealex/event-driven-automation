@@ -47,7 +47,7 @@ Start your stack by issuing:
 
 After all services started, you can now start your ansible container via:
 
-    podman run -it --name ansible -v ./eda-ansible:/eda-ansible:Z -n eda-ansible quay.io/kubealex/eda-ansible
+    podman run -it --name ansible -v ./eda-ansible:/eda-ansible:Z --network eda-ansible quay.io/kubealex/eda-ansible
 
 For demo purposes, we are starting it in interactive mode, so you can follow the logs during executions.
 

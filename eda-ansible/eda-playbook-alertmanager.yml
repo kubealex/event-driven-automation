@@ -7,7 +7,7 @@
       block:
         - name: Debug message
           ansible.builtin.debug:
-            msg: "The event {{ event.alert.labels.alertName }} just triggered to greet Ansible Event Driven!"
+            msg: "The event {{ event.alert.labels.alertName }} - {{ event.alert.labels.alertMessage }} just triggered on {{ event.alert.labels.alertTargetHosts }} to greet Ansible Event Driven! }}"
 
         - name: Remediating issue to resolve the alert
           ansible.builtin.debug:
