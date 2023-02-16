@@ -1,4 +1,4 @@
-name: Build depenencies
+name: Build dependencies
 
 on:
   push:
