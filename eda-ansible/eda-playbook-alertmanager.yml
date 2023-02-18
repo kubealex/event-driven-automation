@@ -11,7 +11,7 @@
 
         - name: Remediating issue to resolve the alert
           ansible.builtin.debug:
-            msg: Tring to solve {{ event.alert.labels.alertName }}
+            msg: Trying to solve {{ event.alert.labels.alertName }}
 
     - name: Notify resolution
       ansible.builtin.debug:
