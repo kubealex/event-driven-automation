@@ -11,11 +11,18 @@
 
   ## Define the conditions we are looking for
 
+  # rules:
+  # - name: Handle Red Hat Insights event
+  #   condition: event.payload is defined
+  #   actions:
+  #     - debug:
+  #         msg: "Received event from Insights"
+  #     - run_playbook:
+  #         name: eda-playbook-insights.yml
+
   rules:
   - name: Handle Red Hat Insights event
     condition: event.payload is defined
-    actions:
-      - debug:
-          msg: "Received event from Insights"
-      - run_playbook:
-          name: eda-playbook-insights.yml
+    action:
+      run_playbook:
+        name: eda-playbook-insights.yml
