@@ -1,0 +1,27 @@
+---
+- name: Greeting playbook for webhook events
+  hosts: localhost
+  tasks:
+    - name: Set Telegram notification
+      ansible.builtin.set_fact:
+        telegram_msg: |
+          "Hostname: {{ event.payload.context.hostname }}"
+          "Version: {{ event.payload.context.rhel_version }}"
+          "Display Name: {{ event.payload.context.display_name }}"
+
+    - name: Send notify to Telegram
+      community.general.telegram:
+        token: '{{ telegram_token }}'
+        api_args:
+          chat_id: '{{ telegram_chat_id }}'
+          parse_mode: "markdown"
+          text: "{{ telegram_msg }}"
+          disable_web_page_preview: true
+          disable_notification: false
+
+    - name: Debug message
+      ansible.builtin.debug:
+        msg:
+          - "Hostname: {{ event.payload.context.hostname }}"
+          - "Version: {{ event.payload.context.rhel_version }}"
+          - "Display Name: {{ event.payload.context.display_name }}"
