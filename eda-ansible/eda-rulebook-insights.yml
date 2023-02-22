@@ -14,7 +14,8 @@
   rules:
   - name: Handle Red Hat Insights event
     condition: event.payload is defined
-
-    action:
-      debug:
-        msg: "Received: {{ event.payload }}"
+    actions:
+      - debug:
+          msg: "Received event from Insights"
+      - run_playbook:
+          name: eda-playbook-insights.yml
