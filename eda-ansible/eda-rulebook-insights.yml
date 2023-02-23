@@ -11,7 +11,7 @@
 
   ## Define the conditions we are looking for
 
-  # rules:
+  rules:
   # - name: Handle Red Hat Insights event
   #   condition: event.payload is defined
   #   actions:
@@ -19,10 +19,13 @@
   #         msg: "Received event from Insights"
   #     - run_playbook:
   #         name: eda-playbook-insights.yml
-
-  rules:
-  - name: Handle Red Hat Insights event
+  # - name: Handle Red Hat Insights event
+  #   condition: event.payload is defined
+  #   action:
+  #     run_playbook:
+  #       name: eda-playbook-insights.yml
+  - name: Handle Red Hat Insights event with Ansible
     condition: event.payload is defined
     action:
       run_playbook:
-        name: eda-playbook-insights.yml
+        name: eda-playbook-insights-telegram.yml
