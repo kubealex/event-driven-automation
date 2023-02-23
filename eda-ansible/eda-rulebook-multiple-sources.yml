@@ -33,6 +33,20 @@
           fact:
             webhookgreeting: "{{ event.payload.message }}"
 
+    - name: Setup httpd container on defined hosts
+      condition: event.payload.name == "setup-httpd"
+      action:
+        set_fact:
+          fact:
+            target_hosts: "{{ event.payload.target }}"
+
+    - name: Store payload coming from Insights
+      condition: event.payload.account_id is defined
+      action:
+        set_fact:
+          fact:
+            insightsContent: "{{ event.payload }}"
+
     - name: Run playbook to greet our Kafka peers
       condition: event.kafkagreeting is defined
       action:
@@ -45,13 +59,6 @@
         run_playbook:
           name: eda-playbook-webhook.yml
 
-    - name: Setup httpd container on defined hosts
-      condition: event.payload.name == "setup-httpd"
-      action:
-        set_fact:
-          fact:
-            target_hosts: "{{ event.payload.target }}"
-
     - name: Run playbook to setup httpd container
       condition: event.target_hosts is defined
       action:
@@ -63,6 +70,12 @@
       action:
         run_playbook:
           name: eda-playbook-alertmanager.yml
+
+    - name: Run playbook to greet our Kafka peers
+      condition: event.insightsContent is defined
+      action:
+        run_playbook:
+          name: eda-playbook-insights.yml
 
     - name: Debug Hello event
       condition: event.alert is defined
