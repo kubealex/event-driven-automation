@@ -1,5 +1,5 @@
 ---
-- name: Greeting playbook for webhook events
+- name: Display Insights event and notify on Telegram
   hosts: localhost
   tasks:
     - name: Set Telegram notification
