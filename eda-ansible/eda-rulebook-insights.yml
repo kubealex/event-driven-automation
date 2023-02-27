@@ -28,4 +28,4 @@
     condition: event.payload is defined
     action:
       run_playbook:
-        name: eda-playbook-insights-telegram.yml
+        name: eda-playbook-insights.yml
