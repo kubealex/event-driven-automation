@@ -71,7 +71,7 @@
         run_playbook:
           name: eda-playbook-alertmanager.yml
 
-    - name: Run playbook to greet our Kafka peers
+    - name: Run playbook to greet our Insights peer
       condition: event.insightsContent is defined
       action:
         run_playbook:
