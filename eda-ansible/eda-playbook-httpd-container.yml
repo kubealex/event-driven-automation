@@ -1,6 +1,6 @@
 ---
 - name: Containers | Install and use containers
-  hosts: "{{ event.target_hosts }}"
+  hosts: "{{ ansible_eda.event.target_hosts }}"
   tasks:
     - name: Pull httpd image
       containers.podman.podman_image:

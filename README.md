@@ -50,10 +50,6 @@ Start your stack by issuing:
 
     podman-compose -d up
 
-After all services started, you can now start your ansible container via:
-
-    podman run -it --name ansible -v ./eda-ansible:/eda-ansible:Z --network eda-ansible quay.io/kubealex/eda-ansible
-
 For demo purposes, we are starting it in interactive mode, so you can follow the logs during executions.
 
 To test the services, you can call the following endpoints, where the Quarkus application is listening and will generate events accordingly:

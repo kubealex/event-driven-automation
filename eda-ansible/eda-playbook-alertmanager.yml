@@ -3,17 +3,17 @@
   hosts: localhost
   tasks:
     - name: Handle new firing alert
-      when: event.alert.status == "firing"
+      when: ansible_eda.event.alert.status == "firing"
       block:
         - name: Debug message
           ansible.builtin.debug:
-            msg: "The event {{ event.alert.labels.alertName }} - {{ event.alert.labels.alertMessage }} just triggered on {{ event.alert.labels.alertTargetHosts }} to greet Ansible Event Driven! }}"
+            msg: "The event {{ ansible_eda.event.alert.labels.alertName }} - {{ ansible_eda.event.alert.labels.alertMessage }} just triggered on {{ ansible_eda.event.alert.labels.alertTargetHosts }} to greet Ansible Event Driven! }}"
 
         - name: Remediating issue to resolve the alert
           ansible.builtin.debug:
-            msg: Trying to solve {{ event.alert.labels.alertName }}
+            msg: Trying to solve {{ ansible_eda.event.alert.labels.alertName }}
 
     - name: Notify resolution
       ansible.builtin.debug:
-        msg: "The event {{ event.alert.labels.alertName }} was just resolved by Ansible Event Driven!"
-      when: event.alert.status == "resolved"
+        msg: "The event {{ ansible_eda.event.alert.labels.alertName }} was just resolved by Ansible Event Driven!"
+      when: ansible_eda.event.alert.status == "resolved"

@@ -1,7 +1,8 @@
 version: "3.8"
 services:
   zookeeper:
-    image: docker.io/bitnami/zookeeper:3.8
+    image: docker.io/bitnami/zookeeper:latest
+    hostname: zookeeper
     networks:
       - eda-ansible
     ports:
@@ -12,7 +13,7 @@ services:
       - ALLOW_ANONYMOUS_LOGIN=yes
 
   kafka:
-    image: docker.io/bitnami/kafka:3.3
+    image: docker.io/bitnami/kafka:latest
     hostname: kafka
     ports:
       - "9092:9092"
@@ -22,13 +23,9 @@ services:
       - "kafka_data:/bitnami"
     environment:
       KAFKA_CFG_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT"
       KAFKA_CFG_LISTENERS: "PLAINTEXT://:9092"
-      KAFKA_CFG_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
-      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       ALLOW_PLAINTEXT_LISTENER: true
+      KAFKA_ENABLE_KRAFT: false
     depends_on:
       - zookeeper
 
@@ -48,6 +45,26 @@ services:
       - eda-ansible
     depends_on:
       - kafka
+      - zookeeper
+      - alertmanager
+
+  ansible:
+    image: quay.io/kubealex/eda-ansible
+    hostname: ansible
+    restart: on-failure
+    ports:
+      - 5000:5000
+      - 5001:5001
+    volumes:
+      - ./eda-ansible:/eda-ansible:Z
+    networks:
+      - eda-ansible
+    entrypoint: ansible-rulebook -i inventory.yml --rulebook eda-rulebook-multiple-sources.yml --verbose
+    depends_on:
+      - quarkus-client
+      - alertmanager
+      - kafka
+      - zookeeper
 
 networks:
   eda-ansible:
