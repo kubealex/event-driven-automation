@@ -1,0 +1,32 @@
+---
+- name: Containers | Install and use containers
+  hosts: "{{ ansible_eda.event.target_hosts }}"
+  tasks:
+    - name: Pull httpd image
+      containers.podman.podman_image:
+        name: registry.access.redhat.com/ubi9/httpd-24
+
+    - name: Create an HTTPD container
+      containers.podman.podman_container:
+        name: http-webserver
+        image: registry.access.redhat.com/ubi9/httpd-24
+        state: started
+        detach: true
+        exposed_ports:
+          - 8080
+        ports:
+          - 0.0.0.0:8080:8080
+          - 0.0.0.0:8443:8443
+
+    - name: Enable ports to test container
+      ansible.posix.firewalld:
+        port: "{{ item }}"
+        state: enabled
+        permanent: true
+      loop:
+        - 8080/tcp
+        - 8443/tcp
+
+    - name: Print the link to the HTTPD server
+      ansible.builtin.debug:
+        msg: Visit http://{{ inventory_hostname }}:8080
