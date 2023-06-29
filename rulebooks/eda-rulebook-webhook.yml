@@ -27,7 +27,7 @@
           organization: Default
           job_args:
             extra_vars:
-              webhookgreeting: "{{ webhookgreeting }}"
+              greeting: "{{ webhookgreeting }}"
 
     # - name: Setup httpd container on defined hosts
     #   condition: event.payload.name == "setup-httpd"
