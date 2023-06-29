@@ -1,6 +1,6 @@
 ---
 - name: Listen for events on a webhook
-  hosts: all
+  hosts: localhost
 
  ## Define our source for events
 

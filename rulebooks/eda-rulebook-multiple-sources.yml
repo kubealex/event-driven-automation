@@ -1,6 +1,6 @@
 ---
 - name: Listen for events on multiple sources (Kafka, Webhook, AlertManager)
-  hosts: all
+  hosts: localhost
 
   sources:
     - ansible.eda.kafka:

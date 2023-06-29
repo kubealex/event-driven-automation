@@ -1,6 +1,6 @@
 ---
 - name: Listen for events on a Kafka topic
-  hosts: all
+  hosts: localhost
 
   sources:
     - ansible.eda.kafka:

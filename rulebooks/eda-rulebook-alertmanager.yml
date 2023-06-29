@@ -1,6 +1,6 @@
 ---
 - name: Listen for events from AlertManager
-  hosts: all
+  hosts: localhost
 
   sources:
     - name: listen for alerts
