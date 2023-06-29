@@ -4,4 +4,4 @@
   tasks:
     - name: Debug message
       ansible.builtin.debug:
-        msg: "{{ ansible_eda.event.webhookgreeting }}"
+        msg: "{{ webhookgreeting }}"
