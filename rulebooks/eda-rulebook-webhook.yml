@@ -25,9 +25,6 @@
         run_job_template:
           name: eda-webhook
           organization: Default
-          job_args:
-            extra_vars:
-              greeting: "{{ webhookgreeting }}"
 
     # - name: Setup httpd container on defined hosts
     #   condition: event.payload.name == "setup-httpd"
