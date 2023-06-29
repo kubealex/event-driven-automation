@@ -1,0 +1,23 @@
+---
+- name: Listen for events on a Kafka topic
+  hosts: all
+
+  sources:
+    - ansible.eda.kafka:
+        host: 127.0.0.1
+        port: 9092
+        topic: eda-topic
+
+  rules:
+    - name: Store cheers at Ansible from a Kafka topic!
+      condition: event.name == "greeting"
+      action:
+        set_fact:
+          fact:
+            kafkagreeting: "{{ event.message }}"
+
+    - name: Run playbook to greet our Kafka peers
+      condition: event.kafkagreeting is defined
+      action:
+        run_playbook:
+          name: eda-playbook-kafka.yml
