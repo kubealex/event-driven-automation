@@ -6,28 +6,24 @@
 
   sources:
     - ansible.eda.webhook:
-        host: 0.0.0.0
+        host: 127.0.0.1
         port: 5000
 
  ## Define the conditions we are looking for
 
   rules:
-    - name: Store cheers at Ansible from a webhook!
-      condition: event.payload.name == "greeting"
-      action:
-        set_fact:
-          fact:
-            webhookgreeting: "{{ event.payload.message }}"
-
     - name: Run playbook to greet our webhook callers
       condition: event.webhookgreeting is defined
-      action:
-        run_job_template:
-          name: eda-webhook
-          organization: Default
-          job_args:
-            extra_vars:
-              greeting: "HELLO!!!"
+      actions:
+        - run_job_template:
+            name: eda-webhook
+            organization: Default
+            job_args:
+              extra_vars:
+                greeting: "HELLO!!!"
+        - set_fact:
+            fact:
+              webhookgreeting: "{{ event.payload.message }}"
 
     # - name: Setup httpd container on defined hosts
     #   condition: event.payload.name == "setup-httpd"
