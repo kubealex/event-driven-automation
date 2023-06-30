@@ -19,5 +19,9 @@
     - name: Run playbook to greet our Kafka peers
       condition: event.kafkagreeting is defined
       action:
-        run_playbook:
-          name: eda-playbook-kafka.yml
+        - run_job_template:
+            name: eda-kafka
+            organization: Default
+            job_args:
+              extra_vars:
+                kafkagreeting: "Hello from a Kafka event triggering automation!!!"
