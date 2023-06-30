@@ -4,4 +4,4 @@
   tasks:
     - name: Debug message
       ansible.builtin.debug:
-        msg: "{{ kafkagreeting }}"
+        msg: "{{ greeting }}"

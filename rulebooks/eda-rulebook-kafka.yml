@@ -14,11 +14,11 @@
       actions:
         - set_fact:
             fact:
-              kafkagreeting: "{{ event.message }}"
+              kafkagreeting: "{{ event.body.message }}"
 
         - run_job_template:
             name: eda-kafka
             organization: Default
             job_args:
               extra_vars:
-                kafkagreeting: "Hello from a Kafka event triggering automation!!!"
+                greeting: "Hello from a Kafka event triggering automation!!!"
