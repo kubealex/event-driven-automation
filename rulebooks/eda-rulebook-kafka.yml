@@ -10,7 +10,7 @@
 
   rules:
     - name: Run playbook to greet our Kafka peers
-      condition: event.name == "greeting"
+      condition: event.body.name == "greeting"
       actions:
         - set_fact:
             fact:
