@@ -10,14 +10,12 @@
 
   rules:
     - name: Run playbook to greet our Kafka peers
-      condition: event.payload.alerts.status == "firing" or event.payload.alerts.status == "resolved"
+      condition: event.payload.status == "firing" or event.payload.status == "resolved"
       actions:
         - run_job_template:
             name: eda-alertmanager
             organization: Default
             job_args:
               extra_vars:
-                alertName: "{{ event.payload.alerts.label.alertName }}"
-                alertMessage: "{{ event.payload.alerts.label.alertMessage }}"
-                alertTargetHosts: "{{ event.payload.alerts.label.alertTargetHosts }}"
-                alertStatus: "{{ event.payload.alerts.label.alertStatus }}"
+                alerts: "{{ event.payload.alerts }}"
+                alertStatus: "{{ event.payload.status }}"

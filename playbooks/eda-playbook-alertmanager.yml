@@ -7,13 +7,15 @@
       block:
         - name: Debug message
           ansible.builtin.debug:
-            msg: "The event {{ alertName }} - {{ alertMessage }} just triggered on {{ alertTargetHosts }} to greet Ansible Event Driven! }}"
+            msg: "The event {{ item.labels.alertName }} - {{ item.labels.alertMessage }} just triggered on {{ item.labels.alertTargetHosts }} to greet Ansible Event Driven! }}"
+          loop: "{{ alerts }}"
 
         - name: Remediating issue to resolve the alert
           ansible.builtin.debug:
-            msg: Trying to solve {{ alertName }}
-
+            msg: Trying to solve {{ item.labels.alertName }}
+          loop: "{{ alerts }}"
     - name: Notify resolution
       ansible.builtin.debug:
-        msg: "The event {{ alertName }} was just resolved by Ansible Event Driven!"
+        msg: "The event {{ item.labels.alertName }} was just resolved by Ansible Event Driven!"
+      loop: "{{ alerts }}"
       when: alertStatus == "resolved"
