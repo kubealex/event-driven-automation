@@ -2,25 +2,14 @@
 - name: Listen for events on a webhook
   hosts: all
 
- ## Define our source for events
-
   sources:
     - ansible.eda.webhook:
         host: 0.0.0.0
         port: 5000
 
- ## Define the conditions we are looking for
-
   rules:
-    - name: Store cheers at Ansible from a webhook!
+    - name: Cheers at Ansible from a webhook!
       condition: event.payload.name == "greeting"
-      action:
-        set_fact:
-          fact:
-            webhookgreeting: "{{ event.payload.message }}"
-
-    - name: Run playbook to greet our webhook callers
-      condition: event.webhookgreeting is defined
       action:
         run_playbook:
           name: eda-playbook-webhook.yml

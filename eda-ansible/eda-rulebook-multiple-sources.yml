@@ -8,76 +8,42 @@
         port: 9092
         topic: eda-topic
 
-    - name: listen for alerts
-      ansible.eda.alertmanager:
-        host: 0.0.0.0
-        port: 5001
-
     - ansible.eda.webhook:
         host: 0.0.0.0
         port: 5000
 
+    - name: Enable AlertManager listener
+      ansible.eda.alertmanager:
+        host: 0.0.0.0
+        port: 5001
+
   rules:
-# Rules to greet a user
-    - name: Store cheers at Ansible from a Kafka topic!
-      condition: event.name == "greeting"
-      action:
-        set_fact:
-          fact:
-            kafkagreeting: "{{ event.message }}"
-
-    - name: Store cheers at Ansible from a webhook!
-      condition: event.payload.name == "greeting"
-      action:
-        set_fact:
-          fact:
-            webhookgreeting: "{{ event.payload.message }}"
-
-    - name: Setup httpd container on defined hosts
-      condition: event.payload.name == "setup-httpd"
-      action:
-        set_fact:
-          fact:
-            target_hosts: "{{ event.payload.target }}"
-
-    - name: Store payload coming from Insights
-      condition: event.payload.account_id is defined
-      action:
-        set_fact:
-          fact:
-            insightsContent: "{{ event.payload }}"
-
     - name: Run playbook to greet our Kafka peers
-      condition: event.kafkagreeting is defined
+      condition: event.body.name == "greeting"
       action:
         run_playbook:
           name: eda-playbook-kafka.yml
 
     - name: Run playbook to greet our webhook callers
-      condition: event.webhookgreeting is defined
+      condition: event.payload.name == "greeting"
       action:
         run_playbook:
           name: eda-playbook-webhook.yml
 
     - name: Run playbook to setup httpd container
-      condition: event.target_hosts is defined
+      condition: event.payload.name == "setup-httpd"
       action:
         run_playbook:
           name: eda-playbook-httpd-container.yml
 
     - name: Let Ansible print information about the alert
-      condition: event.alert.status == "firing" or event.alert.status == "resolved"
+      condition: event.payload.status == "firing" or event.payload.status == "resolved"
       action:
         run_playbook:
           name: eda-playbook-alertmanager.yml
 
     - name: Run playbook to greet our Insights peer
-      condition: event.insightsContent is defined
+      condition: event.payload.account_id is defined
       action:
         run_playbook:
           name: eda-playbook-insights.yml
-
-    - name: Debug Hello event
-      condition: event.alert is defined
-      action:
-        debug:

@@ -5,27 +5,14 @@
  ## Define our source for events
 
   sources:
-    - ansible.eda.webhook:
+    - redhatinsights.eda.insights:
         host: 0.0.0.0
-        port: 5000
-
-  ## Define the conditions we are looking for
+        port: 5002
+        token: redhatinsightstoken
 
   rules:
-  # - name: Handle Red Hat Insights event
-  #   condition: event.payload is defined
-  #   actions:
-  #     - debug:
-  #         msg: "Received event from Insights"
-  #     - run_playbook:
-  #         name: eda-playbook-insights.yml
-  # - name: Handle Red Hat Insights event
-  #   condition: event.payload is defined
-  #   action:
-  #     run_playbook:
-  #       name: eda-playbook-insights.yml
-  - name: Handle Red Hat Insights event with Ansible
-    condition: event.payload is defined
-    action:
-      run_playbook:
-        name: eda-playbook-insights.yml
+    - name: Handle Red Hat Insights event with Ansible
+      condition: event.payload is defined
+      action:
+        run_playbook:
+          name: eda-playbook-insights.yml
