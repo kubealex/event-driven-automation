@@ -9,6 +9,11 @@
         port: 5001
 
   rules:
+    - name: Test
+      condition: event.alerts is define
+      action:
+        debug:
+
     - name: Run playbook to greet our Kafka peers
       condition: event.alerts.status == "firing" or event.alerts.status == "resolved"
       actions:
