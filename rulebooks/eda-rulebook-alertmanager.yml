@@ -10,7 +10,7 @@
 
   rules:
     - name: Test
-      condition: event.alerts is define
+      condition: event.alerts is defined
       action:
         debug:
 
