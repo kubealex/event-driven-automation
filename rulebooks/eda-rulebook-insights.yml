@@ -15,3 +15,6 @@
         - run_job_template:
             name: eda-insights
             organization: Default
+            job_args:
+              extra_vars:
+                insights_event_type: "{{ event.payload.event_type }}"

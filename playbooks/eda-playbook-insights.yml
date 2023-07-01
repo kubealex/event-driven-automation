@@ -5,4 +5,4 @@
     - name: Debug message
       ansible.builtin.debug:
         msg:
-          - "Event type: {{ event.payload.event_type }}"
+          - "Event type: {{ insights_event_type }}"
