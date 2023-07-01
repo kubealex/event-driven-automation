@@ -5,6 +5,4 @@
     - name: Debug message
       ansible.builtin.debug:
         msg:
-          - "Hostname: {{ ansible_eda.event.payload.context.hostname }}"
-          - "Version: {{ ansible_eda.event.payload.context.rhel_version }}"
-          - "Display Name: {{ ansible_eda.event.payload.context.display_name }}"
+          - "Event type: {{ event.payload.event_type }}"
