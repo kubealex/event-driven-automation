@@ -4,7 +4,7 @@ import asyncio
 
 async def produce():
     producer = AIOKafkaProducer(
-        bootstrap_servers='192.168.230.1:9092', value_serializer=lambda m: json.dumps(m).encode('utf-8'))
+        bootstrap_servers='<IP/HOST PLACEHOLDER>:9092', value_serializer=lambda m: json.dumps(m).encode('utf-8'))
     # Get cluster layout and topic/partition allocation
     await producer.start()
     # Produce messages

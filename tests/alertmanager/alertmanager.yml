@@ -7,7 +7,7 @@ route:
 receivers:
   - name: 'web.hook'
     webhook_configs:
-      - url: 'http://eda.rh-lab.labs:5001/endpoint'
+      - url: 'http[s]://EDA_HOSTNAME:5001/endpoint'
 inhibit_rules:
   - source_match:
       severity: 'critical'

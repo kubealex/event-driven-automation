@@ -1,18 +1,20 @@
 ---
 - name: Listen for events on a webhook
   hosts: localhost
-
-
- ## Define our source for events
-
   sources:
-    - ansible.eda.webhook:
+    - redhatinsights.eda.insights:
         host: 0.0.0.0
-        port: 5000
+        port: 5002
+        token:
 
   rules:
     - name: Handle Red Hat Insights event with Ansible
       condition: event.payload is defined
-      action:
-        run_playbook:
-          name: eda-playbook-insights.yml
+      actions:
+        debug:
+        # - run_job_template:
+        #     name: eda-insights
+        #     organization: Default
+        #     job_args:
+        #       extra_vars:
+        #         greeting: "{{ event.body.message }}"

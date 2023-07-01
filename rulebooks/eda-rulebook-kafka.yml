@@ -21,4 +21,4 @@
             organization: Default
             job_args:
               extra_vars:
-                greeting: "Hello from a Kafka event triggering automation!!!"
+                greeting: "{{ event.body.message }}"

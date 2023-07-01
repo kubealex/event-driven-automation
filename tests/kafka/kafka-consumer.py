@@ -3,7 +3,7 @@ import asyncio
 
 async def consume():
     consumer = AIOKafkaConsumer(
-        "eda-topic", bootstrap_servers='192.168.230.1:9092')
+        "eda-topic", bootstrap_servers='<IP/HOST PLACEHOLDER>:9092')
     # Get cluster layout and topic/partition allocation
     await consumer.start()
     try:
