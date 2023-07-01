@@ -9,7 +9,7 @@
         port: 5001
 
   rules:
-    - name: Run playbook to greet our Kafka peers
+    - name: Run playbook to handle alerts
       condition: event.payload.status == "firing" or event.payload.status == "resolved"
       actions:
         - run_job_template:
