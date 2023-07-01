@@ -12,9 +12,6 @@
       condition: event.payload is defined
       actions:
         - debug:
-        # - run_job_template:
-        #     name: eda-insights
-        #     organization: Default
-        #     job_args:
-        #       extra_vars:
-        #         greeting: "{{ event.body.message }}"
+        - run_job_template:
+            name: eda-insights
+            organization: Default
