@@ -10,7 +10,7 @@
 
   rules:
     - name: Test
-      condition: event.alerts is defined
+      condition: event.alerts is defined or alerts is defined or event.payload is defined or event.body is defined
       action:
         debug:
 
