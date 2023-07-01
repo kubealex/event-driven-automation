@@ -9,20 +9,15 @@
         port: 5001
 
   rules:
-    - name: Test
-      condition: (event.alerts is defined) or (event.payload is defined) or (event.body is defined)
-      action:
-        debug:
-
     - name: Run playbook to greet our Kafka peers
-      condition: event.alerts.status == "firing" or event.alerts.status == "resolved"
+      condition: event.payload.alerts.status == "firing" or event.payload.alerts.status == "resolved"
       actions:
         - run_job_template:
             name: eda-alertmanager
             organization: Default
             job_args:
               extra_vars:
-                alertName: "{{ event.alerts.label.alertName }}"
-                alertMessage: "{{ event.alerts.label.alertMessage }}"
-                alertTargetHosts: "{{ event.alerts.label.alertTargetHosts }}"
-                alertStatus: "{{ event.alerts.label.alertStatus }}"
+                alertName: "{{ event.payload.alerts.label.alertName }}"
+                alertMessage: "{{ event.payload.alerts.label.alertMessage }}"
+                alertTargetHosts: "{{ event.payload.alerts.label.alertTargetHosts }}"
+                alertStatus: "{{ event.payload.alerts.label.alertStatus }}"
