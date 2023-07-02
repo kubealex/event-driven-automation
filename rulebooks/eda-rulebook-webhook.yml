@@ -13,7 +13,7 @@
       condition: event.payload.name == 'greeting'
       actions:
         - run_job_template:
-            name: eda-webhook
+            name: "[EDA] Webhook playbook"
             organization: Default
             job_args:
               extra_vars:

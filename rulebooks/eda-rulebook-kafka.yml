@@ -17,7 +17,7 @@
               kafkagreeting: "{{ event.body.message }}"
 
         - run_job_template:
-            name: eda-kafka
+            name: "[EDA] Kafka playbook"
             organization: Default
             job_args:
               extra_vars:

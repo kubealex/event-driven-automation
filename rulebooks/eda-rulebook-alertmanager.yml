@@ -13,7 +13,7 @@
       condition: event.payload.status == "firing" or event.payload.status == "resolved"
       actions:
         - run_job_template:
-            name: eda-alertmanager
+            name: "[EDA] Alertmanager playbook"
             organization: Default
             job_args:
               extra_vars:

@@ -13,7 +13,7 @@
       actions:
         - debug:
         - run_job_template:
-            name: eda-insights
+            name: "[EDA] Insights playbook"
             organization: Default
             job_args:
               extra_vars:
