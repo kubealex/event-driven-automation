@@ -1,0 +1,61 @@
+aap2_controller_host:
+aap2_controller_username:
+aap2_controller_password:
+
+eda_controller_url:
+eda_controller_user:
+eda_controller_password:
+
+aap2_projects:
+  - name: "EDA Demo"
+    scm_url: "https://github.com/kubealex/event-driven-automation.git"
+
+aap2_inventories:
+  - aap2_inventory_name: EDA Demo - SCM Inventory
+
+aap2_inventory_sources:
+  - aap2_inventory_source_name: EDA Demo - SCM Inventory Source
+    aap2_inventory_source_inventory: EDA Demo - SCM Inventory
+    aap2_inventory_source_type: scm
+    aap2_inventory_source_project: "EDA Demo"
+    aap2_inventory_source_path: inventory
+
+aap2_templates:
+  - aap2_template_name: "[EDA] Insights playbook"
+    aap2_template_playbook: playbooks/eda-playbook-insights.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Kafka playbook"
+    aap2_template_playbook: playbooks/eda-playbook-kafka.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Webhook playbook"
+    aap2_template_playbook: playbooks/eda-playbook-webhook.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Alertmanager playbook"
+    aap2_template_playbook: playbooks/eda-playbook-alertmanager.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+
+eda_project:
+  name: "EDA Demo Project"
+  git_url: https://github.com/kubealex/event-driven-automation
+  description: "Demo project to show EDA in action"
+eda_decision_env:
+  name: "kubealex-eda"
+  image_url: quay.io/kubealex/eda-decision-env
+
+eda_activations:
+  - name: eda-alertmanager
+    rulebook: eda-rulebook-alertmanager.yml
+  - name: eda-kafka
+    rulebook: eda-rulebook-kafka.yml
+  - name: eda-insights
+    rulebook: eda-rulebook-insights.yml
+  - name: eda-webhook
+    rulebook: eda-rulebook-webhook.yml
