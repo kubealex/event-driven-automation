@@ -34,6 +34,11 @@
           ansible.builtin.set_fact:
             incident_number: "{{ _incident.results[0].record.number }}"
 
+        - name: Retrieve incident number
+          ansible.builtin.set_stats:
+            data:
+              incident_number: "{{ _incident.results[0].record.number }}"
+
         - name: Remediating issue to resolve the alert
           ansible.builtin.debug:
             msg: Trying to solve {{ item.labels.alertName }}
