@@ -24,10 +24,7 @@
             organization: Default
             set_facts: true
     - name: Resolve alert and close request
-      condition:
-        all:
-          - event.payload.status == "resolved"
-          - event.incident_number is defined
+      condition: facts.incident_number is defined
       actions:
         - run_job_template:
             name: "[EDA] Alertmanager ITSM"
