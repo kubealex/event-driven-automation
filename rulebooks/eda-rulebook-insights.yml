@@ -25,7 +25,7 @@
                 insights_recommendation: "{{ event.payload.events.0.payload.rule_id }}"
 
     - name: Detect and remediater recommendation event from Insights
-      condition: event.payload.event_type == "resolved-recommendation"
+      condition: event.payload is defined #.event_type == "resolved-recommendation"
       actions:
         - debug:
         # - run_job_template:
