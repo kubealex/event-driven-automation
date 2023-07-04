@@ -7,7 +7,7 @@
     snow_password: "2j+-6hjqNCXC"
   tasks:
     - name: Handle new firing alert
-      when: ansible_eda.event.payload.status == "firing"
+      when: alertStatus == "firing"
       block:
         - name: Debug message
           ansible.builtin.debug:
@@ -45,7 +45,7 @@
           loop: "{{ ansible_eda.event.payload.alerts }}"
 
     - name: Notify resolution
-      when: ansible_eda.event.payload.status == "resolved"
+      when: alertStatus == "resolved"
       block:
         - name: Close ticket
           servicenow.itsm.incident:
@@ -60,8 +60,9 @@
               The following alert triggered on {{ item.labels.alertTargetHosts }}:
               "{{ item.labels.alertMessage }}"
               Was resolved with Event Driven Ansible
+          loop: "{{ alerts }}"
 
         - name: Notify resolution
           ansible.builtin.debug:
             msg: "The event {{ item.labels.alertName }} was just resolved by Ansible Event Driven!"
-          loop: "{{ ansible_eda.event.payload.alerts }}"
+          loop: "{{ alerts }}"
