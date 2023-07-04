@@ -16,9 +16,10 @@
     - name: Detect and remediater recommendation event from Insights
       condition: event.payload.event_type == "new-recommendation"
       actions:
+        - debug:
         - set_fact:
             fact:
-              recommendation: event.payload.events.0.payload.rule_id
+              recommendation: "{{ event.payload.events.0.payload.rule_id }}"
         - run_job_template:
             name: "[EDA] Insights remediate SSH root login"
             organization: Default
