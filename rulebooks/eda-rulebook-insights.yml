@@ -9,7 +9,7 @@
 
   rules:
     - name: Detect and remediater recommendation event from Insights
-      condition: event.payload.event_type == "new-recommendation" and event.payload.events.0.payload.rule_id == "hardening_ssh_root_login|OPENSSH_HARDENING_ROOT_LOGIN_2"
+      condition: event.payload.event_type == "new-recommendation" and event.payload.events.payload.rule_id == "hardening_ssh_root_login|OPENSSH_HARDENING_ROOT_LOGIN_2"
       actions:
         - debug:
         - run_job_template:
