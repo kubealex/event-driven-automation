@@ -22,6 +22,6 @@
         - run_job_template:
             name: "[EDA] Alertmanager ITSM"
             organization: Default
-            set_fatcs: true
+            set_facts: true
         - debug:
             var: facts.incident_number
