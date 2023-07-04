@@ -40,3 +40,4 @@
               extra_vars:
                 ticket_number: "{{ events.m_0.incident_number }}"
                 alertStatus: "{{ events.m_1.payload.status }}"
+                alerts: "{{ events.m_1.payload.alerts }}"
