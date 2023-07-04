@@ -15,6 +15,7 @@
               - "The event {{ item.labels.alertName }} just triggered on {{ item.labels.alertTargetHosts }}"
               - "Alert body is: {{ item.labels.alertMessage }}"
           loop: "{{ ansible_eda.event.payload.alerts }}"
+
         - name: Open ITSM ticket to report incident
           servicenow.itsm.incident:
             instance:
@@ -22,7 +23,7 @@
               username: "{{ snow_username }}"
               password: "{{ snow_password }}"
             state: new
-            short_description: "Alert {{ item.labels.alertName }} on host {{ item.item.labels.alertTargetHosts }}"
+            short_description: "Alert {{ item.labels.alertName }} on host {{ item.labels.alertTargetHosts }}"
             description: |
               The following alert triggered on {{ item.labels.alertTargetHosts }}:
               "{{ item.labels.alertMessage }}"
