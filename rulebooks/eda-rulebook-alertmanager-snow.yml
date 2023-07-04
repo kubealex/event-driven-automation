@@ -24,4 +24,4 @@
             organization: Default
             set_facts: true
         - debug:
-            var: facts.incident_number
+            var: event.incident_number
