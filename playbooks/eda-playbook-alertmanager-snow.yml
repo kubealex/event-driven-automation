@@ -7,15 +7,14 @@
     snow_password: "2j+-6hjqNCXC"
   tasks:
     - name: Handle new firing alert
-      when: alertStatus == "firing"
+      when: ansible_eda.event.payload.status == "firing"
       block:
         - name: Debug message
           ansible.builtin.debug:
             msg:
               - "The event {{ item.labels.alertName }} just triggered on {{ item.labels.alertTargetHosts }}"
               - "Alert body is: {{ item.labels.alertMessage }}"
-          loop: "{{ alerts }}"
-
+          loop: "{{ ansible_eda.event.payload.alerts }}"
         - name: Open ITSM ticket to report incident
           servicenow.itsm.incident:
             instance:
@@ -32,10 +31,10 @@
         - name: Remediating issue to resolve the alert
           ansible.builtin.debug:
             msg: Trying to solve {{ item.labels.alertName }}
-          loop: "{{ alerts }}"
+          loop: "{{ ansible_eda.event.payload.alerts }}"
 
     - name: Notify resolution
       ansible.builtin.debug:
         msg: "The event {{ item.labels.alertName }} was just resolved by Ansible Event Driven!"
-      loop: "{{ alerts }}"
-      when: alertStatus == "resolved"
+      loop: "{{ ansible_eda.event.payload.alerts }}"
+      when: ansible_eda.event.payload.status == "resolved"
