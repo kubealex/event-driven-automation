@@ -45,7 +45,23 @@
           loop: "{{ ansible_eda.event.payload.alerts }}"
 
     - name: Notify resolution
-      ansible.builtin.debug:
-        msg: "The event {{ item.labels.alertName }} was just resolved by Ansible Event Driven!"
-      loop: "{{ ansible_eda.event.payload.alerts }}"
       when: ansible_eda.event.payload.status == "resolved"
+      block:
+        - name: Close ticket
+          servicenow.itsm.incident:
+            instance:
+              host: "{{ snow_instance }}"
+              username: "{{ snow_username }}"
+              password: "{{ snow_password }}"
+            state: closed
+            number: "{{ ticket_number }}"
+            close_code: "Solved (Permanently)"
+            close_notes: |
+              The following alert triggered on {{ item.labels.alertTargetHosts }}:
+              "{{ item.labels.alertMessage }}"
+              Was resolved with Event Driven Ansible
+
+        - name: Notify resolution
+          ansible.builtin.debug:
+            msg: "The event {{ item.labels.alertName }} was just resolved by Ansible Event Driven!"
+          loop: "{{ ansible_eda.event.payload.alerts }}"

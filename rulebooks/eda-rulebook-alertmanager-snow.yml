@@ -10,7 +10,7 @@
 
   rules:
     - name: Run playbook to handle alerts
-      condition: event.payload.status == "firing" or event.payload.status == "resolved"
+      condition: event.payload.status == "firing"
       actions:
         - run_job_template:
             name: "[EDA] Alertmanager playbook"
@@ -23,8 +23,15 @@
             name: "[EDA] Alertmanager ITSM"
             organization: Default
             set_facts: true
-    - name: Test
-      condition: event.incident_number is defined or facts.incident_number is defined
-      action:
-        debug:
-          msg: Is defined
+    - name: Resolve alert and close request
+      condition:
+        all:
+          - event.payload.status == "resolved"
+          - facts.incident_number is defined
+      actions:
+        - run_job_template:
+            name: "[EDA] Alertmanager ITSM"
+            organization: Default
+            job_args:
+              extra_vars:
+                ticket_number: "{{ facts.incident_number }}"
