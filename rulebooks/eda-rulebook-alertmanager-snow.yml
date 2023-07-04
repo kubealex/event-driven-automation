@@ -27,11 +27,11 @@
       condition:
         all:
           - event.payload.status == "resolved"
-          - facts.incident_number is defined
+          - event.incident_number is defined
       actions:
         - run_job_template:
             name: "[EDA] Alertmanager ITSM"
             organization: Default
             job_args:
               extra_vars:
-                ticket_number: "{{ facts.incident_number }}"
+                ticket_number: "{{ event.incident_number }}"
