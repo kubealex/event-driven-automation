@@ -24,11 +24,14 @@
             organization: Default
             set_facts: true
     - name: Resolve alert and close request
-      condition: facts.incident_number is defined
+      condition:
+        all:
+          - facts.incident_number is defined
+          - event.payload.status == "resolved""
       actions:
         - run_job_template:
             name: "[EDA] Alertmanager ITSM"
             organization: Default
             job_args:
               extra_vars:
-                ticket_number: "{{ event.incident_number }}"
+                ticket_number: "{{ facts.incident_number }}"
