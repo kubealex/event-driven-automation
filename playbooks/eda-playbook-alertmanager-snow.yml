@@ -30,10 +30,9 @@
           register: _incident
           loop: "{{ ansible_eda.event.payload.alerts }}"
 
-        - name: Debug
-          ansible.builtin.debug:
-            var: _incident
-
+        - name: Retrieve incident number
+          ansible.builtin.set_fact:
+            incident_number: "{{ _incident.results[0].record.number }}"
 
         - name: Remediating issue to resolve the alert
           ansible.builtin.debug:
