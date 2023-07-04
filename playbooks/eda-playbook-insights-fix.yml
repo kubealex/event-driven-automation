@@ -1,6 +1,7 @@
 ---
 - name: Greeting playbook for webhook events
   hosts: "{{ ansible_eda.event.payload.context.hostname }}"
+  become: true
   tasks:
     - name: Fix SSH Root login permissions
       ansible.builtin.lineinfile:
