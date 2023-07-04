@@ -2,6 +2,7 @@ all:
   hosts:
     localhost:
       ansible_connection: local
+    rhel9-vm:
   children:
     webservers:
       hosts:
