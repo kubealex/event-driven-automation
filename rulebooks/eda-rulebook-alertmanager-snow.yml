@@ -27,7 +27,7 @@
       condition:
         all:
           - facts.incident_number is defined
-          - event.payload.status == "resolved""
+          - event.payload.status == "resolved"
       actions:
         - run_job_template:
             name: "[EDA] Alertmanager ITSM"
