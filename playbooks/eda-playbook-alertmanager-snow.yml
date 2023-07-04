@@ -27,7 +27,13 @@
             description: |
               The following alert triggered on {{ item.labels.alertTargetHosts }}:
               "{{ item.labels.alertMessage }}"
+          register: _incident
           loop: "{{ ansible_eda.event.payload.alerts }}"
+
+        - name: Debug
+          ansible.builtin.debug:
+            var: _incident
+
 
         - name: Remediating issue to resolve the alert
           ansible.builtin.debug:
