@@ -24,7 +24,7 @@
             state: new
             short_description: "Alert {{ item.labels.alertName }} on host {{ item.item.labels.alertTargetHosts }}"
             description: |
-              The following alert triggered on {{ item.item.labels.alertTargetHosts }}:
+              The following alert triggered on {{ item.labels.alertTargetHosts }}:
               "{{ item.labels.alertMessage }}"
           loop: "{{ ansible_eda.event.payload.alerts }}"
 
