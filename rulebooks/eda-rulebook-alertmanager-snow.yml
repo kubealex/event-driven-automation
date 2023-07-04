@@ -34,4 +34,4 @@
             organization: Default
             job_args:
               extra_vars:
-                ticket_number: "{{ facts.incident_number }}"
+                ticket_number: "{{ incident_number }}"
