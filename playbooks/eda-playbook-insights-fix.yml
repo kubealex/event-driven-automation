@@ -1,0 +1,10 @@
+---
+- name: Greeting playbook for webhook events
+  hosts: "{{ ansible_eda.event.payload.context.hostname }}"
+  tasks:
+    - name: Fix SSH Root login permissions
+      ansible.builtin.lineinfile:
+        regexp: "^PermitRootLogin"
+        line: "#PermitRootLogin yes"
+        state: present
+        path: /etc/ssh/sshd.conf

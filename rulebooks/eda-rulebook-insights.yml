@@ -8,13 +8,10 @@
         token: redhatinsightstoken
 
   rules:
-    - name: Handle Red Hat Insights event with Ansible
-      condition: event.payload is defined
+    - name: Detect and remediater recommendation event from Insights
+      condition: event.payload.event_type == "new-recommendation" and event.payload.events[0].payload.rule_id == "hardening_ssh_root_login|OPENSSH_HARDENING_ROOT_LOGIN_2"
       actions:
         - debug:
         - run_job_template:
-            name: "[EDA] Insights playbook"
+            name: "[EDA] Insights remediate SSH root login"
             organization: Default
-            job_args:
-              extra_vars:
-                insights_event_type: "{{ event.payload.event_type }}"
