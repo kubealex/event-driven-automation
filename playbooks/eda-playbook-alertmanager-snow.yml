@@ -22,6 +22,7 @@
               host: "{{ snow_instance }}"
               username: "{{ snow_username }}"
               password: "{{ snow_password }}"
+            caller: "System Administrator"
             state: new
             short_description: "Alert {{ item.labels.alertName }} on host {{ item.labels.alertTargetHosts }}"
             description: |
@@ -53,7 +54,7 @@
               host: "{{ snow_instance }}"
               username: "{{ snow_username }}"
               password: "{{ snow_password }}"
-            state: closed
+            state: resolved
             number: "{{ ticket_number }}"
             close_code: "Solved (Permanently)"
             close_notes: |
