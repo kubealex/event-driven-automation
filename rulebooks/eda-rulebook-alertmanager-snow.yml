@@ -23,5 +23,8 @@
             name: "[EDA] Alertmanager ITSM"
             organization: Default
             set_facts: true
-        - debug:
-            var: event.incident_number
+    - name: Test
+      condition: event.incident_number is defined or facts.incident_number is defined
+      action:
+        debug:
+          msg: Is defined
