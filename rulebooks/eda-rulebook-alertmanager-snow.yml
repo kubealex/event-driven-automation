@@ -1,0 +1,24 @@
+---
+- name: Listen for events from AlertManager and open ITSM ticket
+  hosts: localhost
+
+  sources:
+    - name: listen for alerts
+      ansible.eda.alertmanager:
+        host: 0.0.0.0
+        port: 5001
+
+  rules:
+    - name: Run playbook to handle alerts
+      condition: event.payload.status == "firing" or event.payload.status == "resolved"
+      actions:
+        - run_job_template:
+            name: "[EDA] Alertmanager playbook"
+            organization: Default
+            job_args:
+              extra_vars:
+                alerts: "{{ event.payload.alerts }}"
+                alertStatus: "{{ event.payload.status }}"
+        - run_job_template:
+            name: "[EDA] Alertmanager ITSM"
+            organization: Default
