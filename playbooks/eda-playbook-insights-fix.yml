@@ -7,4 +7,4 @@
         regexp: "^PermitRootLogin"
         line: "#PermitRootLogin yes"
         state: present
-        path: /etc/ssh/sshd.conf
+        path: /etc/ssh/sshd_config
