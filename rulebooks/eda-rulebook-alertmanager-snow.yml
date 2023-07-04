@@ -23,6 +23,9 @@
             name: "[EDA] Alertmanager ITSM"
             organization: Default
             set_facts: true
+            job_args:
+              extra_vars:
+                alertStatus: "{{ event.payload.status }}"
 
     - name: Close incident and notify resolution
       condition:
@@ -36,3 +39,4 @@
             job_args:
               extra_vars:
                 ticket_number: "{{ events.m_0.incident_number }}"
+                alertStatus: "{{ events.m_1.payload.status }}"
