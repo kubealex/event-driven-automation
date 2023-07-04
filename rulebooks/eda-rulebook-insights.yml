@@ -13,7 +13,7 @@
     #   action:
     #     debug:
 
-    - name: Detect and remediater recommendation event from Insights
+    - name: Detect and remediate recommendation event from Insights
       condition: event.payload.event_type == "new-recommendation"
       actions:
         - debug:
