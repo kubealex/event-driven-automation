@@ -1,5 +1,5 @@
 ---
-- name: Listen for events on a webhook
+- name: EDA | Webhook | Listen for events on a webhook
   hosts: localhost
 
  ## Define our source for events

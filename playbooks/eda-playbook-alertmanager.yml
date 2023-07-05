@@ -1,5 +1,5 @@
 ---
-- name: Playbook reacting to AlertManager Event
+- name: EDA | Alertmanager | Example alert resolution
   hosts: localhost
   tasks:
     - name: Handle new firing alert

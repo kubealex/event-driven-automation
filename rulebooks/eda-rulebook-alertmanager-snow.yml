@@ -1,5 +1,5 @@
 ---
-- name: Listen for events from AlertManager and open ITSM ticket
+- name: EDA | AlertManager | Listen for events from AlertManager and open ITSM ticket
   hosts: localhost
 
   sources:

@@ -1,5 +1,5 @@
 ---
-- name: Greeting playbook for webhook events
+- name: EDA | Webhook |Greeting playbook for webhook events
   hosts: localhost
   tasks:
     - name: Debug message

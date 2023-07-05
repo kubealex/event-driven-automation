@@ -1,5 +1,5 @@
 ---
-- name: Greeting playbook for Kafka events
+- name: EDA | Insights | Greeting playbook for Kafka events
   hosts: localhost
   tasks:
     - name: Debug message

@@ -1,5 +1,5 @@
 ---
-- name: Listen for events from AlertManager
+- name: EDA | AlertManager | Listen for events from AlertManager
   hosts: localhost
 
   sources:

@@ -1,5 +1,5 @@
 ---
-- name: Playbook reacting to AlertManager Event with ITSM ticket
+- name: EDA | Alertmanager | Playbook reacting to AlertManager Event with ITSM ticket
   hosts: localhost
   vars:
     snow_instance: https://dev175196.service-now.com/

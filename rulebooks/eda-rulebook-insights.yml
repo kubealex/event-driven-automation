@@ -1,5 +1,5 @@
 ---
-- name: Listen for events on a webhook
+- name: EDA | Insights | Listen for events on a webhook
   hosts: localhost
   sources:
     - redhatinsights.eda.insights:

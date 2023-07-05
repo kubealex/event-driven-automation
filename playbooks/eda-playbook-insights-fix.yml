@@ -1,5 +1,5 @@
 ---
-- name: Greeting playbook for webhook events
+- name: EDA | Insights | PermitRootLogin Remediation
   hosts: "{{ ansible_eda.event.payload.context.hostname }}"
   become: true
   tasks:
