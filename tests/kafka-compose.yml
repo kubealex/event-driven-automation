@@ -6,7 +6,7 @@ services:
     networks:
       - eda-ansible
     ports:
-      - "<IP/HOST PLACEHOLDER>:2181:2181"
+      - "2181:2181"
     volumes:
       - "zookeeper_data:/bitnami"
     environment:
@@ -16,7 +16,7 @@ services:
     image: docker.io/bitnami/kafka:latest
     hostname: kafka
     ports:
-      - "<IP/HOST PLACEHOLDER>:9092:9092"
+      - "9092:9092"
     networks:
       - eda-ansible
     volumes:
@@ -24,7 +24,6 @@ services:
     environment:
       KAFKA_CFG_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_CFG_LISTENERS: "PLAINTEXT://:9092"
-      KAFKA_CFG_ADVERTISED_LISTENERS: "PLAINTEXT://<IP/HOST PLACEHOLDER>:9092"
       ALLOW_PLAINTEXT_LISTENER: true
       KAFKA_ENABLE_KRAFT: false
     depends_on:
@@ -32,7 +31,7 @@ services:
 
   alertmanager:
     image: quay.io/kubealex/eda-alertmanager
-    ports: "<IP/HOST PLACEHOLDER>:9093:9093"
+    ports: "9093:9093"
     hostname: alertmanager
     networks:
       - eda-ansible

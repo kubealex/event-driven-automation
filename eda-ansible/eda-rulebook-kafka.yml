@@ -11,6 +11,7 @@
   rules:
     - name: Cheers at Ansible from a Kafka topic!
       condition: event.body.name == "greeting"
-      action:
-        run_playbook:
-          name: eda-playbook-kafka.yml
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-kafka.yml

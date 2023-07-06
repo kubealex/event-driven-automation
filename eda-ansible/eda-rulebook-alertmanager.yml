@@ -11,11 +11,7 @@
   rules:
     - name: Let Ansible print information about the alert
       condition: event.payload.status == "firing" or event.payload.status == "resolved"
-      action:
-        run_playbook:
-          name: eda-playbook-alertmanager.yml
-
-    - name: Debug Hello event
-      condition: event.alert is defined
-      action:
-        debug:
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-alertmanager.yml

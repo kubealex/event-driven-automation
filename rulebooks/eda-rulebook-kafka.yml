@@ -9,7 +9,7 @@
         topic: eda-topic
 
   rules:
-    - name: Run playbook to greet our Kafka peers
+    - name: EDA | Kafka | Run playbook to greet our Kafka peers
       condition: event.body.name == "greeting"
       actions:
         - set_fact:

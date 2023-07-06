@@ -10,19 +10,7 @@
   rules:
     - name: Cheers at Ansible from a webhook!
       condition: event.payload.name == "greeting"
-      action:
-        run_playbook:
-          name: eda-playbook-webhook.yml
-
-    - name: Setup httpd container on defined hosts
-      condition: event.payload.name == "setup-httpd"
-      action:
-        set_fact:
-          fact:
-            target_hosts: "{{ event.payload.target }}"
-
-    - name: Run playbook to setup httpd container
-      condition: event.target_hosts is defined
-      action:
-        run_playbook:
-          name: eda-playbook-httpd-container.yml
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-webhook.yml

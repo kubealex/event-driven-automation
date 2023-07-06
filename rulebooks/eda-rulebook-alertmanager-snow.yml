@@ -9,7 +9,7 @@
         port: 5001
 
   rules:
-    - name: Run playbook to handle alerts
+    - name: EDA | AlertManager | Run playbook to handle alerts
       condition: event.payload.status == "firing"
       actions:
         - run_job_template:
@@ -27,7 +27,7 @@
               extra_vars:
                 alertStatus: "{{ event.payload.status }}"
 
-    - name: Close incident and notify resolution
+    - name: EDA | AlertManager | Close incident and notify resolution
       condition:
         all:
           - facts.incident_number is defined

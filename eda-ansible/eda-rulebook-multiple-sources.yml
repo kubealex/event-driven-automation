@@ -17,33 +17,36 @@
         host: 0.0.0.0
         port: 5001
 
+    - redhatinsights.eda.insights:
+        host: 0.0.0.0
+        port: 5002
+        token: redhatinsightstoken
+
   rules:
     - name: Run playbook to greet our Kafka peers
       condition: event.body.name == "greeting"
-      action:
-        run_playbook:
-          name: eda-playbook-kafka.yml
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-kafka.yml
 
     - name: Run playbook to greet our webhook callers
       condition: event.payload.name == "greeting"
-      action:
-        run_playbook:
-          name: eda-playbook-webhook.yml
-
-    - name: Run playbook to setup httpd container
-      condition: event.payload.name == "setup-httpd"
-      action:
-        run_playbook:
-          name: eda-playbook-httpd-container.yml
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-webhook.yml
 
     - name: Let Ansible print information about the alert
       condition: event.payload.status == "firing" or event.payload.status == "resolved"
-      action:
-        run_playbook:
-          name: eda-playbook-alertmanager.yml
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-alertmanager.yml
 
     - name: Run playbook to greet our Insights peer
       condition: event.payload.account_id is defined
-      action:
-        run_playbook:
-          name: eda-playbook-insights.yml
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-insights.yml

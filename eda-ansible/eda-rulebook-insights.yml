@@ -13,6 +13,8 @@
   rules:
     - name: Handle Red Hat Insights event with Ansible
       condition: event.payload is defined
-      action:
-        run_playbook:
-          name: eda-playbook-insights.yml
+      actions:
+        - debug:
+
+        - run_playbook:
+            name: eda-playbook-insights.yml

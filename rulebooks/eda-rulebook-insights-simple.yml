@@ -8,7 +8,7 @@
         token: redhatinsightstoken
 
   rules:
-    - name: Handle Red Hat Insights event with Ansible
+    - name: EDA | Insights | Handle Red Hat Insights event with Ansible
       condition: event.payload is defined
       actions:
         - debug:

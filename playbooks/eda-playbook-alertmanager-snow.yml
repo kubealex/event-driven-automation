@@ -1,10 +1,6 @@
 ---
 - name: EDA | Alertmanager | Playbook reacting to AlertManager Event with ITSM ticket
   hosts: localhost
-  vars:
-    snow_instance: https://dev175196.service-now.com/
-    snow_username: admin
-    snow_password: "2j+-6hjqNCXC"
   tasks:
     - name: Handle new firing alert
       when: alertStatus == "firing"

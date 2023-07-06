@@ -8,12 +8,7 @@
         token: redhatinsightstoken
 
   rules:
-    # - name: Handle Red Hat Insights event with Ansible
-    #   condition: event.payload is defined
-    #   action:
-    #     debug:
-
-    - name: Detect and remediate recommendation event from Insights
+    - name: EDA | Insights | Detect and remediate recommendation event from Insights
       condition: event.payload.event_type == "new-recommendation"
       actions:
         - debug:
@@ -24,8 +19,8 @@
               extra_vars:
                 insights_recommendation: "{{ event.payload.events.0.payload.rule_id }}"
 
-    - name: Detect remediation
-      condition: event.payload is defined #.event_type == "resolved-recommendation"
+    - name: EDA | Insights | Detect remediation
+      condition: event.payload is defined # .event_type == "resolved-recommendation"
       actions:
         - debug:
         # - run_job_template:
