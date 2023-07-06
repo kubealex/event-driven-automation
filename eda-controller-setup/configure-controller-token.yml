@@ -1,0 +1,28 @@
+---
+- name: Playbook for configuring token exchange
+  hosts: localhost
+  vars_files:
+    - eda-vars.yml
+  tasks:
+    - name: Create a new token using username/password
+      ansible.controller.token:
+        description: '{{ token_description }}'
+        scope: "write"
+        state: present
+        controller_host: "{{ aap2_controller_host }}"
+        controller_username: "{{ aap2_controller_username }}"
+        controller_password: "{{ aap2_controller_password }}"
+      register: _aap2_token
+
+    - name: EDA Controller | Project check
+      ansible.builtin.uri:
+        url: "{{ eda_controller_url }}/api/eda/v1/users/me/awx-tokens/"
+        force_basic_auth: true
+        url_username: "{{ eda_controller_user }}"
+        url_password: "{{ eda_controller_password }}"
+        method: POST
+        body: '{"name":"AAP Controller","token":"{{ _aap2_token.result.token }}"}'
+        validate_certs: false
+        status_code:
+          - 200
+          - 201

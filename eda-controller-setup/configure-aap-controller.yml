@@ -2,6 +2,6 @@
 - name: Playbook for configuring AAP2 Controller resources
   hosts: localhost
   vars_files:
-    - eda-vars-kubealex.yml
+    - eda-vars.yml
   roles:
     - role: role_aap_controller_setup

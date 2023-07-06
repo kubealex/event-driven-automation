@@ -1,9 +1,15 @@
 from aiokafka import AIOKafkaConsumer
 import asyncio
+import argparse
 
 async def consume():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--topic', type=str, default="eda-topic")
+    parser.add_argument('--host', type=str, default="localhost")
+    args = parser.parse_args()
+
     consumer = AIOKafkaConsumer(
-        "eda-topic", bootstrap_servers='KAFKA_HOST:9092')
+        args.topic, bootstrap_servers=args.host +':9092')
     await consumer.start()
     try:
         async for msg in consumer:

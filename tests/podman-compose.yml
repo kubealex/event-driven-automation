@@ -35,6 +35,8 @@ services:
     hostname: alertmanager
     networks:
       - eda-ansible
+    volumes:
+      - ./alertmanager/:/etc/alertmanager:Z
 
 networks:
   eda-ansible:

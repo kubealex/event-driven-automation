@@ -2,6 +2,21 @@ aap2_controller_host:
 aap2_controller_username:
 aap2_controller_password:
 
+eda_controller_url:
+eda_controller_user:
+eda_controller_password:
+
+servicenow_instance_url:
+servicenow_instance_user:
+servicenow_instance_password:
+
+###########################################################################################################
+################################## VARIABLES BELOW SHOULD NOT BE CHANGED ##################################
+###########################################################################################################
+
+
+####### AAP2 CONTROLLER VARIABLES ########
+
 aap2_inventories:
   - aap2_inventory_name: EDA Demo - SCM Inventory
 
@@ -44,9 +59,9 @@ aap2_custom_credentials:
         snow_password: !unsafe '{{ snow_pwd }}'
     name: ServiceNow Credentials
     credential_inputs:
-      snow_url:
-      snow_user:
-      snow_pwd:
+      snow_url: "{{ servicenow_instance_url }}"
+      snow_user: "{{ servicenow_instance_user }}"
+      snow_pwd: "{{ servicenow_instance_password }}"
 
 aap2_templates:
   - aap2_template_name: "[EDA] Insights playbook"
@@ -86,10 +101,7 @@ aap2_projects:
   - name: "EDA Demo"
     scm_url: "https://github.com/kubealex/event-driven-automation.git"
 
-
-eda_controller_url:
-eda_controller_user:
-eda_controller_password:
+####### EDA CONTROLLER VARIABLES ########
 eda_project:
   name: "EDA Demo Project"
   git_url: https://github.com/kubealex/event-driven-automation
