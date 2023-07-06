@@ -4,17 +4,17 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'eda-quarkus-tester/**'
+      - 'eda-podman-demo/eda-quarkus-tester/**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'eda-quarkus-tester/**'
+      - 'eda-podman-demo/eda-quarkus-tester/**'
 
 jobs:
   build:
     name: Build Quarkus application and push image
     env:
-      working-directory: ./eda-quarkus-tester
+      working-directory: ./eda-podman-demo/eda-quarkus-tester
     defaults:
       run:
         working-directory: ${{ env.working-directory }}
@@ -45,7 +45,7 @@ jobs:
         containerfiles: |
           ./${{ env.working-directory }}/src/main/docker/Dockerfile.native-micro
         context: ./${{ env.working-directory }}
-        
+
     - name: Push To quay.io
       id: push-x86
       uses: redhat-actions/push-to-registry@v2

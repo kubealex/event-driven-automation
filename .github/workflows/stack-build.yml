@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'eda-utils/**'
+      - 'eda-podman-demo/eda-utils/**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'eda-utils/**'
+      - 'eda-podman-demo/eda-utils/**'
 
 jobs:
   build-images:
@@ -24,8 +24,8 @@ jobs:
         image: eda-alertmanager
         tags: latest
         containerfiles: |
-          ./eda-utils/Containerfile-alertmanager
-        context: ./eda-utils
+          ./eda-podman-demo/eda-utils/Containerfile-alertmanager
+        context: ./eda-podman-demo/eda-utils
 
     - name: Build Ansible stack image
       id: build-image-ansible
@@ -34,9 +34,9 @@ jobs:
         image: eda-ansible
         tags: latest
         containerfiles: |
-          ./eda-utils/Containerfile-ansible
-        context: ./eda-utils
-        
+          ./eda-podman-demo/eda-utils/Containerfile-ansible
+        context: ./eda-podman-demo/eda-utils
+
     - name: Push To quay.io
       id: push-alertmanager
       uses: redhat-actions/push-to-registry@v2
