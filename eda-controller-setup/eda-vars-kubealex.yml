@@ -1,0 +1,124 @@
+aap2_controller_host: https://controller.rh-lab.labs
+aap2_controller_username: admin
+aap2_controller_password: redhat
+
+eda_controller_url: "https://eda.rh-lab.labs"
+eda_controller_user: "admin"
+eda_controller_password: "redhat"
+
+servicenow_instance_url: https://dev175196.service-now.com/
+servicenow_instance_user: admin
+servicenow_instance_password: "2j+-6hjqNCXC"
+
+###########################################################################################################
+################################## VARIABLES BELOW SHOULD NOT BE CHANGED ##################################
+###########################################################################################################
+
+####### AAP2 CONTROLLER VARIABLES ########
+
+aap2_inventories:
+  - aap2_inventory_name: EDA Demo - SCM Inventory
+
+aap2_inventory_sources:
+  - aap2_inventory_source_name: EDA Demo - SCM Inventory Source
+    aap2_inventory_source_inventory: EDA Demo - SCM Inventory
+    aap2_inventory_source_type: scm
+    aap2_inventory_source_project: "EDA Demo"
+    aap2_inventory_source_path: eda-controller/inventory
+
+aap2_machine_credentials:
+  - name: Linux Credentials
+    username: sysadmin
+    password: redhat
+
+aap2_custom_credentials:
+  - credential_type: ServiceNow Auth
+    credential_type_inputs:
+      fields:
+        - id: snow_url
+          type: string
+          label: "ServiceNow URL"
+          secret: false
+        - id: snow_user
+          type: string
+          label: "ServiceNow username"
+          secret: false
+        - id: snow_pwd
+          type: string
+          label: "ServiceNow password"
+          secret: true
+      required:
+        - snow_url
+        - snow_user
+        - snow_pwd
+    credential_type_injectors:
+      extra_vars:
+        snow_instance: !unsafe '{{ snow_url }}'
+        snow_username: !unsafe '{{ snow_user }}'
+        snow_password: !unsafe '{{ snow_pwd }}'
+    name: ServiceNow Credentials
+    credential_inputs:
+      snow_url: "{{ servicenow_instance_url }}"
+      snow_user: "{{ servicenow_instance_user }}"
+      snow_pwd: "{{ servicenow_instance_password }}"
+
+aap2_templates:
+  - aap2_template_name: "[EDA] Insights playbook"
+    aap2_template_playbook: playbooks/eda-playbook-insights.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Kafka playbook"
+    aap2_template_playbook: playbooks/eda-playbook-kafka.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Webhook playbook"
+    aap2_template_playbook: playbooks/eda-playbook-webhook.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Alertmanager playbook"
+    aap2_template_playbook: playbooks/eda-playbook-alertmanager.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Alertmanager ITSM"
+    aap2_template_playbook: playbooks/eda-playbook-alertmanager-snow.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+    aap2_template_credentials: "ServiceNow Credentials"
+  - aap2_template_name: "[EDA] Insights remediate SSH root login"
+    aap2_template_playbook: playbooks/eda-playbook-insights-fix.yml
+    aap2_template_credentials: "Linux Credentials"
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+
+aap2_projects:
+  - name: "EDA Demo"
+    scm_url: "https://github.com/kubealex/event-driven-automation.git"
+
+
+####### EDA CONTROLLER VARIABLES ########
+eda_project:
+  name: "EDA Demo Project"
+  git_url: https://github.com/kubealex/event-driven-automation
+  description: "Demo project to show EDA in actions"
+eda_decision_env:
+  name: "kubealex-eda"
+  image_url: quay.io/kubealex/eda-decision-env
+
+eda_activations:
+  - name: eda-alertmanager
+    rulebook: eda-rulebook-alertmanager.yml
+  - name: eda-alertmanager-snow
+    rulebook: eda-rulebook-alertmanager-snow.yml
+  - name: eda-kafka
+    rulebook: eda-rulebook-kafka.yml
+    extra_vars: "kafka_host: 192.168.230.1"
+  - name: eda-insights
+    rulebook: eda-rulebook-insights.yml
+  - name: eda-webhook
+    rulebook: eda-rulebook-webhook.yml
