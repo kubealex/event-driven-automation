@@ -2,11 +2,11 @@
 
 Once your setup is in place, you need to generate a token, that will be used by EDA Controller to connect to the Automation Controller. To do so, you can go in the **Users -> admin -> Token** section in the controller and *ADD*  a new token.
 
-![](./assets/aap2_user_token.png)
+![](../assets/aap2_user_token.png)
 
 Save the token and open the EDA Controller URL, go in the **Users -> admin -> Token** section and *Create controller token*
 
-![](./assets/eda_user_token.png)
+![](../assets/eda_user_token.png)
 
 Alternatively, you can use the [configure-controller-token playbook](./eda-controller-setup/configure-controller-token.yml)
 
