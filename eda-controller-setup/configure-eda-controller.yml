@@ -2,7 +2,6 @@
 - name: Playbook to configure EDA controller demo
   hosts: localhost
   vars_files:
-    #- eda-vars.yml
-    - eda-test.yml
+    - eda-vars-kubealex.yml
   roles:
     - role: role_eda_controller_setup
