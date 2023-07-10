@@ -1,2 +1,3 @@
 .quarkus
 .vscode
+eda-controller-setup/eda-vars-kubealex.yml
