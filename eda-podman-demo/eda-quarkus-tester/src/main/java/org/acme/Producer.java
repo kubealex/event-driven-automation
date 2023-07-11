@@ -34,7 +34,7 @@ public class Producer {
     AlertService alertService;
 
     @GET
-    @Path("/kafka/greeting")
+    @Path("/kafka/")
     @Produces(MediaType.APPLICATION_JSON)
     public String sendKafkaEvent() throws JsonProcessingException {
         Event testEvent = new Event("greeting", "Hello from Quarkus");
@@ -45,7 +45,7 @@ public class Producer {
     }
 
     @GET
-    @Path("/webhook/greeting")
+    @Path("/webhook/")
     @Produces(MediaType.APPLICATION_JSON)
     public void sendWebhookEvent() {
         WebhookEvent testEvent = new WebhookEvent("greeting", "Hello from Quarkus", null);
@@ -53,7 +53,7 @@ public class Producer {
     }
 
     @GET
-    @Path("/alertmanager/greeting")
+    @Path("/alertmanager/")
     @Produces(MediaType.APPLICATION_JSON)
     public void sendAlert() throws JsonProcessingException {
         List<Alert> alertList = new ArrayList<>();
