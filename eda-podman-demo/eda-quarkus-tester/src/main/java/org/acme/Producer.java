@@ -13,6 +13,8 @@ import org.acme.alertmanager.service.AlertService;
 import org.acme.model.Event;
 import org.acme.webhook.model.WebhookEvent;
 import org.acme.webhook.service.WebhookService;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -24,13 +26,15 @@ public class Producer {
     WebhookService webhookService;
     @RestClient
     AlertService alertService;
+    @Channel("eda-topic")
+    Emitter<Event> quoteRequestEmitter;
 
     @GET
     @Path("/kafka/")
-    @Outgoing("eda-topic")
     @Produces(MediaType.APPLICATION_JSON)
     public Event sendKafkaEvent() {
         Event testEvent = new Event("greeting", "Hello from Quarkus");
+        quoteRequestEmitter.send(testEvent);
         return testEvent;
     }
 
