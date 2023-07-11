@@ -34,9 +34,9 @@ For demo purposes, we are starting it in interactive mode, so you can follow the
 
 To test the services, you can call the following endpoints, where the Quarkus application is listening and will generate events accordingly:
 
-    curl localhost:8080/alertmanager/greeting
-    curl localhost:8080/webhook/greeting
-    curl localhost:8080/kafka/greeting
+    curl localhost:8080/alertmanager/
+    curl localhost:8080/webhook/
+    curl localhost:8080/kafka/
 
 A sample output after an event is captured by the event listener is below:
 
