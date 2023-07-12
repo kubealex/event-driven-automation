@@ -1,4 +1,4 @@
-package org.acme.model;
+package org.acme.eda.kafka.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

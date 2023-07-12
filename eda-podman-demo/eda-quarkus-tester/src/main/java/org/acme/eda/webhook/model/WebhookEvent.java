@@ -1,6 +1,6 @@
-package org.acme.webhook.model;
+package org.acme.eda.webhook.model;
 
-import org.acme.model.Event;
+import org.acme.eda.kafka.model.Event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

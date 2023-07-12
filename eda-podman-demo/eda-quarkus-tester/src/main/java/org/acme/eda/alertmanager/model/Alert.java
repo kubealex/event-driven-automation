@@ -1,4 +1,4 @@
-package org.acme.alertmanager.model;
+package org.acme.eda.alertmanager.model;
 
 import java.util.LinkedHashMap;
 
