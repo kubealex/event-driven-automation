@@ -13,7 +13,7 @@
       actions:
         - debug:
         - run_job_template:
-            name: "[EDA] Insights remediate SSH root login"
+            name: "[EDA] Insights - Remediate SSH root login"
             organization: Default
             job_args:
               extra_vars:

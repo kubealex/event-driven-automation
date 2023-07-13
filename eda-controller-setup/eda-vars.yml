@@ -14,7 +14,6 @@ servicenow_instance_password:
 ################################## VARIABLES BELOW SHOULD NOT BE CHANGED ##################################
 ###########################################################################################################
 
-
 ####### AAP2 CONTROLLER VARIABLES ########
 
 aap2_inventories:
@@ -54,9 +53,9 @@ aap2_custom_credentials:
         - snow_pwd
     credential_type_injectors:
       extra_vars:
-        snow_instance: !unsafe '{{ snow_url }}'
-        snow_username: !unsafe '{{ snow_user }}'
-        snow_password: !unsafe '{{ snow_pwd }}'
+        snow_instance: !unsafe "{{ snow_url }}"
+        snow_username: !unsafe "{{ snow_user }}"
+        snow_password: !unsafe "{{ snow_pwd }}"
     name: ServiceNow Credentials
     credential_inputs:
       snow_url: "{{ servicenow_instance_url }}"
@@ -90,11 +89,17 @@ aap2_templates:
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
     aap2_template_credentials: "ServiceNow Credentials"
-  - aap2_template_name: "[EDA] Insights remediate SSH root login"
+  - aap2_template_name: "[EDA] Insights - Remediate SSH root login"
     aap2_template_playbook: playbooks/eda-playbook-insights-fix.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Insights - Generate recommendation"
+    aap2_template_playbook: playbooks/eda-playbook-insights-break.yml
+    aap2_template_credentials: "Linux Credentials"
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
 
 aap2_projects:
