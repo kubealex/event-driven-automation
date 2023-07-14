@@ -73,4 +73,3 @@ You can use the following cURL command to trigger a **Alertmanager** automation:
 A script in the [tests/kafka directory](./tests/kafka/) allows to connect to a *--host* (defaults to localhost) on port 9092 and send a test message to trigger automation
 
     python3 tests/kafka/kafka-sender.py --host MY_KAFKA_HOST
-
