@@ -2,3 +2,5 @@ localhost ansible_connection=local
 
 [rhel_vms]
 rhel9-vm.rh-lab.labs
+rhel9-vm-demo.rh-lab.labs
+rhel9-ocp.rh-lab.labs
