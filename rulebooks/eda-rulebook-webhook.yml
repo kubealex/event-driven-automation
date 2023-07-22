@@ -21,9 +21,14 @@
         - set_fact:
             fact:
               webhookgreeting: "{{ event.payload.message }}"
-              
-    - name: EDA | Webhook | OCP Virt 
+
+    - name: EDA | Webhook | OCP Virt
       condition: event.payload.source == 'ocpvirt'
       actions:
-        - debug: 
-
+        - debug:
+        - run_job_template:
+            name: "[Linux] Configure PCP on VM"
+            organization: Default
+            job_args:
+              extra_vars:
+                target_hosts: "{{ event.payload.instanceName }}"
