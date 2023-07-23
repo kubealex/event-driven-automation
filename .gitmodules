@@ -1,0 +1,3 @@
+[submodule "eda-podman-demo"]
+	path = eda-podman-demo
+	url = https://github.com/kubealex/eda-podman-demo.git
