@@ -1,7 +1,0 @@
----
-- name: Greeting playbook for webhook events
-  hosts: localhost
-  tasks:
-    - name: Debug message
-      ansible.builtin.debug:
-        msg: "{{ ansible_eda.event.payload.message }}"
