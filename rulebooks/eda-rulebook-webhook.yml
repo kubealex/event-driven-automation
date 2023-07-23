@@ -27,6 +27,12 @@
       actions:
         - debug:
         - run_job_template:
+            name: "[Linux] Register RH VM"
+            organization: Default
+            job_args:
+              extra_vars:
+                target_hosts: "{{ event.payload.instanceName }}"
+        - run_job_template:
             name: "[Linux] Configure PCP on VM"
             organization: Default
             job_args:
