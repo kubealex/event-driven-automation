@@ -24,7 +24,7 @@ aap2_inventory_sources:
     aap2_inventory_source_inventory: EDA Demo - SCM Inventory
     aap2_inventory_source_type: scm
     aap2_inventory_source_project: "EDA Demo"
-    aap2_inventory_source_path: eda-controller/inventory
+    aap2_inventory_source_path: inventory
 
 aap2_machine_credentials:
   - name: Linux Credentials
