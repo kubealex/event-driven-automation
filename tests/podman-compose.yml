@@ -25,6 +25,7 @@ services:
       KAFKA_CFG_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_CFG_LISTENERS: "PLAINTEXT://:9092"
       ALLOW_PLAINTEXT_LISTENER: true
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://<ADVERTISED_HOST/IP>:<PORT>"
       KAFKA_ENABLE_KRAFT: false
     depends_on:
       - zookeeper

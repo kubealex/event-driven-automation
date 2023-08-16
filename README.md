@@ -14,7 +14,7 @@ This section handles configuration and preparation to showcase Event Driven Auto
 
 First you need to [install Ansible Automation Platform](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html/red_hat_ansible_automation_platform_installation_guide).
 
-In the [eda-controller-setup directory](./eda-controller-setup/) you will find some useful playbooks to create all necessary resources in the platform to showcase the use cases.
+In the [eda-demo-setup directory](./eda-demo-setup/) you will find some useful playbooks to create all necessary resources in the platform to showcase the use cases.
 
 ## Requirements
 
@@ -36,14 +36,15 @@ The AlertManager and Kafka use cases require a working configuration for them, y
 
 This will spin a Kafka and AlertManager instance running on the host and listening to all interfaces. Tune up the settings based on your needs.
 
-
 **!!! IMPORTANT !!!**
-The kafka rulebook expects a hostname called **kafka** to be resolved, edit your */etc/hosts* file accordingly to match this requirement or change the rulebook host (or set it to a variable in the rulebook activation)
 
+The kafka rulebook expects an advertised listener matching the one you will configure in the playbook. Please tune up the Podman compose file to replace _KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://<ADVERTISED_HOST/IP>:<PORT>"_ field to match your setup.
 
 ### Service Now Instance
 
 One of the use cases include using a [Service Now instance](https://developer.servicenow.com/), you can easily sign-up and get one.
+
+To playbooks in [the configuration folder](./eda-demo-setup/) already have the needed bits to configure credentials and variables to match your instance details.
 
 ## Running the Demo
 
@@ -53,7 +54,7 @@ After the configuration, this is the finalized setup:
 
 ![](./assets/aap2_templates.png)
 
-###  Testing the webhook integration
+### Testing the webhook integration
 
 You can use the following cURL command to trigger a **webhook** automation:
 
@@ -67,6 +68,6 @@ You can use the following cURL command to trigger a **Alertmanager** automation:
 
 ### Testing the Kafka integration
 
-A script in the [tests/kafka directory](./tests/kafka/) allows to connect to a *--host* (defaults to localhost) on port 9092 and send a test message to trigger automation
+A script in the [tests/kafka directory](./tests/kafka/) allows to connect to a _--host_ (defaults to localhost) on port 9092 and send a test message to trigger automation
 
     python3 tests/kafka/kafka-sender.py --host MY_KAFKA_HOST

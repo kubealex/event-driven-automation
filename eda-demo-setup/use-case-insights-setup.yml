@@ -1,0 +1,56 @@
+###########################################################################################################
+################################## VARIABLES BELOW SHOULD NOT BE CHANGED ##################################
+###########################################################################################################
+
+####### AAP2 CONTROLLER VARIABLES ########
+
+aap2_inventories:
+  - aap2_inventory_name: EDA Demo - SCM Inventory
+
+aap2_inventory_sources:
+  - aap2_inventory_source_name: EDA Demo - SCM Inventory Source
+    aap2_inventory_source_inventory: EDA Demo - SCM Inventory
+    aap2_inventory_source_type: scm
+    aap2_inventory_source_project: "EDA Demo"
+    aap2_inventory_source_path: inventory
+
+aap2_machine_credentials:
+  - name: Linux Credentials
+    username: sysadmin
+    password: redhat
+
+aap2_templates:
+  - aap2_template_name: "[EDA] Insights playbook"
+    aap2_template_playbook: playbooks/eda-playbook-insights.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Insights - Remediate SSH root login"
+    aap2_template_playbook: playbooks/eda-playbook-insights-fix.yml
+    aap2_template_credentials: "Linux Credentials"
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Insights - Generate recommendation"
+    aap2_template_playbook: playbooks/eda-playbook-insights-break.yml
+    aap2_template_credentials: "Linux Credentials"
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: false
+    aap2_template_project: EDA Demo
+
+aap2_projects:
+  - name: "EDA Demo"
+    scm_url: "https://github.com/kubealex/event-driven-automation.git"
+
+####### EDA CONTROLLER VARIABLES ########
+eda_project:
+  name: "EDA Demo Project"
+  git_url: https://github.com/kubealex/event-driven-automation
+  description: "Demo project to show EDA in action"
+eda_decision_env:
+  name: "kubealex-eda"
+  image_url: quay.io/kubealex/eda-decision-env
+
+eda_activations:
+  - name: eda-insights
+    rulebook: eda-rulebook-insights.yml

@@ -1,0 +1,6 @@
+---
+collections:
+  - ansible.controller
+  - community.general
+  - kubealex.eda
+  - kubealex.general

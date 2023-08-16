@@ -2,11 +2,11 @@
 - name: Playbook for configuring token exchange
   hosts: localhost
   vars_files:
-    - eda-vars.yml
+    - common_vars.yml
   tasks:
     - name: Create a new token using username/password
       ansible.controller.token:
-        description: '{{ token_description }}'
+        description: "{{ token_description }}"
         scope: "write"
         state: present
         controller_host: "{{ aap2_controller_host }}"

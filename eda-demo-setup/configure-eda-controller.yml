@@ -2,6 +2,6 @@
 - name: Playbook to configure EDA controller demo
   hosts: localhost
   vars_files:
-    - eda-vars.yml
+    - common_vars.yml
   roles:
-    - role: role_eda_controller_setup
+    - role: kubealex.eda.role_eda_controller_setup
