@@ -5,3 +5,9 @@ aap2_controller_password:
 eda_controller_url:
 eda_controller_user:
 eda_controller_password:
+
+servicenow_instance_url:
+servicenow_instance_user:
+servicenow_instance_password:
+
+kafka_advertised_listener:

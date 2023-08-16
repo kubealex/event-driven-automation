@@ -1,6 +1,6 @@
 # General configuration variables
 
-The file [common_vars.yml](./common_vars.yml) contains the common variables for configuring the use cases and token exchange:
+The file [common_vars.yml](./vars/common_vars.yml) contains the common variables for configuring the use cases and token exchange:
 
     aap2_controller_host:
     aap2_controller_username:
@@ -9,6 +9,14 @@ The file [common_vars.yml](./common_vars.yml) contains the common variables for 
     eda_controller_url:
     eda_controller_user:
     eda_controller_password:
+
+    servicenow_instance_url:
+    servicenow_instance_user:
+    servicenow_instance_password:
+
+    kafka_advertised_listener:
+
+Not all of those are required for the use cases, but some of them (i.e. the alertmanager-snow integration, requires the **servicenow_instance** vars)
 
 ## Automation controller setup
 
@@ -34,11 +42,11 @@ First, install the requirements:
 
 Each use case utilizes different variables to setup the EDA Controller and AAP Controller and create the respective projects, credentials, and all needed resources.
 
-In this folder you will find all the variables files named this way:
+In [the *use-cases*folder](./use-cases) you will find all the variables files named this way:
 
     use-case-*-setup.yml
 
-Each use case will define additional variables that are needed for the configuration, like credentials and/or endpoints.
+Each use case will require additional variables that are needed for the configuration, like credentials and/or endpoints.
 
 Example for Service Now integration:
 
@@ -50,11 +58,12 @@ Example for Kafka integration:
 
     kafka_advertised_listener:
 
-There is also a general file [use-case-full-setup.yml file](./use-case-full-setup.yml) to configure all of them at once.
+There is also a general file [use-case-full-setup.yml file](./vars/use-case-full-setup.yml) to configure all of them at once.
 
 These variables will be used to configure both the AAP2 Controller and the EDA Controller.
 
-You can then run the two playbooks to complete the configuration, passing the right configuration file during execution:
+You can then run the two playbooks to complete the configuration, passing the right configuration file during execution.
 
-    ansible-playbook configure-aap-controller.yml -e @variable-file.yml
-    ansible-playbook configure-eda-controller.yml -e @variable-file.yml
+For kafka, you cna
+
+    ansible-playbook configure-use-case -e @use-cases/use-case-kafka-setup.yml

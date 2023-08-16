@@ -2,7 +2,7 @@
 - name: Playbook for configuring token exchange
   hosts: localhost
   vars_files:
-    - common_vars.yml
+    - vars/common_vars.yml
   tasks:
     - name: Create a new token using username/password
       ansible.controller.token:

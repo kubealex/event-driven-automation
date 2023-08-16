@@ -1,0 +1,3 @@
+---
+- import_playbook: configure-aap-controller.yml
+- import_playbook: configure-eda-controller.yml
