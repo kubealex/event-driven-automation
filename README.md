@@ -46,6 +46,15 @@ One of the use cases include using a [Service Now instance](https://developer.se
 
 To playbooks in [the configuration folder](./eda-demo-setup/) already have the needed bits to configure credentials and variables to match your instance details.
 
+### Dynatrace integration
+
+The use cases contain a Dynatrace integration.
+To configure the integrations, ensure you use your API URL and API Token configured with the following permissions in the [dynatrace rulebook](./eda-ansible/eda-rulebook-dynatrace.yml):
+
+- Read/Write problems
+- Read/Write configuration
+- Access problem and event feed, metrics, and topology
+
 ## Running the Demo
 
 After the configuration, this is the finalized setup:

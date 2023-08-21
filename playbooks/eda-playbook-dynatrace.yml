@@ -1,0 +1,12 @@
+- name: Dynatrace | Listen and react to events
+  hosts: localhost
+  tasks:
+    - name: Dynatrace | Sample listener
+      ansible.builtin.debug:
+        msg:
+          - "Problem detected on Dynatrace - Details:"
+          - Impact level: {{ dynatrace_problem_impact_level }}
+          - Problem Id: {{ dynatrace_problem_id }}
+          - Problem Title: {{ dynatrace_problem_title }}
+          - Problem Root Cause: {{ dynatrace_problem_root_cause }}
+          - Problem Status: {{ dynatrace_problem_status }}"
