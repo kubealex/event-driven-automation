@@ -32,7 +32,7 @@ You can use [ngrok](https://ngrok.com/) to set-up a temporary public address to 
 
 ### Middleware
 
-The AlertManager and Kafka use cases require a working configuration for them, you can spin up a quick environment using the [podman-compose](./tests/podman-compose.yml) file in the **tests** directory.
+The AlertManager and Kafka use cases require a working configuration for them, you can spin up a quick environment using the [podman-compose](./utilspodman-compose.yml) file in the **tests** directory.
 
 This will spin a Kafka and AlertManager instance running on the host and listening to all interfaces. Tune up the settings based on your needs.
 
@@ -77,6 +77,6 @@ You can use the following cURL command to trigger a **Alertmanager** automation:
 
 ### Testing the Kafka integration
 
-A script in the [tests/kafka directory](./tests/kafka/) allows to connect to a _--host_ (defaults to localhost) on port 9092 and send a test message to trigger automation
+A script in the [utilskafka directory](./utilskafka/) allows to connect to a _--host_ (defaults to localhost) on port 9092 and send a test message to trigger automation
 
-    python3 tests/kafka/kafka-sender.py --host MY_KAFKA_HOST
+    python3 utilskafka/kafka-sender.py --host MY_KAFKA_HOST

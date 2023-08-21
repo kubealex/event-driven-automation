@@ -11,3 +11,6 @@ servicenow_instance_user:
 servicenow_instance_password:
 
 kafka_advertised_listener:
+
+dynatrace_api_url:
+dynatrace_api_key:

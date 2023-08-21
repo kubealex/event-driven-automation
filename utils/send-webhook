@@ -1,0 +1,1 @@
+curl -X POST http://EDA_HOSTNAME -d '{"name":"greeting","message":"hello"}'

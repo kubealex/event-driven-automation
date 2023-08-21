@@ -19,13 +19,13 @@
               extra_vars:
                 insights_recommendation: "{{ event.payload.events.0.payload.rule_id }}"
 
-    - name: EDA | Insights | Detect remediation
-      condition: event.payload is defined # .event_type == "resolved-recommendation"
+    - name: EDA | Insights | Simple type report
+      condition: event.payload is defined
       actions:
         - debug:
-        # - run_job_template:
-        #     name: "[EDA] Insights remediate SSH root login"
-        #     organization: Default
-        #     job_args:
-        #       extra_vars:
-        #         insights_recommendation: "{{ event.payload.events.0.payload.rule_id }}"
+        - run_job_template:
+            name: "[EDA] Insights playbook"
+            organization: Default
+            job_args:
+              extra_vars:
+                insights_event_type: "{{ event.payload.events.0.payload.event_type }}"

@@ -15,11 +15,13 @@ aap2_inventory_sources:
     aap2_inventory_source_path: inventory
 
 aap2_templates:
-  - aap2_template_name: "[EDA] Alertmanager playbook"
-    aap2_template_playbook: playbooks/eda-playbook-alertmanager.yml
-    aap2_template_inventory: EDA Demo - SCM Inventory
+  - aap2_template_name: "[EDA] Dynatrace playbook"
+    aap2_template_playbook: eda-playbooks/eda-playbook-dynatrace.yml
     aap2_template_ask_vars: true
-    aap2_template_project: EDA Demo
+    aap2_template_credentials:
+      - AAP2 Demo - ServiceNow Credentials
+    aap2_template_inventory: AAP2 Demo - SCM Inventory
+    aap2_template_project: AAP2 Demo
 
 aap2_projects:
   - name: "EDA Demo"
@@ -36,5 +38,6 @@ eda_decision_env:
   image_url: quay.io/kubealex/eda-decision-env
 
 eda_activations:
-  - name: eda-alertmanager
-    rulebook: eda-rulebook-alertmanager.yml
+  - name: eda-alertmanager-snow
+    rulebook: eda-rulebook-dynatrace-snow.yml
+    extra_vars: "dynatrace_api_url: {{ dynatrace_api_url }}\ndynatrace_api_token: {{ dynatrace_api_token }}"

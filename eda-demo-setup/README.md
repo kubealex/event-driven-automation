@@ -16,6 +16,9 @@ The file [common_vars.yml](./vars/common_vars.yml) contains the common variables
 
     kafka_advertised_listener:
 
+    dynatrace_api_url:
+    dynatrace_api_token:
+
 Not all of those are required for the use cases, but some of them (i.e. the alertmanager-snow integration, requires the **servicenow_instance** vars)
 
 ## Automation controller setup
@@ -48,15 +51,20 @@ In [the *use-cases*folder](./use-cases) you will find all the variables files na
 
 Each use case will require additional variables that are needed for the configuration, like credentials and/or endpoints.
 
-Example for Service Now integration:
+Example for **Service Now** integration:
 
     servicenow_instance_url:
     servicenow_instance_user:
     servicenow_instance_password:
 
-Example for Kafka integration:
+Example for **Kafka** integration:
 
     kafka_advertised_listener:
+
+Example for **Dynatrace** integration:
+
+    dynatrace_api_url:
+    dynatrace_api_token:
 
 There is also a general file [use-case-full-setup.yml file](./vars/use-case-full-setup.yml) to configure all of them at once.
 
@@ -66,4 +74,4 @@ You can then run the two playbooks to complete the configuration, passing the ri
 
 For kafka, you cna
 
-    ansible-playbook configure-use-case -e @use-cases/use-case-kafka-setup.yml
+    ansible-playbook configure-use-case.yml -e @use-cases/use-case-kafka-setup.yml

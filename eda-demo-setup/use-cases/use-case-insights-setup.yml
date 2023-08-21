@@ -47,6 +47,7 @@ eda_project:
   name: "EDA Demo Project"
   git_url: https://github.com/kubealex/event-driven-automation
   description: "Demo project to show EDA in action"
+
 eda_decision_env:
   name: "kubealex-eda"
   image_url: quay.io/kubealex/eda-decision-env
