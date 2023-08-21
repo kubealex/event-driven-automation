@@ -16,7 +16,7 @@
             job_args:
               extra_vars:
                 dynatrace_problem_impact_level: "{{ event.impactLevel }}"
-                dynatrace_problem_id: "{{ event.problemId }}"
+                dynatrace_problem_id: "{{ event.displayId }}"
                 dynatrace_problem_root_cause: "{{ event.rootCauseEntity }}"
                 dynatrace_problem_status: "{{ event.status }}"
                 dynatrace_problem_title: "{{ event.title }}"
