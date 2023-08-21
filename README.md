@@ -14,11 +14,11 @@ This section handles configuration and preparation to showcase Event Driven Auto
 
 The following use cases are available for testing and/or contributions:
 
-[AlertManager integration](./assets/use-cases/alertmanager.md) - Also with Service Now
-[Dynatrace integration](./assets/use-cases/dynatrace.md) - Also with Service Now
-[Insights integration](./assets/use-cases/insights.md) - Also with Service Now
-[Webhook integration](./assets/use-cases/webook.md)
-[Kafka integration](./assets/use-cases/kafka.md)
+- [AlertManager integration](./assets/use-cases/alertmanager.md) - Also with Service Now
+- [Dynatrace integration](./assets/use-cases/dynatrace.md) - Also with Service Now
+- [Insights integration](./assets/use-cases/insights.md) - Also with Service Now
+- [Webhook integration](./assets/use-cases/webook.md)
+- [Kafka integration](./assets/use-cases/kafka.md)
 
 ## AAP2 configuration
 
