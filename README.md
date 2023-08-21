@@ -10,6 +10,16 @@ To try the containerized version, go in the [EDA Containerized Demo folder](./ed
 
 This section handles configuration and preparation to showcase Event Driven Automation leveraging the EDA Controller component in Red Hat Ansible Automation Platform 2.4.
 
+## Use cases
+
+The following use cases are available for testing and/or contributions:
+
+[AlertManager integration](./assets/use-cases/alertmanager.md) - Also with Service Now
+[Dynatrace integration](./assets/use-cases/dynatrace.md) - Also with Service Now
+[Insights integration](./assets/use-cases/insights.md) - Also with Service Now
+[Webhook integration](./assets/use-cases/webook.md)
+[Kafka integration](./assets/use-cases/kafka.md)
+
 ## AAP2 configuration
 
 First you need to [install Ansible Automation Platform](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html/red_hat_ansible_automation_platform_installation_guide).
