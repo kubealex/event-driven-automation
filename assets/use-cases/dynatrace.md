@@ -12,22 +12,25 @@ The simpler way to generate a fake problem is to generate an [HTTP Monitor in Sy
 
 In this use case we will generate a Problem on Dynatrace and gather the information using the integration.
 
-This will trigger a problem and EDA will convert the problem event to consumable information.
+This will trigger a problem and EDA will convert the problem event to consumable information or a Service Now Incident.
 
 ### Configuration
 
-Configure the **dynatrace_api_url** and **dynatrace_api_token** variables in [the common variables file](../../eda-demo-setup/vars/common_vars.yml)
+Configure the following variables in [the common variables file](../../eda-demo-setup/vars/common_vars.yml)
+
+    dynatrace_api_url:
+    dynatrace_api_token:
+
+and run:
 
     ansible-playbook configure-use-case.yml -e @use-cases/use-case-dynatrace-setup.yml
 
-## Dynatrace integration with Service Now
+To integrate with Service Now, fill the following vars in [common_vars.yml file](./vars/common_vars.yml)
 
-In this use case we will generate a Problem on Dynatrace and raise an Incident on Service Now based on the gathered information.
+    servicenow_instance_url:
+    servicenow_instance_user:
+    servicenow_instance_password:
 
-This will trigger a problem and EDA will convert the problem event to consumable information.
-
-### Configuration
-
-Configure the **dynatrace_api_url** and **dynatrace_api_token** variables in [the common variables file](../../eda-demo-setup/vars/common_vars.yml)
+and run:
 
     ansible-playbook configure-use-case.yml -e @use-cases/use-case-dynatrace-snow-setup.yml

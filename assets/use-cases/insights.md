@@ -46,6 +46,16 @@ The EDA rulebook detects a malware event and reports information in a Service No
 
 In order to run these use cases, setup scripts [are available here](../../eda-demo-setup/):
 
+    ansible-playbook configure-use-case.yml -e @use-cases/use-case-insights-setup.yml
+
+or, with Service Now integration, fill the following vars in [common_vars.yml file](./vars/common_vars.yml)
+
+    servicenow_instance_url:
+    servicenow_instance_user:
+    servicenow_instance_password:
+
+and run:
+
     ansible-playbook configure-use-case.yml -e @use-cases/use-case-insights-snow-setup.yml
 
 On AAP Controller, it will create a Job Template called **"[EDA] Insights - Configure Malware Detection"** that you can use to configure malware detection with Insights and another job template, **"[EDA] Insights - Trigger Malware"** that you can run against your machine to trigger malwared detection, and wait a few seconds before the event is triggered and handled.

@@ -6,7 +6,7 @@ The endpoint will be reachable at _http://EDA_HOSTNAME:5000_ and EDA_HOSTNAME sh
 
 ## Kafka integration
 
-In this use case, to simulate a basic event you can [use the following script](../../utilssend-webhook) replacing **EDA_HOSTNAME** with your actual hostname/IP of the EDA Controller.
+In this use case, to simulate a basic event you can [use the following script](../../utils/send-webhook) replacing **EDA_HOSTNAME** with your actual hostname/IP of the EDA Controller.
 
 It generates a simple event, that will trigger a Job Template on AAP2, showing the information.
 
@@ -18,6 +18,6 @@ In order to run these use cases, setup scripts [are available here](../../eda-de
 
 To generate an event:
 
-    ./utilssend-webhook
+    ./utils/send-webhook
 
 This will trigger a simple playbook that will greet the user.

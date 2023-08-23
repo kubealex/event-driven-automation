@@ -19,12 +19,64 @@ aap2_machine_credentials:
     username: sysadmin
     password: redhat
 
+aap2_custom_credentials:
+  - credential_type: ServiceNow Auth
+    credential_type_inputs:
+      fields:
+        - id: snow_url
+          type: string
+          label: "ServiceNow URL"
+          secret: false
+        - id: snow_user
+          type: string
+          label: "ServiceNow username"
+          secret: false
+        - id: snow_pwd
+          type: string
+          label: "ServiceNow password"
+          secret: true
+      required:
+        - snow_url
+        - snow_user
+        - snow_pwd
+    credential_type_injectors:
+      extra_vars:
+        snow_instance: !unsafe "{{ snow_url }}"
+        snow_username: !unsafe "{{ snow_user }}"
+        snow_password: !unsafe "{{ snow_pwd }}"
+    name: ServiceNow Credentials
+    credential_inputs:
+      snow_url: "{{ servicenow_instance_url }}"
+      snow_user: "{{ servicenow_instance_user }}"
+      snow_pwd: "{{ servicenow_instance_password }}"
+
 aap2_templates:
   - aap2_template_name: "[EDA] Insights playbook"
     aap2_template_playbook: playbooks/eda-playbook-insights.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Kafka playbook"
+    aap2_template_playbook: playbooks/eda-playbook-kafka.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Webhook playbook"
+    aap2_template_playbook: playbooks/eda-playbook-webhook.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Alertmanager playbook"
+    aap2_template_playbook: playbooks/eda-playbook-alertmanager.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Alertmanager ITSM"
+    aap2_template_playbook: playbooks/eda-playbook-alertmanager-snow.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+    aap2_template_credentials: "ServiceNow Credentials"
   - aap2_template_name: "[EDA] Insights - Remediate SSH root login"
     aap2_template_playbook: playbooks/eda-playbook-insights-recommendation-fix.yml
     aap2_template_credentials: "Linux Credentials"
@@ -37,6 +89,20 @@ aap2_templates:
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Dynatrace playbook"
+    aap2_template_playbook: eda-playbooks/eda-playbook-dynatrace.yml
+    aap2_template_ask_vars: true
+    aap2_template_credentials:
+      - AAP2 Demo - ServiceNow Credentials
+    aap2_template_inventory: AAP2 Demo - SCM Inventory
+    aap2_template_project: AAP2 Demo
+  - aap2_template_name: "[EDA] Dynatrace - Open SNOW incident for problem"
+    aap2_template_playbook: eda-playbooks/eda-playbook-dynatrace-snow.yml
+    aap2_template_ask_vars: true
+    aap2_template_credentials:
+      - AAP2 Demo - ServiceNow Credentials
+    aap2_template_inventory: AAP2 Demo - SCM Inventory
+    aap2_template_project: AAP2 Demo
   - aap2_template_name: "[EDA] Insights - Configure Malware Detection"
     aap2_template_playbook: playbooks/eda-playbook-insights-malware-configuration.yml
     aap2_template_credentials: "Linux Credentials"
@@ -65,12 +131,20 @@ aap2_projects:
 eda_project:
   name: "EDA Demo Project"
   git_url: https://github.com/kubealex/event-driven-automation
-  description: "Demo project to show EDA in action"
-
+  description: "Demo project to show EDA in actions"
 eda_decision_env:
   name: "kubealex-eda"
   image_url: quay.io/kubealex/eda-decision-env
 
 eda_activations:
+  - name: eda-alertmanager
+    rulebook: eda-rulebook-alertmanager-snow.yml
+  - name: eda-dynatrace
+    rulebook: eda-rulebook-dynatrace-snow.yml
+    extra_vars: "dynatrace_api_url: {{ dynatrace_api_url }}\ndynatrace_api_token: {{ dynatrace_api_token }}"
   - name: eda-insights
     rulebook: eda-rulebook-insights-snow.yml
+  - name: eda-kafka
+    rulebook: eda-rulebook-kafka.yml
+  - name: eda-webhook
+    rulebook: eda-rulebook-webhook.yml

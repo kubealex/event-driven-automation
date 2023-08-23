@@ -66,7 +66,7 @@ Example for **Dynatrace** integration:
     dynatrace_api_url:
     dynatrace_api_token:
 
-There is also a general file [use-case-full-setup.yml file](./vars/use-case-full-setup.yml) to configure all of them at once.
+There are also two general files, [use-case-full-setup.yml file](./vars/use-case-full-setup.yml) and [use-case-full-snow-setup.yml file](./vars/use-case-full-snow-setup.yml) to configure all of them at once, with or without Service Now integration
 
 These variables will be used to configure both the AAP2 Controller and the EDA Controller.
 

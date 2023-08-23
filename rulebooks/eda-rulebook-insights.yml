@@ -19,6 +19,19 @@
               extra_vars:
                 insights_recommendation: "{{ event.payload.events.0.payload.rule_id }}"
 
+    - name: EDA | Insights | Detect and handle malware event from Insights
+      condition: event.payload.event_type == "detected-malware"
+      actions:
+        - debug:
+        - run_job_template:
+            name: "[EDA] Insights - Report Malware"
+            organization: Default
+            job_args:
+              extra_vars:
+                insights_malware: "{{ event.payload.events }}"
+                insights_malware_context: "{{ event.payload.context }}"
+                target_hosts: "{{ event.payload.context.display_name }}"
+
     - name: EDA | Insights | Simple type report
       condition: event.payload is defined
       actions:
