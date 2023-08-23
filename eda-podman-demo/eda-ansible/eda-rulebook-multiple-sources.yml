@@ -1,0 +1,70 @@
+---
+- name: Listen for events on multiple sources (Kafka, Webhook, AlertManager)
+  hosts: all
+
+  sources:
+    - ansible.eda.kafka:
+        host: kafka
+        port: 9092
+        topic: eda-topic
+
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+
+    - name: Enable AlertManager listener
+      ansible.eda.alertmanager:
+        host: 0.0.0.0
+        port: 5001
+
+    - redhatinsights.eda.insights:
+        host: 0.0.0.0
+        port: 5002
+        token: redhatinsightstoken
+
+    - dynatrace.event_driven_ansible.dt_esa_api:
+        dt_api_host: "<YOUR_TENANT_API>"
+        dt_api_token: "<YOUR_TENANT_API_TOKEN>"
+        delay: 60
+
+  rules:
+    - name: Dynatrace | Sample listener
+      condition: event.problemTitle is defined or event.status is defined
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-dynatrace.yml
+            extra_vars:
+              dynatrace_problem_impact_level: "{{ event.impactLevel }}"
+              dynatrace_problem_id: "{{ event.problemId }}"
+              dynatrace_problem_root_cause: "{{ event.rootCauseEntity }}"
+              dynatrace_problem_status: "{{ event.status }}"
+              dynatrace_problem_title: "{{ event.title }}"
+
+    - name: Run playbook to greet our Kafka peers
+      condition: event.body.name == "greeting"
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-kafka.yml
+
+    - name: Run playbook to greet our webhook callers
+      condition: event.payload.name == "greeting"
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-webhook.yml
+
+    - name: Let Ansible print information about the alert
+      condition: event.payload.status == "firing" or event.payload.status == "resolved"
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-alertmanager.yml
+
+    - name: Run playbook to greet our Insights peer
+      condition: event.payload.account_id is defined
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-insights.yml

@@ -78,13 +78,13 @@ aap2_templates:
     aap2_template_project: EDA Demo
     aap2_template_credentials: "ServiceNow Credentials"
   - aap2_template_name: "[EDA] Insights - Remediate SSH root login"
-    aap2_template_playbook: playbooks/eda-playbook-insights-fix.yml
+    aap2_template_playbook: playbooks/eda-playbook-insights-recommendation-fix.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Generate recommendation"
-    aap2_template_playbook: playbooks/eda-playbook-insights-break.yml
+    aap2_template_playbook: playbooks/eda-playbook-insights-recommendation-trigger.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
@@ -103,6 +103,25 @@ aap2_templates:
       - AAP2 Demo - ServiceNow Credentials
     aap2_template_inventory: AAP2 Demo - SCM Inventory
     aap2_template_project: AAP2 Demo
+  - aap2_template_name: "[EDA] Insights - Configure Malware Detection"
+    aap2_template_playbook: playbooks/eda-playbook-insights-malware-configuration.yml
+    aap2_template_credentials: "Linux Credentials"
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: false
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Insights - Trigger Malware"
+    aap2_template_playbook: playbooks/eda-playbook-insights-malware-trigger.yml
+    aap2_template_credentials: "Linux Credentials"
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: false
+    aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Insights - Handle Malware"
+    aap2_template_playbook: playbooks/eda-playbook-insights-malware-fix.yml
+    aap2_template_credentials:
+      - AAP2 Demo - ServiceNow Credentials
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
 
 aap2_projects:
   - name: "EDA Demo"
@@ -122,15 +141,17 @@ eda_activations:
     rulebook: eda-rulebook-alertmanager.yml
   - name: eda-alertmanager-snow
     rulebook: eda-rulebook-alertmanager-snow.yml
-  - name: eda-kafka
-    rulebook: eda-rulebook-kafka.yml
-  - name: eda-insights
-    rulebook: eda-rulebook-insights.yml
-  - name: eda-webhook
-    rulebook: eda-rulebook-webhook.yml
   - name: eda-dynatrace
     rulebook: eda-rulebook-dynatrace.yml
     extra_vars: "dynatrace_api_url: {{ dynatrace_api_url }}\ndynatrace_api_token: {{ dynatrace_api_token }}"
   - name: eda-dynatrace-snow
     rulebook: eda-rulebook-dynatrace-snow.yml
     extra_vars: "dynatrace_api_url: {{ dynatrace_api_url }}\ndynatrace_api_token: {{ dynatrace_api_token }}"
+  - name: eda-insights
+    rulebook: eda-rulebook-insights.yml
+  - name: eda-insights-snow
+    rulebook: eda-rulebook-insights-snow.yml
+  - name: eda-kafka
+    rulebook: eda-rulebook-kafka.yml
+  - name: eda-webhook
+    rulebook: eda-rulebook-webhook.yml

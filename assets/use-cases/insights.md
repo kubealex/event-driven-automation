@@ -31,3 +31,23 @@ In order to run these use cases, setup scripts [are available here](../../eda-de
 On AAP Controller, it will create a Job Template called **[EDA] Insights - Generate recommendation** that you can run against your machine to generate the recommendation, and wait a few seconds before the event is triggered and handled.
 
 EDA Controller will then run a Job Template to remediate the recommendation and you will receive soon the resolution notification.
+
+## Malware detection and reporting
+
+The setup will configure a job template on AAP to simulate malware on a RHEL machine, named
+The EDA rulebook detects a malware event and reports information in a Service Now Incident for further investigation.
+
+- have a RHEL Machine up and running
+- a service user with sudo privileges on the machine with **sysadmin/redhat** credentials
+- [edit the inventory accordingly](../../inventory)
+- a [Service Now instance](https://developer.servicenow.com/)
+
+### Configuration
+
+In order to run these use cases, setup scripts [are available here](../../eda-demo-setup/):
+
+    ansible-playbook configure-use-case.yml -e @use-cases/use-case-insights-snow-setup.yml
+
+On AAP Controller, it will create a Job Template called **"[EDA] Insights - Configure Malware Detection"** that you can use to configure malware detection with Insights and another job template, **"[EDA] Insights - Trigger Malware"** that you can run against your machine to trigger malwared detection, and wait a few seconds before the event is triggered and handled.
+
+EDA Controller will then run a Job Template to store the information about the malware in a Service Now incident

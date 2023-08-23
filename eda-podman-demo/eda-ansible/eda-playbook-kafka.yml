@@ -1,0 +1,7 @@
+---
+- name: Greeting playbook for Kafka events
+  hosts: localhost
+  tasks:
+    - name: Debug message
+      ansible.builtin.debug:
+        msg: "{{ ansible_eda.event.body.message }}"

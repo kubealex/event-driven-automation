@@ -4,7 +4,7 @@ This repo helps in showcasing event driven automation using Event Driven Automat
 
 Currently it is possible to try it out both in a containerized version and using [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible)
 
-To try the containerized version, go in the [EDA Containerized Demo folder](./eda-podman-demo/)
+To try the containerized version, go in the [EDA Containerized Demo folder](https://github.com/kubealex/eda-podman-demo)
 
 # EDA Ansible Automation Platform Demo
 
@@ -42,7 +42,7 @@ You can use [ngrok](https://ngrok.com/) to set-up a temporary public address to 
 
 ### Middleware
 
-The AlertManager and Kafka use cases require a working configuration for them, you can spin up a quick environment using the [podman-compose](./utilspodman-compose.yml) file in the **tests** directory.
+The AlertManager and Kafka use cases require a working configuration for them, you can spin up a quick environment using the [podman-compose](./utils/podman-compose.yml) file in the **tests** directory.
 
 This will spin a Kafka and AlertManager instance running on the host and listening to all interfaces. Tune up the settings based on your needs.
 

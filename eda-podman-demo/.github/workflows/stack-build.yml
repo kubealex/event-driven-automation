@@ -1,0 +1,58 @@
+name: Build dependencies
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'eda-utils/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'eda-utils/**'
+
+jobs:
+  build-images:
+    name: Build support images
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build alertmanager image
+      id: build-image-alertmanager
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: eda-alertmanager
+        tags: latest
+        containerfiles: |
+          ./eda-utils/Containerfile-alertmanager
+        context: ./eda-utils
+
+    - name: Build Ansible stack image
+      id: build-image-ansible
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: eda-ansible
+        tags: latest
+        containerfiles: |
+          ./eda-utils/Containerfile-ansible
+        context: ./eda-utils
+
+    - name: Push To quay.io
+      id: push-alertmanager
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build-image-alertmanager.outputs.image }}
+        tags: latest
+        registry: quay.io/kubealex
+        username: ${{ secrets.QUAY_USERNAME }}
+        password: ${{ secrets.QUAY_TOKEN }}
+
+    - name: Push To quay.io
+      id: push-ansible-eda
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build-image-ansible.outputs.image }}
+        tags: latest
+        registry: quay.io/kubealex
+        username: ${{ secrets.QUAY_USERNAME }}
+        password: ${{ secrets.QUAY_TOKEN }}

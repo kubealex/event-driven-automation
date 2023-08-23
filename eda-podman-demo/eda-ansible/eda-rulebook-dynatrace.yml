@@ -1,0 +1,20 @@
+- name: Dynatrace | Listen and react to events
+  hosts: all
+  sources:
+    - dynatrace.event_driven_ansible.dt_esa_api:
+        dt_api_host: "<YOUR_TENANT_API>"
+        dt_api_token: "<YOUR_TENANT_API_TOKEN>"
+        delay: 60
+  rules:
+    - name: Dynatrace | Sample listener
+      condition: event.problemTitle is defined or event.status is defined
+      actions:
+        - debug:
+        - run_playbook:
+            name: eda-playbook-dynatrace.yml
+            extra_vars:
+              dynatrace_problem_impact_level: "{{ event.impactLevel }}"
+              dynatrace_problem_id: "{{ event.displayId }}"
+              dynatrace_problem_root_cause: "{{ event.rootCauseEntity }}"
+              dynatrace_problem_status: "{{ event.status }}"
+              dynatrace_problem_title: "{{ event.title }}"

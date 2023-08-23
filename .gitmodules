@@ -1,6 +1,3 @@
-[submodule "eda-podman-demo"]
-	path = eda-podman-demo
-	url = git@github.com:kubealex/eda-podman-demo.git
 [submodule "eda-decision-environment"]
 	path = eda-decision-environment
 	url = git@github.com:kubealex/eda-decision-environment.git
