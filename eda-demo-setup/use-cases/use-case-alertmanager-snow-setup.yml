@@ -47,12 +47,12 @@ aap2_custom_credentials:
 
 aap2_templates:
   - aap2_template_name: "[EDA] Alertmanager playbook"
-    aap2_template_playbook: playbooks/eda-playbook-alertmanager.yml
+    aap2_template_playbook: playbooks/alertmanager/alert-handler.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Alertmanager ITSM"
-    aap2_template_playbook: playbooks/eda-playbook-alertmanager-snow.yml
+    aap2_template_playbook: playbooks/alertmanager/alert-handler-snow.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo

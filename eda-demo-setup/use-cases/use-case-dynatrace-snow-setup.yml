@@ -47,7 +47,7 @@ aap2_custom_credentials:
 
 aap2_templates:
   - aap2_template_name: "[EDA] Dynatrace - Open SNOW incident for problem"
-    aap2_template_playbook: eda-playbooks/eda-playbook-dynatrace.yml
+    aap2_template_playbook: eda-playbooks/dynatrace/problem-reporter.yml
     aap2_template_ask_vars: true
     aap2_template_credentials:
       - AAP2 Demo - ServiceNow Credentials

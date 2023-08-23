@@ -26,31 +26,31 @@ aap2_templates:
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Remediate SSH root login"
-    aap2_template_playbook: playbooks/eda-playbook-insights-recommendation-fix.yml
+    aap2_template_playbook: playbooks/insights/recommendation-fix.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Generate recommendation"
-    aap2_template_playbook: playbooks/eda-playbook-insights-recommendation-trigger.yml
+    aap2_template_playbook: playbooks/insights/recommendation-trigger.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Configure Malware Detection"
-    aap2_template_playbook: playbooks/eda-playbook-insights-malware-configuration.yml
+    aap2_template_playbook: playbooks/insights/malware-configuration.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Trigger Malware"
-    aap2_template_playbook: playbooks/eda-playbook-insights-malware-trigger.yml
+    aap2_template_playbook: playbooks/insights/malware-trigger.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Handle Malware"
-    aap2_template_playbook: playbooks/eda-playbook-insights-malware-fix-snow.yml
+    aap2_template_playbook: playbooks/insights/malware-fix-snow.yml
     aap2_template_credentials:
       - AAP2 Demo - ServiceNow Credentials
     aap2_template_inventory: EDA Demo - SCM Inventory

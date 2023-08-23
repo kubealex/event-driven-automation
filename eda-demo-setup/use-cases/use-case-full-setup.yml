@@ -26,52 +26,52 @@ aap2_templates:
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Kafka playbook"
-    aap2_template_playbook: playbooks/eda-playbook-kafka.yml
+    aap2_template_playbook: playbooks/kafka-generic.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Webhook playbook"
-    aap2_template_playbook: playbooks/eda-playbook-webhook.yml
+    aap2_template_playbook: playbooks/webhook-generic.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Alertmanager playbook"
-    aap2_template_playbook: playbooks/eda-playbook-alertmanager.yml
+    aap2_template_playbook: playbooks/alertmanager/alert-handler.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Remediate SSH root login"
-    aap2_template_playbook: playbooks/eda-playbook-insights-recommendation-fix.yml
+    aap2_template_playbook: playbooks/insights/recommendation-fix.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Generate recommendation"
-    aap2_template_playbook: playbooks/eda-playbook-insights-recommendation-trigger.yml
+    aap2_template_playbook: playbooks/insights/recommendation-trigger.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Dynatrace playbook"
-    aap2_template_playbook: eda-playbooks/eda-playbook-dynatrace.yml
+    aap2_template_playbook: eda-playbooks/dynatrace/problem-reporter.yml
     aap2_template_ask_vars: true
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: AAP2 Demo - SCM Inventory
     aap2_template_project: AAP2 Demo
   - aap2_template_name: "[EDA] Insights - Configure Malware Detection"
-    aap2_template_playbook: playbooks/eda-playbook-insights-malware-configuration.yml
+    aap2_template_playbook: playbooks/insights/malware-configuration.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Trigger Malware"
-    aap2_template_playbook: playbooks/eda-playbook-insights-malware-trigger.yml
+    aap2_template_playbook: playbooks/insights/malware-trigger.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Report Malware"
-    aap2_template_playbook: playbooks/eda-playbook-insights-malware-fix.yml
+    aap2_template_playbook: playbooks/insights/malware-fix.yml
     aap2_template_credentials: "Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true

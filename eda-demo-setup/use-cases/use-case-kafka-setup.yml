@@ -16,7 +16,7 @@ aap2_inventory_sources:
 
 aap2_templates:
   - aap2_template_name: "[EDA] Kafka playbook"
-    aap2_template_playbook: playbooks/eda-playbook-kafka.yml
+    aap2_template_playbook: playbooks/kafka-generic.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo

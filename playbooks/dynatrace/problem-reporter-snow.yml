@@ -18,7 +18,7 @@
           Problem Id: {{ dynatrace_problem_id }}
           Problem Title: {{ dynatrace_problem_title }}
           Problem Root Cause: {{ dynatrace_problem_root_cause }}
-          Problem Status: {{ dynatrace_problem_status }}"
+          Problem Status: {{ dynatrace_problem_status }}
       register: _incident
 
     - name: Insights | Report Incident creation

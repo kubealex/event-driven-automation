@@ -16,7 +16,7 @@ aap2_inventory_sources:
 
 aap2_templates:
   - aap2_template_name: "[EDA] Alertmanager playbook"
-    aap2_template_playbook: playbooks/eda-playbook-alertmanager.yml
+    aap2_template_playbook: playbooks/alertmanager-alert-handler.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
