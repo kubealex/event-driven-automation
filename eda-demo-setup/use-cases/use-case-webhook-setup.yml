@@ -37,3 +37,5 @@ eda_decision_env:
 eda_activations:
   - name: eda-webhook
     rulebook: eda-rulebook-webhook.yml
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"

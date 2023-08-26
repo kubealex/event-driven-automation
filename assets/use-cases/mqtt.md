@@ -6,31 +6,32 @@ This integration uses a containerized [Mosquitto](https://mosquitto.org/) instan
 
 ## Running Mosquitto container
 
-This integration uses a Mosquitto instance, present as a compose in the [utils folder](../../utils) to handle the events, that instantiates a container for Kafka, available on port _9092_ of the host.
+This integration uses a Mosquitto instance, present as a compose in the [utils folder](../../utils) to handle the messages, that instantiates a container for Mosquitto, available on port _1883_ of the host.
 
-To properly configure it, replace the **ADVERTISED_HOST/IP** variable in [kafka compose](../../utils/podman-compose.yml) to match the IP that EDA Controller will need to contact, **it should not be localhost!**
+No additional configuration is needed.
 
-A *podman-compose* file is available [here](../../utils/kafka-compose.yml), and automatically exposes port 9092 on all interfaces.
+A *podman-compose* file is available [here](../../utils/podman-compose/mosquitto-compose.yml), and automatically exposes port 9092 on all interfaces.
 
 To run it:
 
     cd utils/
-    podman-compose -f kafka-compose.yml up
+    podman-compose -f mosquitto-compose.yml up
 
-## Kafka integration
+## MQTT integration
 
-In this use case, you can simulate an event, [using the following script](../../utils/kafka/kafka-sender.py) specifying the hostname/IP advertised by kafka.
+In this use case, you can simulate a message, [using the following script](../../utils/mqtt-sender.py) specifying the hostname/IP of the Mosquitto instance (_defaults to localhost_) and the port (_defaults to 1883_).
 
-It generates a simple alert, that will trigger a Job Template on AAP2, showing the alert information.
+It generates a simple message, that will trigger a Job Template on AAP2, showing the event information.
 
 ### Configuration
 
 In order to run these use cases, setup scripts [are available here](../../eda-demo-setup/):
 
-    ansible-playbook configure-use-case.yml -e @use-cases/use-case-kafka-setup.yml
+    ansible-playbook configure-use-case.yml -e @use-cases/use-case-mqtt-setup.yml
 
-### Testing the Kafka integration
+### Testing the MQTT integration
 
-A script in the [utilskafka directory](./utils/kafka/) allows to connect to a _--host_ (defaults to localhost) on port 9092 and send a test message to trigger automation
+A script in the [utils directory](./utils/) allows to connect to a _--host_ (defaults to localhost) on _--port_ (defaults to 1883) and send a test message to trigger automation:
 
-    python3 utilskafka/kafka-sender.py --host MY_KAFKA_HOST
+    cd utils/
+    python3 mqtt-sender.py

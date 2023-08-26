@@ -8,13 +8,13 @@ There are two scenarios, a simple alert handler that only prints information and
 
 This integration uses an Alertmanager instance, present as a container in the [utils folder](../../utils) to handle the alerts, that instantiates a container for AlertManager (and kafka) available on port _9093_ of the host.
 
-To properly configure it, replace the **EDA_NODE_HOSTNAME** variable in [alertmanager configuration](../../utils/alertmanager/alertmanager.yml) to properly send the alert on the listener that is created via the rulebooks (port defaults to 5001, you can change it).
+To properly configure it, replace the **EDA_NODE_HOSTNAME** variable in [alertmanager configuration](../../utils/podman-compose/alertmanager/alertmanager.yml) to properly send the alert on the listener that is created via the rulebooks (port defaults to 5001, you can change it).
 
-A *podman-compose* file is available [here](../../utils/alertmanager-compose.yml), and automatically exposes port 9093 on all interfaces.
+A *podman-compose* file is available [here](../../utils/podman-compose/alertmanager-compose.yml), and automatically exposes port 9093 on all interfaces.
 
 To run it:
 
-    cd utils/
+    cd utils/podman-compose/
     podman-compose -f alertmanager-compose.yml up
 
 ## Alertmanager integration

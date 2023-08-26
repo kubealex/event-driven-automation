@@ -70,4 +70,6 @@ eda_decision_env:
 eda_activations:
   - name: eda-alertmanager-snow
     rulebook: eda-rulebook-dynatrace-snow.yml
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"
     extra_vars: "dynatrace_api_url: {{ dynatrace_api_url }}\ndynatrace_api_token: {{ dynatrace_api_token }}"

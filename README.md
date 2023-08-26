@@ -19,6 +19,7 @@ The following use cases are available for testing and/or contributions:
 - [Insights integration](./assets/use-cases/insights.md) - Also with Service Now
 - [Webhook integration](./assets/use-cases/webook.md)
 - [Kafka integration](./assets/use-cases/kafka.md)
+- [MQTT integration](./assets/use-cases/mqtt.md)
 
 ## Requirements
 
@@ -40,17 +41,19 @@ The Red Hat Insights use case will require that the EDA Machine is reachable fro
 
 You can use [ngrok](https://ngrok.com/) to set-up a temporary public address to use for the use case.
 
-### Middleware
+### Middleware integration (Kafka, AlertManager, Mosquitto)
 
-The AlertManager and Kafka use cases require a working configuration for them, you can spin up a quick environment using the [podman-compose](./utils/podman-compose.yml) file in the **tests** directory.
+The AlertManager and Kafka use cases require a working configuration for them, you can spin up a quick environment using the [podman-compose](./utils/podman-compose/podman-compose.yml) file in the [*utils directory*](./utils/).
 
-This will spin a Kafka and AlertManager instance running on the host and listening to all interfaces. Tune up the settings based on your needs.
+This will spin a Kafka, Mosquitto and AlertManager instance running on the host and listening to all interfaces. Tune up the settings based on your needs.
+
+Each component has a dedicated podman-compose file in the [podman-compose directory](./utils/podman-compose/)
 
 **!!! IMPORTANT !!!**
 
 Carefully read the instructions in [the use cases README](./assets/use-cases/) to properly configure the needed components for the use cases.
 
-### Service Now Instance
+### Service Now Integration
 
 One of the use cases include using a [Service Now instance](https://developer.servicenow.com/), you can easily sign-up and get one.
 

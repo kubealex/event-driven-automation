@@ -139,12 +139,22 @@ eda_decision_env:
 eda_activations:
   - name: eda-alertmanager
     rulebook: eda-rulebook-alertmanager-snow.yml
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"
   - name: eda-dynatrace
     rulebook: eda-rulebook-dynatrace-snow.yml
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"
     extra_vars: "dynatrace_api_url: {{ dynatrace_api_url }}\ndynatrace_api_token: {{ dynatrace_api_token }}"
   - name: eda-insights
     rulebook: eda-rulebook-insights-snow.yml
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"
   - name: eda-kafka
     rulebook: eda-rulebook-kafka.yml
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"
   - name: eda-webhook
     rulebook: eda-rulebook-webhook.yml
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"

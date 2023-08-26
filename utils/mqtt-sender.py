@@ -1,33 +1,20 @@
 #! /usr/bin/python3
-import paho.mqtt.client as mqtt
+import argparse
+import asyncio
 import json
-import sys
+from aiomqtt import Client
 
-def on_connect(client, userdata, flags, rc):
-    print(f"Connected with result code {rc}")
+async def send_mqtt_message(host, port, payload):
+    async with Client(hostname=host, port=port) as client:
+        topic = "eda-topic"
+        await client.publish(topic, payload)
+        await client.disconnect()
 
-def send_mqtt_message(host, port, payload):
-    client = mqtt.Client()
-    client.on_connect = on_connect
-
-    client.connect(host, port, 60)
-
-    client.loop_start()
-
-    topic = "eda-topic"  # Specify the MQTT topic to publish to
-    client.publish(topic, payload)
-
-    client.loop_stop()
-    client.disconnect()
-
-def main():
-    host = "localhost"  # Default host
-    port = 1883  # Default port
-
-    if len(sys.argv) > 1:
-        host = sys.argv[1]
-    if len(sys.argv) > 2:
-        port = int(sys.argv[2])
+async def main():
+    parser = argparse.ArgumentParser(description="Send MQTT message with JSON payload")
+    parser.add_argument("--host", default="localhost", help="MQTT broker host")
+    parser.add_argument("--port", type=int, default=1883, help="MQTT broker port")
+    args = parser.parse_args()
 
     payload = {
         "eventName": "MQTT event",
@@ -37,8 +24,7 @@ def main():
 
     payload_json = json.dumps(payload)
 
-    send_mqtt_message(host, port, payload_json)
+    await send_mqtt_message(args.host, args.port, payload_json)
 
 if __name__ == "__main__":
-    main()
-
+    asyncio.run(main())

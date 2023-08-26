@@ -8,18 +8,18 @@ This integration uses a containerized Kafka instance, present as a container in 
 
 This integration uses a Kafka instance, present as a compose in the [utils folder](../../utils) to handle the events, that instantiates a container for Kafka, available on port _9092_ of the host.
 
-To properly configure it, replace the **ADVERTISED_HOST/IP** variable in [kafka compose](../../utils/podman-compose.yml) to match the IP that EDA Controller will need to contact, **it should not be localhost!**
+A dedicated *podman-compose* file is available [here](../../utils/podman-compose/kafka-compose.yml), and automatically exposes port 9092 on all interfaces.
 
-A *podman-compose* file is available [here](../../utils/kafka-compose.yml), and automatically exposes port 9092 on all interfaces.
+To properly configure it, replace the **ADVERTISED_HOST/IP** variable in the compose file to match the IP that EDA Controller will need to contact, **it should not be localhost!**
 
 To run it:
 
-    cd utils/
+    cd utils/podman-compose/
     podman-compose -f kafka-compose.yml up
 
 ## Kafka integration
 
-In this use case, you can simulate an event, [using the following script](../../utils/kafka/kafka-sender.py) specifying the hostname/IP advertised by kafka.
+In this use case, you can simulate an event, [using the following script](../../utils/kafka-sender.py) specifying the hostname/IP advertised by kafka.
 
 It generates a simple alert, that will trigger a Job Template on AAP2, showing the alert information.
 
@@ -31,6 +31,7 @@ In order to run these use cases, setup scripts [are available here](../../eda-de
 
 ### Testing the Kafka integration
 
-A script in the [utilskafka directory](./utils/kafka/) allows to connect to a _--host_ (defaults to localhost) on port 9092 and send a test message to trigger automation
+A script in the [utils directory](./utils/) allows to connect to a _--host_ (defaults to localhost) on port 9092 and send a test message to trigger automation
 
-    python3 utilskafka/kafka-sender.py --host MY_KAFKA_HOST
+    cd utils/
+    python3 kafka-sender.py --host MY_KAFKA_HOST

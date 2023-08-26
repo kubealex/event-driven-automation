@@ -38,3 +38,5 @@ eda_activations:
   - name: eda-kafka
     rulebook: eda-rulebook-kafka.yml
     extra_vars: "kafka_host: {{ kafka_advertised_listener }}"
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"

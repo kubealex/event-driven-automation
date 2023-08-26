@@ -37,4 +37,6 @@ eda_decision_env:
 eda_activations:
   - name: eda-mqtt
     rulebook: eda-rulebook-mqtt.yml
+    project_name: "EDA Demo Project"
+    decision_env: "kubealex-eda"
     extra_vars: "mosquitto_host: {{ mosquitto_host | default('mosquitto', true) }}\nmosquitto_port: {{ mosquitto_port | default('1883', true) }}"
