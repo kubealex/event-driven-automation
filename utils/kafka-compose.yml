@@ -30,24 +30,6 @@ services:
     depends_on:
       - zookeeper
 
-  alertmanager:
-    image: quay.io/kubealex/eda-alertmanager
-    ports: "9093:9093"
-    hostname: alertmanager
-    networks:
-      - eda-ansible
-    volumes:
-      - ./alertmanager/:/etc/alertmanager:Z
-
-  mosquitto:
-    image: docker.io/library/eclipse-mosquitto
-    ports: "1883:1883"
-    hostname: mosquitto
-    networks:
-      - eda-ansible
-    volumes:
-      - ./mosquitto/:/mosquitto/config/:Z
-
 networks:
   eda-ansible:
     name: eda-ansible

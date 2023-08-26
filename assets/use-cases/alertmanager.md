@@ -4,9 +4,18 @@ This use case shows how Event Driven Automation can be integrated with Alertmana
 
 There are two scenarios, a simple alert handler that only prints information and another one interacting with Service Now to raise an incident, resolve the issue (simulated) and close the incident.
 
-This integration uses an Alertmanager instance, present as a container in the [tests folder](../../utils) to handle the alerts, that instantiates a container for AlertManager (and kafka) available on port _9093_ of the host.
+## Running Alertmanager container
 
-To properly configure it, replace the **EDA_NODE_HOSTNAME** variable in [alertmanager configuration](../../utils/alertmanager/alertmanager.yml) to properly send the alert on the listener that is created via the rulebooks.
+This integration uses an Alertmanager instance, present as a container in the [utils folder](../../utils) to handle the alerts, that instantiates a container for AlertManager (and kafka) available on port _9093_ of the host.
+
+To properly configure it, replace the **EDA_NODE_HOSTNAME** variable in [alertmanager configuration](../../utils/alertmanager/alertmanager.yml) to properly send the alert on the listener that is created via the rulebooks (port defaults to 5001, you can change it).
+
+A *podman-compose* file is available [here](../../utils/alertmanager-compose.yml), and automatically exposes port 9093 on all interfaces.
+
+To run it:
+
+    cd utils/
+    podman-compose -f alertmanager-compose.yml up
 
 ## Alertmanager integration
 
@@ -32,6 +41,6 @@ and run:
 
 ### Testing the alertmanager integration
 
-You can use the following cURL command to trigger a **Alertmanager** automation:
+Assuming Alertmanager is listening on *localhost*, you can use the following cURL command to trigger a **Alertmanager** automation (replace localhost with any host/IP where Alertmanager is listening):
 
     curl -H 'Content-Type: application/json' -d '[{"labels":{"alertName":"my-eda-alert", "alertMessage": "This is a test alert firing", "alertTargetHosts": "localhost"}}]' http://localhost:9093/api/v1/alerts

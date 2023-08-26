@@ -1,0 +1,21 @@
+---
+- name: MQTT | Instantiate MQTT listener and handle event
+  hosts: all
+  sources:
+    - kubealex.eda.mqtt:
+        host: "{{ mosquitto_host }}"
+        port: "{{ mosquitto_port }}"
+        topic: eda-topic
+  rules:
+    - name: Resolve anomaly
+      condition: event.eventName is defined
+      actions:
+        - debug:
+        - run_job_template:
+            name: "[EDA] MQTT playbook"
+            organization: Default
+            job_args:
+              extra_vars:
+                eventBody: "{{ event.eventBody }}"
+                eventName: "{{ event.eventName }}"
+                eventSource: "{{ event.eventSource }}"

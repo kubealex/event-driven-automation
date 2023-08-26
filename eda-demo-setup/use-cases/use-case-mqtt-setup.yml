@@ -1,0 +1,40 @@
+###########################################################################################################
+################################## VARIABLES BELOW SHOULD NOT BE CHANGED ##################################
+###########################################################################################################
+
+####### AAP2 CONTROLLER VARIABLES ########
+
+aap2_inventories:
+  - aap2_inventory_name: EDA Demo - SCM Inventory
+
+aap2_inventory_sources:
+  - aap2_inventory_source_name: EDA Demo - SCM Inventory Source
+    aap2_inventory_source_inventory: EDA Demo - SCM Inventory
+    aap2_inventory_source_type: scm
+    aap2_inventory_source_project: "EDA Demo"
+    aap2_inventory_source_path: inventory
+
+aap2_templates:
+  - aap2_template_name: "[EDA] MQTT playbook"
+    aap2_template_playbook: playbooks/mqtt-generic.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+
+aap2_projects:
+  - name: "EDA Demo"
+    scm_url: "https://github.com/kubealex/event-driven-automation.git"
+
+####### EDA CONTROLLER VARIABLES ########
+eda_project:
+  name: "EDA Demo Project"
+  git_url: https://github.com/kubealex/event-driven-automation
+  description: "Demo project to show EDA in actions"
+eda_decision_env:
+  name: "kubealex-eda"
+  image_url: quay.io/kubealex/eda-decision-env
+
+eda_activations:
+  - name: eda-mqtt
+    rulebook: eda-rulebook-mqtt.yml
+    extra_vars: "mosquitto_host: {{ mosquitto_host | default('mosquitto', true) }}\nmosquitto_port: {{ mosquitto_port | default('1883', true) }}"

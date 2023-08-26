@@ -1,1 +1,0 @@
-curl -H 'Content-Type: application/json' -d '[{"labels":{"alertName":"my-eda-alert", "alertMessage": "This is a test alert firing", "alertTargetHosts": "localhost"}}]' http://ALERTMANAGER_HOST:9093/api/v1/alerts

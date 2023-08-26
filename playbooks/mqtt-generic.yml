@@ -1,0 +1,11 @@
+---
+- name: MQTT | Acknowledge event
+  hosts: localhost
+  tasks:
+    - name: MQTT | Track event
+      ansible.builtin.debug:
+        msg:
+          - "Event received from MQTT listener! Below the details:"
+          - "Event Name: {{ eventName }}"
+          - "Event Source: {{ eventSource }}"
+          - "Event Body: {{ eventBody }}"

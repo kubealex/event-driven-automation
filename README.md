@@ -20,13 +20,13 @@ The following use cases are available for testing and/or contributions:
 - [Webhook integration](./assets/use-cases/webook.md)
 - [Kafka integration](./assets/use-cases/kafka.md)
 
-## AAP2 configuration
+## Requirements
+
+### AAP2 configuration
 
 First you need to [install Ansible Automation Platform](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html/red_hat_ansible_automation_platform_installation_guide).
 
 In the [eda-demo-setup directory](./eda-demo-setup/) you will find some useful playbooks to create all necessary resources in the platform to showcase the use cases.
-
-## Requirements
 
 ### Network
 
@@ -48,7 +48,7 @@ This will spin a Kafka and AlertManager instance running on the host and listeni
 
 **!!! IMPORTANT !!!**
 
-The kafka rulebook expects an advertised listener matching the one you will configure in the playbook. Please tune up the Podman compose file to replace _KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://<ADVERTISED_HOST/IP>:<PORT>"_ field to match your setup.
+Carefully read the instructions in [the use cases README](./assets/use-cases/) to properly configure the needed components for the use cases.
 
 ### Service Now Instance
 
@@ -64,29 +64,3 @@ To configure the integrations, ensure you use your API URL and API Token configu
 - Read/Write problems
 - Read/Write configuration
 - Access problem and event feed, metrics, and topology
-
-## Running the Demo
-
-After the configuration, this is the finalized setup:
-
-![](./assets/eda_rulebooks.png)
-
-![](./assets/aap2_templates.png)
-
-### Testing the webhook integration
-
-You can use the following cURL command to trigger a **webhook** automation:
-
-    curl -X POST **EDA_CONTROLLER_HOSTNAME:5000** -d '{"name":"greeting","message":"hello"}'
-
-### Testing the alertmanager integration
-
-You can use the following cURL command to trigger a **Alertmanager** automation:
-
-    curl -H 'Content-Type: application/json' -d '[{"labels":{"alertName":"my-eda-alert", "alertMessage": "This is a test alert firing", "alertTargetHosts": "localhost"}}]' http://localhost:9093/api/v1/alerts
-
-### Testing the Kafka integration
-
-A script in the [utilskafka directory](./utils/kafka/) allows to connect to a _--host_ (defaults to localhost) on port 9092 and send a test message to trigger automation
-
-    python3 utilskafka/kafka-sender.py --host MY_KAFKA_HOST

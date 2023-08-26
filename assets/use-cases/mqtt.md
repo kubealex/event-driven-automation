@@ -1,12 +1,12 @@
-# Kafka EDA integration
+# MQTT EDA integration
 
-This use case shows how Event Driven Automation can be integrated with Kafka, to interact with events streamed by other platforms
+This use case shows how Event Driven Automation can be integrated with MQTT messaging brokers, to interact with messages received from other platforms.
 
-This integration uses a containerized Kafka instance, present as a container in the [utils folder](../../utils) to handle the events.
+This integration uses a containerized [Mosquitto](https://mosquitto.org/) instance, present as a container in the [utils folder](../../utils) to handle the events.
 
-## Running Kafka container
+## Running Mosquitto container
 
-This integration uses a Kafka instance, present as a compose in the [utils folder](../../utils) to handle the events, that instantiates a container for Kafka, available on port _9092_ of the host.
+This integration uses a Mosquitto instance, present as a compose in the [utils folder](../../utils) to handle the events, that instantiates a container for Kafka, available on port _9092_ of the host.
 
 To properly configure it, replace the **ADVERTISED_HOST/IP** variable in [kafka compose](../../utils/podman-compose.yml) to match the IP that EDA Controller will need to contact, **it should not be localhost!**
 

@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  mosquitto:
+    image: docker.io/library/eclipse-mosquitto
+    ports: "1883:1883"
+    hostname: mosquitto
+    networks:
+      - eda-ansible
+    volumes:
+      - ./mosquitto/:/mosquitto/config/:Z
+
+networks:
+  eda-ansible:
+    name: eda-ansible
