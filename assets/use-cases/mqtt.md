@@ -10,7 +10,7 @@ This integration uses a Mosquitto instance, present as a compose in the [utils f
 
 No additional configuration is needed.
 
-A *podman-compose* file is available [here](../../utils/podman-compose/mosquitto-compose.yml), and automatically exposes port 9092 on all interfaces.
+A *podman-compose* file is available [here](../../utils/podman-compose/mosquitto-compose.yml), and automatically exposes port 1883 on all interfaces.
 
 To run it:
 
