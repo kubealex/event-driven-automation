@@ -49,7 +49,7 @@ This will spin a Kafka, Mosquitto and AlertManager instance running on the host 
 
 Each component has a dedicated podman-compose file in the [podman-compose directory](./utils/podman-compose/)
 
-**!!! IMPORTANT !!!**
+**!!! IMPORTANT - CAREFUL !!!**
 
 Carefully read the instructions in [the use cases README](./assets/use-cases/) to properly configure the needed components for the use cases.
 
