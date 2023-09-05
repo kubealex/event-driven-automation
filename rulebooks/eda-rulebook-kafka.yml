@@ -5,20 +5,20 @@
   sources:
     - ansible.eda.kafka:
         host: "{{ kafka_host }}"
-        port: 9092
-        topic: eda-topic
+        port: "{{ kafka_port | default('9092', true) }}"
+        topic: "{{ kafka_topic | default('eda-topic', true) }}"
 
   rules:
     - name: EDA | Kafka | Run playbook to greet our Kafka peers
-      condition: event.body.name == "greeting"
+      condition: event.body.eventName == "greeting"
       actions:
         - set_fact:
             fact:
-              kafkagreeting: "{{ event.body.message }}"
+              kafkagreeting: "{{ event.body.eventMessage }}"
 
         - run_job_template:
             name: "[EDA] Kafka playbook"
             organization: Default
             job_args:
               extra_vars:
-                greeting: "{{ event.body.message }}"
+                greeting: "{{ event.body.eventMessage }}"
