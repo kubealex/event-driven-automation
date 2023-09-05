@@ -5,7 +5,7 @@
     - kubealex.eda.mqtt:
         host: "{{ mosquitto_host }}"
         port: "{{ mosquitto_port }}"
-        topic: eda-topic
+        topic: "{{ mosquitto_topic | default('eda-topic', true) }}"
   rules:
     - name: Resolve anomaly
       condition: event.eventName is defined
