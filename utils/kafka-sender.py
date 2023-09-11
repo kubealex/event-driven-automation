@@ -1,6 +1,7 @@
 #! /usr/bin/python3
 import json
 from aiokafka import AIOKafkaProducer
+import argparse
 import asyncio
 
 async def produce():
