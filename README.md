@@ -14,12 +14,12 @@ This section handles configuration and preparation to showcase Event Driven Auto
 
 The following use cases are available for testing and/or contributions:
 
-- [AlertManager integration](./assets/use-cases/alertmanager.md) - Also with Service Now
-- [Dynatrace integration](./assets/use-cases/dynatrace.md) - Also with Service Now
-- [Insights integration](./assets/use-cases/insights.md) - Also with Service Now
-- [Webhook integration](./assets/use-cases/webook.md)
-- [Kafka integration](./assets/use-cases/kafka.md)
-- [MQTT integration](./assets/use-cases/mqtt.md)
+- [AlertManager integration](./docs/use-cases/alertmanager.md) - with Service Now
+- [Dynatrace integration](./docs/use-cases/dynatrace.md) - with Service Now
+- [Insights integration](./docs/use-cases/insights.md) - with Service Now
+- [Webhook integration](./docs/use-cases/webook.md)
+- [Kafka integration](./docs/use-cases/kafka.md)
+- [MQTT integration](./docs/use-cases/mqtt.md)
 
 ## Requirements
 
@@ -43,7 +43,7 @@ You can use [ngrok](https://ngrok.com/) to set-up a temporary public address to 
 
 ### Middleware integration (Kafka, AlertManager, Mosquitto)
 
-The AlertManager and Kafka use cases require a working configuration for them, you can spin up a quick environment using the [podman-compose](./utils/podman-compose/podman-compose.yml) file in the [*utils directory*](./utils/).
+The AlertManager and Kafka use cases require a working configuration for them, you can spin up a quick environment using the [podman-compose](./utils/podman-compose/podman-compose.yml) file in the [_utils directory_](./utils/).
 
 This will spin a Kafka, Mosquitto and AlertManager instance running on the host and listening to all interfaces. Tune up the settings based on your needs.
 
@@ -51,7 +51,7 @@ Each component has a dedicated podman-compose file in the [podman-compose direct
 
 **!!! IMPORTANT - CAREFUL !!!**
 
-Carefully read the instructions in [the use cases README](./assets/use-cases/) to properly configure the needed components for the use cases.
+Carefully read the instructions in [the use cases README](./docs/use-cases/) to properly configure the needed components for the use cases.
 
 ### Service Now Integration
 

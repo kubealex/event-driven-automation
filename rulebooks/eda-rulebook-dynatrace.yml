@@ -6,17 +6,17 @@
         dt_api_token: "{{ dynatrace_api_token }}"
         delay: 60
   rules:
-    - name: Dynatrace | Sample listener
+    - name: Dynatrace | Raise SNOW request for Dynatrace problem
       condition: event.problemTitle is defined or event.status is defined
       actions:
         - debug:
         - run_job_template:
-            name: "[EDA] Dynatrace playbook"
+            name: "[EDA] Dynatrace - Open SNOW incident for problem"
             organization: Default
             job_args:
               extra_vars:
                 dynatrace_problem_impact_level: "{{ event.impactLevel }}"
-                dynatrace_problem_id: "{{ event.displayId }}"
+                dynatrace_problem_id: "{{ event.problemId }}"
                 dynatrace_problem_root_cause: "{{ event.rootCauseEntity }}"
                 dynatrace_problem_status: "{{ event.status }}"
                 dynatrace_problem_title: "{{ event.title }}"

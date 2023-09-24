@@ -1,12 +1,26 @@
 - name: Dynatrace | Listen and react to events
   hosts: localhost
   tasks:
-    - name: Dynatrace | Sample listener
+    - name: Dynatrace | Raise SNOW request to report Dynatrace problem
+      servicenow.itsm.incident:
+        instance:
+          host: "{{ snow_instance }}"
+          username: "{{ snow_username }}"
+          password: "{{ snow_password }}"
+        caller: "admin"
+        state: new
+        impact: high
+        urgency: critical
+        short_description: "{{ dynatrace_problem_id }} detected on Dynatrace"
+        description: |
+          Problem {{ dynatrace_problem_id }} detected.
+          Impact level: {{ dynatrace_problem_impact_level }}
+          Problem Id: {{ dynatrace_problem_id }}
+          Problem Title: {{ dynatrace_problem_title }}
+          Problem Root Cause: {{ dynatrace_problem_root_cause }}
+          Problem Status: {{ dynatrace_problem_status }}
+      register: _incident
+
+    - name: Insights | Report Incident creation
       ansible.builtin.debug:
-        msg:
-          - "Problem {{ dynatrace_problem_id }} detected."
-          - "Impact level: {{ dynatrace_problem_impact_level }}"
-          - "Problem Id: {{ dynatrace_problem_id }}"
-          - "Problem Title: {{ dynatrace_problem_title }}"
-          - "Problem Root Cause: {{ dynatrace_problem_root_cause }}"
-          - "Problem Status: {{ dynatrace_problem_status }}"
+        msg: "Incident {{ _incident.record.number }} created"

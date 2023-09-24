@@ -52,7 +52,7 @@ aap2_templates:
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Alertmanager ITSM"
-    aap2_template_playbook: playbooks/alertmanager/alert-handler-snow.yml
+    aap2_template_playbook: playbooks/alertmanager/alert-handleryml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
@@ -74,6 +74,6 @@ eda_decision_envs:
 
 eda_activations:
   - name: eda-alertmanager-snow
-    rulebook: eda-rulebook-alertmanager-snow.yml
+    rulebook: eda-rulebook-alertmanager.yml
     project_name: "EDA Demo Project"
     decision_env: "kubealex-eda"

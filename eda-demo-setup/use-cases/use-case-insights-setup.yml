@@ -196,6 +196,7 @@ eda_decision_env:
 
 eda_activations:
   - name: eda-insights
-    rulebook: eda-rulebook-insights-snow.yml
+    rulebook: eda-rulebook-insights.yml
     project_name: "EDA Demo Project"
     decision_env: "kubealex-eda"
+    extra_vars: "insights_integration_token: {{ insights_integration_token }}"

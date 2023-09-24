@@ -5,7 +5,7 @@
     - redhatinsights.eda.insights:
         host: 0.0.0.0
         port: 5002
-        token: redhatinsightstoken
+        token: "{{ insights_integration_token | default('redhatinsightstoken', true) }}"
 
   rules:
     - name: EDA | Insights | Detect and remediate recommendation event from Insights
@@ -24,7 +24,7 @@
       actions:
         - debug:
         - run_job_template:
-            name: "[EDA] Insights - Report Malware"
+            name: "[EDA] Insights - Handle Malware"
             organization: Default
             job_args:
               extra_vars:

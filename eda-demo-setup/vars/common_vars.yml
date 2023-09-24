@@ -17,3 +17,5 @@ dynatrace_api_key:
 
 rhsm_account_username:
 rhsm_account_password:
+
+insights_integration_token:

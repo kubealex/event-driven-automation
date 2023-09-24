@@ -19,7 +19,7 @@ The file [common_vars.yml](./vars/common_vars.yml) contains the common variables
     dynatrace_api_url:
     dynatrace_api_token:
 
-Not all of those are required for the use cases, but some of them (i.e. the alertmanager-snow integration, requires the **servicenow_instance** vars)
+Not all of those are required for the use cases, but some of them (i.e. the alertmanagerintegration, requires the **servicenow_instance** vars)
 
 ## Automation controller setup
 
@@ -66,7 +66,7 @@ Example for **Dynatrace** integration:
     dynatrace_api_url:
     dynatrace_api_token:
 
-There are also two general files, [use-case-full-setup.yml file](./vars/use-case-full-setup.yml) and [use-case-full-snow-setup.yml file](./vars/use-case-full-snow-setup.yml) to configure all of them at once, with or without Service Now integration
+There are also two general files, [use-case-full-setup.yml file](./vars/use-case-full-setup.yml) and [use-case-fullEDA Demo - Linux Credentialssetup.yml file](./vars/use-case-fullEDA Demo - Linux Credentialssetup.yml) to configure all of them at once, with or without Service Now integration
 
 These variables will be used to configure both the AAP2 Controller and the EDA Controller.
 

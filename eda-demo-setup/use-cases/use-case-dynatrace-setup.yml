@@ -47,7 +47,7 @@ aap2_custom_credentials:
 
 aap2_templates:
   - aap2_template_name: "[EDA] Dynatrace - Open SNOW incident for problem"
-    aap2_template_playbook: eda-playbooks/dynatrace/problem-reporter.yml
+    aap2_template_playbook: playbooks/dynatrace/problem-reporter.yml
     aap2_template_ask_vars: true
     aap2_template_credentials:
       - EDA Demo - ServiceNow Credentials
@@ -69,7 +69,7 @@ eda_decision_env:
 
 eda_activations:
   - name: eda-alertmanager-snow
-    rulebook: eda-rulebook-dynatrace-snow.yml
+    rulebook: eda-rulebook-dynatrace.yml
     project_name: "EDA Demo Project"
     decision_env: "kubealex-eda"
     extra_vars: "dynatrace_api_url: {{ dynatrace_api_url }}\ndynatrace_api_token: {{ dynatrace_api_token }}"

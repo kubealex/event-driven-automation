@@ -4,8 +4,6 @@ This use case shows how Event Driven Automation can be integrated with [Red Hat 
 
 Using native integration, it is possible to configure [Event Driven Automation destination](https://console.redhat.com/settings/integrations).
 
-![](../insights_eda_integration.png)
-
 **Note that you will need a public reachable URL/IP to be able to receive events coming from Insights.**
 
 ## Configuration
@@ -13,6 +11,8 @@ Using native integration, it is possible to configure [Event Driven Automation d
 ### Ngrok
 
 You can use [ngrok](https://ngrok.com/) to set-up a temporary public address to use for the use case. Follow the instructions on the site to get a free address to use for your EDA Controller machine.
+
+The easiest way is to create an account on their website, download the client and install it as a systemd service on your EDA Controller host. By creating an account you ensure you are able to use all the basic features that are needed to run the integration.
 
 ### Red Hat Insights
 
@@ -23,7 +23,7 @@ To config Red Hat Insights for EDA integration, from the [Red Hat Insights Dashb
 ![](../../assets/insights_eda_integration_config.png)
 ![](../../assets/insights_eda_integration_add.png)
 
-2. Fill the fields ensuring you use **redhatinsightstoken** as the _Secret token_ to match the rulebook configuration.
+2. Fill the fields ensuring you use the same value you will assign to the _insights_integration_token_ (defaults to: redhatinsightstoken) as the _Secret token_ to match the rulebook configuration.
 
 ![](../../assets/insights_eda_integration.png)
 
@@ -38,7 +38,7 @@ Verify from the [Integrations Settings](https://console.redhat.com/settings/inte
 
 ### Service Now
 
-Before running the configuration, ensure you follow the instructions to create a [Service Now instance](https://developer.servicenow.com/). It will take 5 minutes and you will have a working instance in minutes.
+Before running the configuration, ensure you follow the instructions to create a [Service Now instance](https://developer.servicenow.com/). It will take just a few minutes to register and have your instance up and running.
 
 ### Run the configuration on AAP2 Controller and EDA Controller
 
@@ -54,6 +54,8 @@ Configure the following variables in [the common variables file](../../eda-demo-
 
     rhsm_account_username:
     rhsm_account_password:
+
+    insights_integration_token:
 
     servicenow_instance_url:
     servicenow_instance_user:
