@@ -14,12 +14,49 @@ aap2_inventory_sources:
     aap2_inventory_source_project: "EDA Demo"
     aap2_inventory_source_path: inventory
 
+aap2_custom_credentials:
+  - credential_type: EDA Demo - ServiceNow Auth
+    credential_type_inputs:
+      fields:
+        - id: snow_url
+          type: string
+          label: "ServiceNow URL"
+          secret: false
+        - id: snow_user
+          type: string
+          label: "ServiceNow username"
+          secret: false
+        - id: snow_pwd
+          type: string
+          label: "ServiceNow password"
+          secret: true
+      required:
+        - snow_url
+        - snow_user
+        - snow_pwd
+    credential_type_injectors:
+      extra_vars:
+        snow_instance: !unsafe "{{ snow_url }}"
+        snow_username: !unsafe "{{ snow_user }}"
+        snow_password: !unsafe "{{ snow_pwd }}"
+    name: EDA Demo - ServiceNow Credentials
+    credential_inputs:
+      snow_url: "{{ servicenow_instance_url }}"
+      snow_user: "{{ servicenow_instance_user }}"
+      snow_pwd: "{{ servicenow_instance_password }}"
+
 aap2_templates:
   - aap2_template_name: "[EDA] Alertmanager playbook"
-    aap2_template_playbook: playbooks/alertmanager-alert-handler.yml
+    aap2_template_playbook: playbooks/alertmanager/alert-handler.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
+  - aap2_template_name: "[EDA] Alertmanager ITSM"
+    aap2_template_playbook: playbooks/alertmanager/alert-handler-snow.yml
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
+    aap2_template_credentials: "EDA Demo - ServiceNow Credentials"
 
 aap2_projects:
   - name: "EDA Demo"
@@ -36,7 +73,7 @@ eda_decision_env:
   image_url: quay.io/kubealex/eda-decision-env
 
 eda_activations:
-  - name: eda-alertmanager
-    rulebook: eda-rulebook-alertmanager.yml
+  - name: eda-alertmanager-snow
+    rulebook: eda-rulebook-alertmanager-snow.yml
     project_name: "EDA Demo Project"
     decision_env: "kubealex-eda"

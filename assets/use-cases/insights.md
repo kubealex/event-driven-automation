@@ -82,7 +82,15 @@ Once triggered, the job template will:
 - Generate a Job Template with the playbook recommendation
 - Execute it on the affected system(s)
 
-On AAP Controller, it will use a Job Template called **[EDA] Insights - Handle Advisories** that will handle the advisory event, generating a remediation and executing it against the system.
+#### Use case in action
+
+On any RHEL system, run the following command to trigger registration on Red Hat Insights:
+
+```bash
+sudo insights-client --register
+```
+
+If any security advisory is available for the machine, on AAP Controller, it will use a Job Template called **[EDA] Insights - Handle Advisories** that will handle the advisory event, generating a remediation and executing it against the system.
 
 ### Resolve a recommendation using Insights and EDA
 
@@ -96,7 +104,9 @@ In order to replicate this use case, you will need to:
 
 The machine needs to be reachable from the EDA Controller.
 
-On AAP Controller, it will use the following Job Template, **[EDA] Insights - Generate recommendation** that you need to run against your machine to generate the recommendation, and wait a few seconds before the event is triggered and handled.
+#### Use case in action
+
+On AAP Controller, run **[EDA] Insights - Generate recommendation** job template on your RHEL machine to generate the recommendation, it will configure **PermitRootLogin**, and wait a few seconds before the event is triggered and handled.
 
 ### Malware detection and reporting
 
@@ -108,4 +118,9 @@ The EDA rulebook detects a malware event and reports information in a Service No
 - [edit the inventory accordingly](../../inventory)
 - a [Service Now instance](https://developer.servicenow.com/)
 
-On AAP Controller, it will use a Job Template called **"[EDA] Insights - Configure Malware Detection"** that you can use to configure malware detection with Insights and another job template, **"[EDA] Insights - Trigger Malware"** that you can run against your machine to trigger malwared detection, and wait a few seconds before the event is triggered and handled.
+#### Use case in action
+
+On AAP Controller execute the following actions:
+
+- Run **"[EDA] Insights - Configure Malware Detection"** job template, that will configure malware detection with Insights on the RHEL machine
+- When malware detection is configured, run **"[EDA] Insights - Trigger Malware"** on your machine to trigger malwared detection, and wait a few seconds before the event is triggered and handled.

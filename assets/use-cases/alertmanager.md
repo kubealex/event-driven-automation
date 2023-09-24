@@ -10,7 +10,7 @@ This integration uses an Alertmanager instance, present as a container in the [u
 
 To properly configure it, replace the **EDA_NODE_HOSTNAME** variable in [alertmanager configuration](../../utils/podman-compose/alertmanager/alertmanager.yml) to properly send the alert on the listener that is created via the rulebooks (port defaults to 5001, you can change it).
 
-A *podman-compose* file is available [here](../../utils/podman-compose/alertmanager-compose.yml), and automatically exposes port 9093 on all interfaces.
+A _podman-compose_ file is available [here](../../utils/podman-compose/alertmanager-compose.yml), and automatically exposes port 9093 on all interfaces.
 
 To run it:
 
@@ -25,22 +25,18 @@ It generates a simple alert, that will trigger a Job Template on AAP2, showing t
 
 ### Configuration
 
-In order to run these use cases, setup scripts [are available here](../../eda-demo-setup/):
-
-    ansible-playbook configure-use-case.yml -e @use-cases/use-case-alertmanager-setup.yml
-
-To integrate with Service Now, fill the following vars in [common_vars.yml file](./vars/common_vars.yml)
+Since the use case uses integration with Service Now, fill the following vars in [common_vars.yml file](./vars/common_vars.yml)
 
     servicenow_instance_url:
     servicenow_instance_user:
     servicenow_instance_password:
 
-and run:
+In order to run these use cases, setup scripts [are available here](../../eda-demo-setup/) and run:
 
-    ansible-playbook configure-use-case.yml -e @use-cases/use-case-alertmanager-snow-setup.yml
+    ansible-playbook configure-use-case.yml -e @use-cases/use-case-alertmanager-setup.yml
 
 ### Testing the alertmanager integration
 
-Assuming Alertmanager is listening on *localhost*, you can use the following cURL command to trigger a **Alertmanager** automation (replace localhost with any host/IP where Alertmanager is listening):
+Assuming Alertmanager is listening on _localhost_, you can use the following cURL command to trigger a **Alertmanager** automation (replace localhost with any host/IP where Alertmanager is listening):
 
     curl -H 'Content-Type: application/json' -d '[{"labels":{"alertName":"my-eda-alert", "alertMessage": "This is a test alert firing", "alertTargetHosts": "localhost"}}]' http://localhost:9093/api/v1/alerts

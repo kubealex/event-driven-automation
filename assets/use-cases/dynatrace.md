@@ -21,11 +21,7 @@ Configure the following variables in [the common variables file](../../eda-demo-
     dynatrace_api_url:
     dynatrace_api_token:
 
-and run:
-
-    ansible-playbook configure-use-case.yml -e @use-cases/use-case-dynatrace-setup.yml
-
-To integrate with Service Now, fill the following vars in [common_vars.yml file](./vars/common_vars.yml)
+Since the use case uses integration with Service Now, fill the following vars in [common_vars.yml file](./vars/common_vars.yml)
 
     servicenow_instance_url:
     servicenow_instance_user:
@@ -33,4 +29,4 @@ To integrate with Service Now, fill the following vars in [common_vars.yml file]
 
 and run:
 
-    ansible-playbook configure-use-case.yml -e @use-cases/use-case-dynatrace-snow-setup.yml
+    ansible-playbook configure-use-case.yml -e @use-cases/use-case-dynatrace-setup.yml
