@@ -14,3 +14,6 @@ kafka_advertised_listener:
 
 dynatrace_api_url:
 dynatrace_api_key:
+
+rhsm_account_username:
+rhsm_account_password:

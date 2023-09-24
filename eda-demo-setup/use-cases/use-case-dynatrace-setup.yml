@@ -19,9 +19,9 @@ aap2_templates:
     aap2_template_playbook: eda-playbooks/dynatrace/problem-reporter.yml
     aap2_template_ask_vars: true
     aap2_template_credentials:
-      - AAP2 Demo - ServiceNow Credentials
-    aap2_template_inventory: AAP2 Demo - SCM Inventory
-    aap2_template_project: AAP2 Demo
+      - EDA Demo - ServiceNow Credentials
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_project: EDA Demo
 
 aap2_projects:
   - name: "EDA Demo"

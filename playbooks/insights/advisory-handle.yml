@@ -1,0 +1,157 @@
+---
+- name: EDA | Insights | Handle advisories
+  hosts: "{{ ansible_eda.event.payload.context.hostname }}"
+  tasks:
+    - name: EDA | Insights | Extract information from the event
+      ansible.builtin.set_fact:
+        advisories_list: "{{ advisories_list | default([]) + [{
+          'hostname': inventory_hostname,
+          'insights_id': hostvars[inventory_hostname].insights_id,
+          'advisory_id': item.payload.advisory_id,
+          'advisory_name': item.payload.advisory_name,
+          'advisory_type': item.payload.advisory_type}]
+          }}"
+      loop: "{{ insights_advisories }}"
+
+    - name: EDA | Insights | Retrieve related CVEs from Advisories
+      ansible.builtin.uri:
+        url: "https://console.redhat.com/api/patch/v3/advisories/{{ item.advisory_name }}"
+        method: GET
+        url_username: "{{ rhsm_user | default(lookup('env', 'INSIGHTS_USER'), true) }}"
+        url_password: "{{ rhsm_password | default(lookup('env', 'INSIGHTS_PASSWORD'), true) }}"
+        force_basic_auth: true
+        status_code: 200
+      register: _cves_list
+      loop: "{{ advisories_list }}"
+
+    - name: EDA | Insights | Gather advisory details
+      ansible.builtin.set_fact:
+        advisory_details: "{{ advisory_details | default([]) + [{'hostname': inventory_hostname, 'insights_id': hostvars[inventory_hostname].insights_id, 'advisory_id': item.json.data.id, 'advisory_cves': item.json.data.attributes.cves, 'advisory_type_name': item.json.data.attributes.advisory_type_name, 'advisory_severity': item.json.data.attributes.severity, 'advisory_description': item.json.data.attributes.description}] }}"
+      loop: "{{ _cves_list.results }}"
+      when: item.json.data.attributes.cves | length > 0
+
+    - name: EDA | Insights | Extract CVE to remediate
+      ansible.builtin.set_fact:
+        cve_list: "{{ cve_list | default([]) + item.advisory_cves }}"
+      loop: "{{ advisory_details }}"
+
+    - name: EDA | Insights | Print out the list of CVEs for host "{{ inventory_hostname }}"
+      ansible.builtin.debug:
+        var: cve_list
+
+    - name: EDA | Insights | Generate list with CVEs for remediation
+      ansible.builtin.set_fact:
+        insights_cves_per_host: '{{ insights_cves_per_host | default([]) + ["vulnerabilities:" + item] }}'
+      loop: "{{ cve_list }}"
+
+    - name: EDA | Insights | Check if remediation is available
+      ansible.builtin.uri:
+        url: https://console.redhat.com/api/remediations/v1/resolutions
+        method: POST
+        status_code:
+          - 200
+          - 201
+        body:
+          issues: "{{ insights_cves_per_host }}"
+        body_format: json
+        force_basic_auth: true
+        return_content: true
+        url_username: "{{ rhsm_user | default(lookup('env', 'INSIGHTS_USER'), true) }}"
+        url_password: "{{ rhsm_password | default(lookup('env', 'INSIGHTS_PASSWORD'), true) }}"
+      delegate_to: localhost
+      register: _insights_remediations_available
+
+    - name: EDA | Insights | Generate list with CVEs
+      ansible.builtin.set_fact:
+        insights_cves_available: "{{ insights_cves_available | default([]) + [item.id] }}"
+      loop: "{{ (_insights_remediations_available.content | from_json).values() | list }}"
+
+    - name: EDA | Insights | Prepare payload to generate playbooks
+      ansible.builtin.set_fact:
+        insights_cves_remediations_payload: '{{ insights_cves_remediations_payload | default([]) + [{"id": item, "resolution": "fix", "systems": [hostvars[inventory_hostname].insights_id]}] }}'
+      loop: "{{ insights_cves_available }}"
+
+    - name: EDA | Insights | Set remediation name as fact
+      ansible.builtin.set_fact:
+        insights_remediation_name: "CVE - {{ hostvars[inventory_hostname].ansible_host }} remediation playbook"
+
+    - name: EDA | Insights | Generate remediation for CVEs
+      register: _insights_remediation_id
+      ansible.builtin.uri:
+        url: https://console.redhat.com/api/remediations/v1/remediations
+        method: POST
+        status_code:
+          - 200
+          - 201
+        body:
+          name: "{{ insights_remediation_name }}"
+          add:
+            issues: "{{ insights_cves_remediations_payload }}"
+        body_format: json
+        force_basic_auth: true
+        url_username: "{{ rhsm_user | default(lookup('env', 'INSIGHTS_USER'), true) }}"
+        url_password: "{{ rhsm_password | default(lookup('env', 'INSIGHTS_PASSWORD'), true) }}"
+      delegate_to: localhost
+
+    - name: EDA | Insights | Generate playbook for CVEs
+      ansible.builtin.uri:
+        url: https://console.redhat.com/api/remediations/v1/playbook
+        method: POST
+        status_code:
+          - 200
+          - 201
+        body:
+          issues: "{{ insights_cves_remediations_payload }}"
+          auto_reboot: true
+        body_format: json
+        force_basic_auth: true
+        return_content: true
+        url_username: "{{ rhsm_user | default(lookup('env', 'INSIGHTS_USER'), true) }}"
+        url_password: "{{ rhsm_password | default(lookup('env', 'INSIGHTS_PASSWORD'), true) }}"
+      delegate_to: localhost
+
+    - name: EDA | Insights | Normalize playbook name to create job template
+      ansible.builtin.set_fact:
+        job_template_playbook: "{{ insights_remediation_name | lower | replace(' ', '-') | replace('.','') | regex_replace('-{2,}', '-') }}-{{ _insights_remediation_id.json.id }}.yml"
+
+    - name: EDA | Insights | Launch a project with a timeout of 10 seconds
+      ansible.controller.project_update:
+        project: "EDA Demo - Insights"
+        organization: "Default"
+        controller_host: "{{ lookup('env', 'CONTROLLER_HOST') }}"
+        controller_username: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
+        controller_password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
+        validate_certs: false
+
+    - name: EDA | Insights | Generate job template with the generated playbook
+      ansible.controller.job_template:
+        name: "[EDA] Remediate CVE on {{ hostvars[inventory_hostname].ansible_host }}"
+        controller_host: "{{ lookup('env', 'CONTROLLER_HOST') }}"
+        controller_username: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
+        controller_password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
+        validate_certs: false
+        job_type: "run"
+        organization: "Default"
+        inventory: "EDA Demo - Insights Inventory"
+        project: "EDA Demo - Insights"
+        playbook: "{{ job_template_playbook }}"
+        credentials:
+          - "EDA Demo - Linux Credentials"
+        state: "present"
+
+    - name: EDA | Insights | Run job template with the generated playbook
+      ansible.controller.job_launch:
+        controller_host: "{{ lookup('env', 'CONTROLLER_HOST') }}"
+        controller_username: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
+        controller_password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
+        validate_certs: false
+        job_template: "[EDA] Remediate CVE on {{ hostvars[inventory_hostname].ansible_host }}"
+      register: _job_output
+
+    - name: EDA | Insights | Wait for job completion
+      ansible.controller.job_wait:
+        controller_host: "{{ lookup('env', 'CONTROLLER_HOST') }}"
+        controller_username: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
+        controller_password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
+        validate_certs: false
+        job_id: "{{ _job_output.id }}"

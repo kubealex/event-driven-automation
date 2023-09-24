@@ -15,7 +15,7 @@ aap2_inventory_sources:
     aap2_inventory_source_path: inventory
 
 aap2_machine_credentials:
-  - name: Linux Credentials
+  - name: EDA Demo - Linux Credentials
     username: sysadmin
     password: redhat
 
@@ -44,7 +44,7 @@ aap2_custom_credentials:
         snow_instance: !unsafe "{{ snow_url }}"
         snow_username: !unsafe "{{ snow_user }}"
         snow_password: !unsafe "{{ snow_pwd }}"
-    name: ServiceNow Credentials
+    name: EDA Demo - ServiceNow Credentials
     credential_inputs:
       snow_url: "{{ servicenow_instance_url }}"
       snow_user: "{{ servicenow_instance_user }}"
@@ -76,16 +76,16 @@ aap2_templates:
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
-    aap2_template_credentials: "ServiceNow Credentials"
+    aap2_template_credentials: "EDA Demo - ServiceNow Credentials"
   - aap2_template_name: "[EDA] Insights - Remediate SSH root login"
     aap2_template_playbook: playbooks/insights/recommendation-fix.yml
-    aap2_template_credentials: "Linux Credentials"
+    aap2_template_credentials: "EDA Demo - Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Generate recommendation"
     aap2_template_playbook: playbooks/insights/recommendation-trigger.yml
-    aap2_template_credentials: "Linux Credentials"
+    aap2_template_credentials: "EDA Demo - Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
@@ -93,32 +93,32 @@ aap2_templates:
     aap2_template_playbook: eda-playbooks/dynatrace/problem-reporter.yml
     aap2_template_ask_vars: true
     aap2_template_credentials:
-      - AAP2 Demo - ServiceNow Credentials
-    aap2_template_inventory: AAP2 Demo - SCM Inventory
-    aap2_template_project: AAP2 Demo
+      - EDA Demo - ServiceNow Credentials
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Dynatrace - Open SNOW incident for problem"
     aap2_template_playbook: eda-playbooks/dynatrace/problem-reporter-snow.yml
     aap2_template_ask_vars: true
     aap2_template_credentials:
-      - AAP2 Demo - ServiceNow Credentials
-    aap2_template_inventory: AAP2 Demo - SCM Inventory
-    aap2_template_project: AAP2 Demo
+      - EDA Demo - ServiceNow Credentials
+    aap2_template_inventory: EDA Demo - SCM Inventory
+    aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Configure Malware Detection"
     aap2_template_playbook: playbooks/insights/malware-configuration.yml
-    aap2_template_credentials: "Linux Credentials"
+    aap2_template_credentials: "EDA Demo - Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Trigger Malware"
     aap2_template_playbook: playbooks/insights/malware-trigger.yml
-    aap2_template_credentials: "Linux Credentials"
+    aap2_template_credentials: "EDA Demo - Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Handle Malware"
     aap2_template_playbook: playbooks/insights/malware-fix-snow.yml
     aap2_template_credentials:
-      - AAP2 Demo - ServiceNow Credentials
+      - EDA Demo - ServiceNow Credentials
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo

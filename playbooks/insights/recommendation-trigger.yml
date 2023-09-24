@@ -3,17 +3,17 @@
   hosts: rhel_vms
   become: true
   tasks:
-    - name: Fix SSH Root login permissions
+    - name: EDA | Insights | Fix SSH Root login permissions
       ansible.builtin.lineinfile:
         regexp: "^#PermitRootLogin"
         line: "PermitRootLogin yes"
         state: present
         path: /etc/ssh/sshd_config
 
-    - name: Restart SSHD service
+    - name: EDA | Insights | Restart SSHD service
       ansible.builtin.service:
         name: sshd
         state: restarted
 
-    - name: Restart insights-client collection
+    - name: EDA | Insights | Restart insights-client collection
       ansible.builtin.command: insights-client

@@ -4,8 +4,114 @@
 
 ####### AAP2 CONTROLLER VARIABLES ########
 
+aap2_machine_credentials:
+  - name: EDA Demo - Linux Credentials
+    username: sysadmin
+    password: redhat
+
+aap2_insights_credentials:
+  - name: EDA Demo - Insights Credentials
+    insights_username: "{{ rhsm_account_username }}"
+    insights_password: "{{ rhsm_account_password }}"
+
+aap2_custom_credentials:
+  - credential_type: ServiceNow Auth
+    credential_type_inputs:
+      fields:
+        - id: snow_url
+          type: string
+          label: "ServiceNow URL"
+          secret: false
+        - id: snow_user
+          type: string
+          label: "ServiceNow username"
+          secret: false
+        - id: snow_pwd
+          type: string
+          label: "ServiceNow password"
+          secret: true
+      required:
+        - snow_url
+        - snow_user
+        - snow_pwd
+    credential_type_injectors:
+      extra_vars:
+        snow_instance: !unsafe "{{ snow_url }}"
+        snow_username: !unsafe "{{ snow_user }}"
+        snow_password: !unsafe "{{ snow_pwd }}"
+    name: EDA Demo - ServiceNow Credentials
+    credential_inputs:
+      snow_url: "{{ servicenow_instance_url }}"
+      snow_user: "{{ servicenow_instance_user }}"
+      snow_pwd: "{{ servicenow_instance_password }}"
+
+  - credential_type: EDA Demo - AAP2 Controller Auth
+    credential_type_inputs:
+      fields:
+        - id: aap2_url
+          type: string
+          label: "AAP2 Controller URL"
+          secret: false
+        - id: aap2_user
+          type: string
+          label: "AAP2 Controller username"
+          secret: false
+        - id: aap2_pwd
+          type: string
+          label: "AAP2 Controller password"
+          secret: true
+      required:
+        - aap2_url
+        - aap2_user
+        - aap2_pwd
+    credential_type_injectors:
+      env:
+        CONTROLLER_HOST: !unsafe "{{ aap2_url }}"
+        CONTROLLER_USERNAME: !unsafe "{{ aap2_user }}"
+        CONTROLLER_PASSWORD: !unsafe "{{ aap2_pwd }}"
+    name: EDA Demo - AAP2 Controller Credentials
+    credential_inputs:
+      aap2_url: "{{ aap2_controller_url }}"
+      aap2_user: "{{ aap2_controller_username }}"
+      aap2_pwd: "{{ aap2_controller_password }}"
+
+  - credential_type: EDA Demo - RHSM Auth
+    name: EDA Demo - RHSM Credentials
+    credential_type_inputs:
+      fields:
+        - id: rhsm_user
+          type: string
+          label: RHSM Username
+          secret: false
+        - id: rhsm_password
+          type: string
+          label: RHSM Password
+          secret: true
+      required:
+        - rhsm_user
+        - rhsm_password
+    credential_type_injectors:
+      extra_vars:
+        rhsm_user: !unsafe "{{ rhsm_user }}"
+        rhsm_password: !unsafe "{{ rhsm_password }}"
+      env:
+        INSIGHTS_USER: !unsafe "{{ rhsm_user }}"
+        INSIGHTS_PASSWORD: !unsafe "{{ rhsm_password }}"
+    credential_inputs:
+      rhsm_user: "{{ rhsm_account_username }}"
+      rhsm_password: "{{ rhsm_account_password }}"
+
+aap2_projects:
+  - name: "EDA Demo"
+    scm_url: "https://github.com/kubealex/event-driven-automation.git"
+  - name: "EDA Demo - Insights"
+    scm_url: "https://cloud.redhat.com"
+    scm_credential: "EDA Demo - Insights Credentials"
+    scm_type: "insights"
+
 aap2_inventories:
   - aap2_inventory_name: EDA Demo - SCM Inventory
+  - aap2_inventory_name: EDA Demo - Insights Inventory
 
 aap2_inventory_sources:
   - aap2_inventory_source_name: EDA Demo - SCM Inventory Source
@@ -13,52 +119,70 @@ aap2_inventory_sources:
     aap2_inventory_source_type: scm
     aap2_inventory_source_project: "EDA Demo"
     aap2_inventory_source_path: inventory
-
-aap2_machine_credentials:
-  - name: Linux Credentials
-    username: sysadmin
-    password: redhat
+  - aap2_inventory_source_name: EDA Demo - Insights source
+    aap2_inventory_source_inventory: EDA Demo - Insights Inventory
+    aap2_inventory_source_type: insights
+    aap2_inventory_source_credential: "EDA Demo - Insights Credentials"
+    aap2_inventory_source_vars:
+      get_patches: true
+      get_tags: true
+      groups:
+        insights_hosts: insights_id != ''
+        patching: insights_patching.enabled
+        stale: insights_patching.stale
+        bug_patch: insights_patching.rhba_count > 0
+        security_patch: insights_patching.rhsa_count > 0
+        enhancement_patch: insights_patching.rhea_count > 0
+      keyed_groups:
+        - key: insights_tags['insights-client']['group']
+          separator: ""
 
 aap2_templates:
   - aap2_template_name: "[EDA] Insights playbook"
-    aap2_template_playbook: playbooks/insights/generic.yml
+    aap2_template_playbook: playbooks/eda-playbook-insights.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Remediate SSH root login"
     aap2_template_playbook: playbooks/insights/recommendation-fix.yml
-    aap2_template_credentials: "Linux Credentials"
+    aap2_template_credentials: "EDA Demo - Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Generate recommendation"
     aap2_template_playbook: playbooks/insights/recommendation-trigger.yml
-    aap2_template_credentials: "Linux Credentials"
+    aap2_template_credentials: "EDA Demo - Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Configure Malware Detection"
     aap2_template_playbook: playbooks/insights/malware-configuration.yml
-    aap2_template_credentials: "Linux Credentials"
+    aap2_template_credentials: "EDA Demo - Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
   - aap2_template_name: "[EDA] Insights - Trigger Malware"
     aap2_template_playbook: playbooks/insights/malware-trigger.yml
-    aap2_template_credentials: "Linux Credentials"
+    aap2_template_credentials: "EDA Demo - Linux Credentials"
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: false
     aap2_template_project: EDA Demo
-  - aap2_template_name: "[EDA] Insights - Report Malware"
-    aap2_template_playbook: playbooks/insights/malware-fix.yml
-    aap2_template_credentials: "Linux Credentials"
+  - aap2_template_name: "[EDA] Insights - Handle Malware"
+    aap2_template_playbook: playbooks/insights/malware-fix-snow.yml
+    aap2_template_credentials:
+      - EDA Demo - ServiceNow Credentials
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
-
-aap2_projects:
-  - name: "EDA Demo"
-    scm_url: "https://github.com/kubealex/event-driven-automation.git"
+  - aap2_template_name: "[EDA] Insights - Handle Advisories"
+    aap2_template_playbook: playbooks/insights/advisory_handle.yml
+    aap2_template_credentials:
+      - EDA Demo - RHSM Credentials
+      - EDA Demo - Linux Credentials
+      - EDA Demo - AAP2 Controller Credentials
+    aap2_template_inventory: EDA Demo - Insights Inventory
+    aap2_template_ask_vars: true
+    aap2_template_project: EDA Demo
 
 ####### EDA CONTROLLER VARIABLES ########
 eda_project:
@@ -72,6 +196,6 @@ eda_decision_env:
 
 eda_activations:
   - name: eda-insights
-    rulebook: eda-rulebook-insights.yml
+    rulebook: eda-rulebook-insights-snow.yml
     project_name: "EDA Demo Project"
     decision_env: "kubealex-eda"
