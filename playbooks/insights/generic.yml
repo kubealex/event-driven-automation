@@ -2,7 +2,7 @@
 - name: EDA | Insights | Show event
   hosts: localhost
   tasks:
-    - name: Debug message
+    - name: EDA | Insights | Print generic event type
       ansible.builtin.debug:
         msg:
           - "Event type: {{ insights_event_type }}"
