@@ -16,7 +16,7 @@ aap2_inventory_sources:
 
 aap2_templates:
   - aap2_template_name: "[EDA] Alertmanager playbook"
-    aap2_template_playbook: playbooks/alertmanager-alert-handler.yml
+    aap2_template_playbook: playbooks/alertmanager/alert-handler.yml
     aap2_template_inventory: EDA Demo - SCM Inventory
     aap2_template_ask_vars: true
     aap2_template_project: EDA Demo
@@ -26,14 +26,14 @@ aap2_projects:
     scm_url: "https://github.com/kubealex/event-driven-automation.git"
 
 ####### EDA CONTROLLER VARIABLES ########
-eda_project:
-  name: "EDA Demo Project"
-  git_url: https://github.com/kubealex/event-driven-automation
-  description: "Demo project to show EDA in actions"
+eda_projects:
+  - name: "EDA Demo Project"
+    git_url: https://github.com/kubealex/event-driven-automation
+    description: "Demo project to show EDA in actions"
 
-eda_decision_env:
-  name: "kubealex-eda"
-  image_url: quay.io/kubealex/eda-decision-env
+eda_decision_envs:
+  - name: "kubealex-eda"
+    image_url: quay.io/kubealex/eda-decision-env
 
 eda_activations:
   - name: eda-alertmanager
