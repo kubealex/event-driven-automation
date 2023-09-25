@@ -1,6 +1,6 @@
 ---
 - name: EDA | Insights | PermitRootLogin Remediation
-  hosts: "{{ ansible_eda.event.payload.context.hostname }}"
+  hosts: "{{ target_hosts | default('rhel_demo_servers', true) }}"
   become: true
   tasks:
     - name: EDA | Insights | Fix SSH Root login permissions

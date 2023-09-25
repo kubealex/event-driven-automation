@@ -1,6 +1,6 @@
 ---
 - name: EDA | Insights | PermitRootLogin Remediation
-  hosts: rhel_vms
+  hosts: rhel_demo_servers
   become: true
   tasks:
     - name: EDA | Insights | Fix SSH Root login permissions

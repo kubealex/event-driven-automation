@@ -18,6 +18,7 @@
             job_args:
               extra_vars:
                 insights_recommendation: "{{ event.payload.events.0.payload.rule_id }}"
+                target_hosts: "{{ event.payload.context.display_name }}"
 
     - name: EDA | Insights | Detect and remediate CVE event from Insights
       condition: event.payload.event_type == "new-advisory"

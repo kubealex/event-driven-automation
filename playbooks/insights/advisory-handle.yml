@@ -1,6 +1,6 @@
 ---
 - name: EDA | Insights | Handle advisories
-  hosts: "{{ ansible_eda.event.payload.context.hostname }}"
+  hosts: "{{ target_hosts | default('rhel_demo_servers', true) }}"
   tasks:
     - name: EDA | Insights | Extract information from the event
       ansible.builtin.set_fact:
