@@ -81,7 +81,7 @@ Once triggered, the job template will:
 - Retrieve the list of remediation for the system
 - Generate remediation playbooks for the system-
 - Ensure a Red Hat Insights project and a Red Hat Insights credential exists in the AAP2 controller
-- Generate a Job Template with the playbook recommendation
+- Generate a workflow Template with the playbook recommendation
 - Execute it on the affected system(s)
 
 #### Use case in action
@@ -93,6 +93,8 @@ sudo insights-client --register
 ```
 
 If any security advisory is available for the machine, on AAP Controller, it will use a Job Template called **[EDA] Insights - Handle Advisories** that will handle the advisory event, generating a remediation and executing it against the system.
+
+On the Controller, it will create a Workflow with Approval for advisories that need a reboot when installed and without approval for those that don't need approvals.
 
 ### Resolve a recommendation using Insights and EDA
 
