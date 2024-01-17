@@ -8,7 +8,6 @@ async def send_mqtt_message(host, port, payload):
     async with Client(hostname=host, port=port) as client:
         topic = "eda-topic"
         await client.publish(topic, payload)
-        await client.disconnect()
 
 async def main():
     parser = argparse.ArgumentParser(description="Send MQTT message with JSON payload")
