@@ -39,7 +39,7 @@ Some of the use cases (Webhook, Insights, Alertmanager) will need the following 
 
 The Red Hat Insights use case will require that the EDA Machine is reachable from outside your network.
 
-You can use [ngrok](https://ngrok.com/) to set-up a temporary public address to use for the use case.
+You can use [ngrok](https://ngrok.com/) to set-up a temporary public address to use for the use case, to avoid changing it upon each restart, create a default domain.
 
 ### Middleware integration (Kafka, AlertManager, Mosquitto)
 
